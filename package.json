@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "dev:local": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\" --local",
+    "dev:local": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\"",
     "build": "next build",
     "build:tina": "tinacms build && next build",
     "start": "next start",
