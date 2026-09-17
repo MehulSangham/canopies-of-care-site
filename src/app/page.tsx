@@ -39,14 +39,16 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-36">
-          <h4 className="mb-6">Archive</h4>
-          <h1 className="max-w-3xl mb-8">
+          <p className="font-serif text-sm uppercase tracking-[0.16em] text-nis-muted mb-6">
+            Archive
+          </p>
+          <h1 className="max-w-3xl mb-8 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
             Canopies of Care
           </h1>
-          <p className="text-[1.75rem] leading-relaxed font-[500] text-[var(--cream-muted)] max-w-2xl">
+          <p className="text-[1.75rem] leading-relaxed font-medium text-nis-muted max-w-2xl">
             A History of Mutual Aid as American Civic Tradition
           </p>
-          <p className="mt-8 text-[1.25rem] leading-relaxed text-[var(--cream-subtle)] max-w-2xl">
+          <p className="mt-8 text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl">
             In 1787, two things happened in Philadelphia: the Constitutional
             Convention wrote the rules for who would be recognised as American,
             and the Free African Society built the infrastructure for those the
@@ -61,13 +63,13 @@ export default function Home() {
               <Link
                 key={s.id}
                 href={`/archive#section-${s.id.toLowerCase()}`}
-                className="card flex flex-col gap-4 hover:border-[var(--accent)] transition-colors group"
+                className="nis-card group p-6"
               >
-                <h4>{s.label}</h4>
-                <h3 className="group-hover:text-[var(--accent)] transition-colors">
+                <p className="nis-card__eyebrow mb-3 text-nis-muted">{s.label}</p>
+                <h3 className="text-[1.5rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors mb-3">
                   {s.title}
                 </h3>
-                <p className="text-[1rem] leading-relaxed text-[var(--cream-muted)]">
+                <p className="text-[1rem] leading-relaxed text-nis-muted">
                   {s.description}
                 </p>
               </Link>

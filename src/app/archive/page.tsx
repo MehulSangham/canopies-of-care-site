@@ -59,9 +59,13 @@ export default function ArchivePage() {
       <Header />
       <main className="flex-1">
         <section className="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <h4 className="mb-4">Claims &amp; Sources</h4>
-          <h1 className="mb-6">The Archive</h1>
-          <p className="text-[1.25rem] leading-relaxed text-[var(--cream-muted)] max-w-2xl mb-16">
+          <p className="font-serif text-sm uppercase tracking-[0.16em] text-nis-muted mb-4">
+            Claims &amp; Sources
+          </p>
+          <h1 className="mb-6 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3rem] leading-[1.05] tracking-tight">
+            The Archive
+          </h1>
+          <p className="text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl mb-16">
             Each claim is a distinct, provable assertion supported by primary
             and secondary sources. Together they form a chain: if all hold, the
             tradition is established as continuous.
@@ -73,9 +77,13 @@ export default function ArchivePage() {
               id={`section-${section.toLowerCase()}`}
               className="mb-20"
             >
-              <h4 className="mb-3">Section {section}</h4>
-              <h2 className="mb-4">{sectionTitles[section] || section}</h2>
-              <p className="text-[1.1rem] leading-relaxed text-[var(--cream-subtle)] mb-10">
+              <p className="font-serif text-xs uppercase tracking-[0.16em] text-nis-muted mb-3">
+                Section {section}
+              </p>
+              <h2 className="mb-4 font-sans font-bold text-[2rem] text-[color:var(--color-nis-ink)]">
+                {sectionTitles[section] || section}
+              </h2>
+              <p className="text-[1.1rem] leading-relaxed text-nis-muted mb-10">
                 {sectionDescriptions[section]}
               </p>
 
@@ -86,12 +94,14 @@ export default function ArchivePage() {
                     <Link
                       key={entry.slug}
                       href={`/archive/${entry.slug}`}
-                      className="card flex flex-col gap-2 hover:border-[var(--accent)] transition-colors group"
+                      className="nis-card group p-5"
                     >
                       {entry.subtitle && (
-                        <h4 className="text-xs">{entry.subtitle}</h4>
+                        <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
+                          {entry.subtitle}
+                        </p>
                       )}
-                      <h3 className="text-[1.25rem] group-hover:text-[var(--accent)] transition-colors">
+                      <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
                         {entry.section}{entry.order}: {entry.title}
                       </h3>
                     </Link>
