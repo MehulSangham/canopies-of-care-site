@@ -1,0 +1,24 @@
+---
+title: "Mutual Aid Is a Founding-Era American Practice"
+subtitle: "The Free African Society, Philadelphia, 1787"
+section: "A"
+order: 1
+---
+
+In 1787, two things happened in Philadelphia. The Constitutional Convention met from May to September to draft the rules for who would be recognised as American. And on April 12, the Free African Society was founded by Richard Allen and Absalom Jones to build the infrastructure for those the rules excluded.
+
+The FAS was not a charity. Its preamble required members to contribute "one shilling in silver Pennsylvania currency a month" in exchange for collective provision: support during sickness, burial services, care for widows and orphans. This was reciprocal obligation, not benevolence. Members paid in and drew out according to need. The founding charter specifies the terms precisely.[^1]
+
+The simultaneous founding of these two institutions, in the same city, in the same year, establishes that mutual aid is not a later response to the Republic. It is a parallel founding act. The Free African Society was not a reaction to the Constitution; it was built alongside it, by people the Constitution excluded.
+
+**Claim:** Organised mutual aid in the United States is as old as the constitutional Republic. The Free African Society, founded in Philadelphia in 1787 (the same year as the Constitutional Convention), is the earliest documented formally organised mutual aid network in the country.
+
+**Warrant:** The simultaneous founding of the Constitutional Convention and the Free African Society in the same city, the same year, establishes that mutual aid is not a later response to the Republic; it is a parallel founding act.
+
+By 1838, more than a hundred mutual aid societies similar to the Free African Society had been established across the country.[^2] The model spread because the need was structural: exclusion from formal citizenship created a permanent demand for community-built care infrastructure.
+
+---
+
+[^1]: Preamble and Articles of Association of the Free African Society (1787). In William Douglass, *Annals of the First African Church in the United States of America* (Philadelphia: King & Baird, 1862), 15–17. Reprinted in James G. Basker, ed., *Black Writers of the Founding Era: 1760–1800* (New York: Library of America, 2023), 332–334. Digitised copy available via Internet Archive. See also Newman, Richard S. *Freedom's Prophet: Bishop Richard Allen, the AME Church, and the Black Founding Fathers.* New York: NYU Press, 2008.
+
+[^2]: Amy Jane Cohen, cited in Pandey, Shivank. "A Forgotten 1787 Society Reveals the True Beginnings of US Democracy." *Nonprofit Quarterly,* June 9, 2026.

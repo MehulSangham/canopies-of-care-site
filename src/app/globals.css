@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/* ── Font faces ── */
+@font-face {
+  font-family: 'Sharp Earth';
+  src: url('/fonts/SharpEarthPanEuro-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sharp Earth';
+  src: url('/fonts/SharpEarthPanEuro-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Redaction 20';
+  src: url('/fonts/Redaction20-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Design tokens ── */
+:root {
+  --dark-sky: #00003c;
+  --cream: #f6f3ea;
+  --cream-muted: #c8c5b8;
+  --cream-subtle: #8a8878;
+  --accent: #c850c0;
+  --card-bg: rgba(246, 243, 234, 0.06);
+  --card-border: rgba(246, 243, 234, 0.1);
+  --divider: rgba(246, 243, 234, 0.08);
+}
+
+/* ── Base ── */
+* { box-sizing: border-box; }
+
+body {
+  background: var(--dark-sky);
+  color: var(--cream);
+  font-family: 'Sharp Earth', system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ── */
+h1 {
+  font-family: 'Sharp Earth', sans-serif;
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: var(--cream);
+}
+
+h2 {
+  font-family: 'Sharp Earth', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: var(--cream);
+}
+
+h3 {
+  font-family: 'Sharp Earth', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  color: var(--cream);
+}
+
+h4 {
+  font-family: 'Redaction 20', serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.32px;
+  color: var(--cream-muted);
+}
+
+/* ── Prose / article content ── */
+.prose {
+  font-family: 'Sharp Earth', sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--cream-muted);
+  max-width: 48rem;
+}
+
+.prose p {
+  margin-bottom: 1.5rem;
+}
+
+.prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose h3 {
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose strong {
+  color: var(--cream);
+  font-weight: 800;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  color: var(--cream);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  color: var(--cream-muted);
+  font-style: italic;
+}
+
+/* ── Tables ── */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.prose tr {
+  border-bottom: 1px solid var(--divider);
+}
+
+.prose td,
+.prose th {
+  padding: 1rem 1rem 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-weight: 800;
+  color: var(--cream);
+}
+
+.prose td {
+  color: var(--cream-muted);
+}
+
+/* ── Lists ── */
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+/* ── Footnotes ── */
+.prose .footnotes {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--divider);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--cream-subtle);
+}
+
+.prose .footnotes ol {
+  padding-left: 1.25rem;
+}
+
+.prose .footnotes li {
+  margin-bottom: 1rem;
+}
+
+.prose .footnotes li p {
+  margin-bottom: 0.5rem;
+}
+
+.prose sup a[data-footnote-ref] {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 0 2px;
+}
+
+.prose sup a[data-footnote-ref]:hover {
+  color: var(--cream);
+}
+
+.prose a[data-footnote-backref] {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+/* ── Horizontal rule ── */
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--divider);
+  margin: 3rem 0;
+}
+
+/* ── Code ── */
+.prose code {
+  font-size: 0.9em;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  .prose {
+    font-size: 1.1rem;
+  }
+}
