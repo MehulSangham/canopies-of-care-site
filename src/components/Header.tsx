@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Show, UserButton, SignInButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
@@ -10,13 +11,30 @@ export default function Header() {
         >
           Canopies of Care
         </Link>
-        <div className="flex gap-8 text-sm font-medium text-nis-muted">
+        <div className="flex items-center gap-8 text-sm font-medium text-nis-muted">
           <Link href="/archive" className="hover:text-[color:var(--color-nis-ink)] transition-colors">
             Archive
           </Link>
           <Link href="/about" className="hover:text-[color:var(--color-nis-ink)] transition-colors">
             About
           </Link>
+
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button className="hover:text-[color:var(--color-nis-ink)] transition-colors">
+                Sign in
+              </button>
+            </SignInButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "h-7 w-7",
+                },
+              }}
+            />
+          </Show>
         </div>
       </nav>
     </header>

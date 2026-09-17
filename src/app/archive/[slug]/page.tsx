@@ -4,11 +4,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import matter from "gray-matter";
 import { ChevronLeft } from "lucide-react";
+import { Show, UserButton, SignInButton } from "@clerk/nextjs";
 import Prose from "@/components/Prose";
-import { ArticleContent } from "@/components/curriculum/ArticleContent";
-import { HeaderFrame } from "@/components/curriculum/HeaderFrame";
 import { PageTableOfContents } from "@/components/curriculum/PageTableOfContents";
+import { ClaimPageClient, ClaimContent } from "./client";
+import { LeftRailSwitch } from "@/components/edit/LeftRailSwitch";
+import { SECTION_TITLES } from "@/lib/sections";
+import { checkIsAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
+
+type PageStatus = 'draft' | 'published';
 
 interface ClaimEntry {
   slug: string;
@@ -16,6 +21,7 @@ interface ClaimEntry {
   subtitle?: string;
   section: string;
   order: number;
+  status: PageStatus;
   body: string;
 }
 
@@ -35,6 +41,7 @@ function getAllClaims(): ClaimEntry[] {
         subtitle: data.subtitle,
         section: data.section || "",
         order: data.order || 0,
+        status: (data.status as PageStatus) || "draft",
         body: content,
       };
     })
@@ -44,12 +51,7 @@ function getAllClaims(): ClaimEntry[] {
     });
 }
 
-const sectionTitles: Record<string, string> = {
-  A: "The Founding Tradition",
-  B: "Through American Identity",
-  C: "Transcendence Across Identities",
-  D: "Displacement & Contestation",
-};
+const sectionTitles = SECTION_TITLES;
 
 export function generateStaticParams() {
   return getAllClaims().map((c) => ({ slug: c.slug }));
@@ -79,10 +81,23 @@ export default async function ClaimPage(
   if (claimIndex === -1) notFound();
 
   const claim = claims[claimIndex];
-  const prev = claimIndex > 0 ? claims[claimIndex - 1] : null;
-  const next = claimIndex < claims.length - 1 ? claims[claimIndex + 1] : null;
 
-  const sectionLabel = `Section ${claim.section}: ${sectionTitles[claim.section] || claim.section}`;
+  const isDevAdmin = await checkIsAdmin();
+
+  // Draft pages are only accessible to admins
+  if (claim.status === "draft" && !isDevAdmin) {
+    notFound();
+  }
+
+  // Prev/next only includes published pages for public, all for admins
+  const navClaims = isDevAdmin
+    ? claims
+    : claims.filter((c) => c.status === "published");
+  const navIndex = navClaims.findIndex((c) => c.slug === slug);
+  const prev = navIndex > 0 ? navClaims[navIndex - 1] : null;
+  const next = navIndex < navClaims.length - 1 ? navClaims[navIndex + 1] : null;
+
+  const renderedBody = <Prose content={claim.body} />;
 
   return (
     <div className="min-h-screen bg-[color:var(--color-nis-bg)]">
@@ -106,100 +121,127 @@ export default async function ClaimPage(
             >
               Archive
             </Link>
-            <span className="nis-breadcrumb__divider hidden sm:inline">›</span>
-            <span className="nis-breadcrumb__item hidden sm:inline font-bold" data-active="true">
-              {claim.section}{claim.order}
+            <span className="nis-breadcrumb__divider hidden sm:inline">
+              ›
             </span>
+            <span
+              className="nis-breadcrumb__item hidden sm:inline font-bold"
+              data-active="true"
+            >
+              {claim.section}
+              {claim.order}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button className="text-sm font-medium text-nis-muted hover:text-[color:var(--color-nis-ink)] transition-colors">
+                  Sign in
+                </button>
+              </SignInButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton
+                appearance={{
+                  elements: { avatarBox: "h-7 w-7" },
+                }}
+              />
+            </Show>
           </div>
         </div>
       </header>
 
-      <div className="flex w-full flex-col lg:flex-row">
-        {/* Left rail: Table of Contents */}
-        <aside className="pointer-events-none hidden fixed left-0 top-[55px] z-20 h-[calc(100vh-55px)] overflow-hidden lg:block lg:w-72 lg:pl-6 xl:w-80 xl:pl-10 2xl:w-96 2xl:pl-14">
-          <PageTableOfContents title={claim.title} />
-        </aside>
+      {/* Draft banner */}
+      {claim.status === "draft" && (
+        <div className="bg-[color:var(--color-nis-earth)]/10 border-b border-[color:var(--color-nis-earth)]/30 px-4 py-2 text-center">
+          <span className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--color-nis-earth)]">
+            Draft — this page is not visible to the public
+          </span>
+        </div>
+      )}
 
-        {/* Main content */}
-        <main className="flex-1 min-w-0 min-h-screen">
-          <div className="mx-auto w-full px-6 pt-16 pb-10 lg:pt-24 lg:pb-16">
-            {/* Header with prev/next navigation */}
-            <div className="mx-auto w-full max-w-[686px] mt-0 mb-[30px]">
-              <Link
-                href="/archive"
-                className="group mb-8 inline-flex items-center text-sm font-bold text-[color:var(--color-nis-ink)] transition-colors hover:text-nis-hover lg:hidden"
-              >
-                <ChevronLeft className="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" />
-                Back to Archive
-              </Link>
+      <ClaimPageClient
+        slug={slug}
+        claim={claim}
+        prev={prev}
+        next={next}
+        sectionTitles={sectionTitles}
+        isAdmin={isDevAdmin}
+        renderedBody={renderedBody}
+      >
+        <div className="flex w-full flex-col lg:flex-row">
+          {/* Left rail */}
+          <aside className="pointer-events-none hidden fixed left-0 top-[55px] z-20 h-[calc(100vh-55px)] overflow-hidden lg:block lg:w-72 lg:pl-6 xl:w-80 xl:pl-10 2xl:w-96 2xl:pl-14">
+            <LeftRailSwitch
+              tocContent={<PageTableOfContents title={claim.title} />}
+            />
+          </aside>
 
-              <HeaderFrame
-                kicker={sectionLabel}
-                title={claim.title}
-                prev={
-                  prev
-                    ? {
-                        href: `/archive/${prev.slug}`,
-                        title: `${prev.section}${prev.order}: ${prev.title}`,
-                      }
-                    : undefined
-                }
-                next={
-                  next
-                    ? {
-                        href: `/archive/${next.slug}`,
-                        title: `${next.section}${next.order}: ${next.title}`,
-                      }
-                    : undefined
-                }
+          {/* Main content */}
+          <main className="flex-1 min-w-0 min-h-screen">
+            <div className="mx-auto w-full px-6 pt-16 pb-10 lg:pt-24 lg:pb-16">
+              <div className="mx-auto w-full max-w-[686px] mt-0 mb-[30px]">
+                <Link
+                  href="/archive"
+                  className="group mb-8 inline-flex items-center text-sm font-bold text-[color:var(--color-nis-ink)] transition-colors hover:text-nis-hover lg:hidden"
+                >
+                  <ChevronLeft className="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" />
+                  Back to Archive
+                </Link>
+              </div>
+
+              <ClaimContent
+                claim={claim}
+                prev={prev}
+                next={next}
+                sectionTitles={sectionTitles}
+                renderedBody={renderedBody}
               />
-            </div>
 
-            {/* Article with sidenotes */}
-            <ArticleContent>
-              <Prose content={claim.body} />
-            </ArticleContent>
-
-            {/* Footer navigation */}
-            <div className="mx-auto w-full max-w-[686px]">
-              <nav className="footer-nav flex justify-between gap-4">
-                {prev ? (
-                  <Link
-                    href={`/archive/${prev.slug}`}
-                    className="footer-nav-link text-left"
-                  >
-                    <span className="footer-nav-label">← Previous</span>
-                    <span className="footer-nav-title">
-                      {prev.section}{prev.order}: {prev.title}
-                    </span>
-                  </Link>
-                ) : (
-                  <div />
-                )}
-                {next ? (
-                  <Link
-                    href={`/archive/${next.slug}`}
-                    className="footer-nav-link text-right"
-                  >
-                    <span className="footer-nav-label">Next →</span>
-                    <span className="footer-nav-title">
-                      {next.section}{next.order}: {next.title}
-                    </span>
-                  </Link>
-                ) : (
-                  <Link
-                    href="/archive"
-                    className="footer-nav-link text-right"
-                  >
-                    <span className="footer-nav-label">Back to</span>
-                    <span className="footer-nav-title">Archive Overview</span>
-                  </Link>
-                )}
-              </nav>
+              {/* Footer navigation */}
+              <div className="mx-auto w-full max-w-[686px]">
+                <nav className="footer-nav flex justify-between gap-4">
+                  {prev ? (
+                    <Link
+                      href={`/archive/${prev.slug}`}
+                      className="footer-nav-link text-left"
+                    >
+                      <span className="footer-nav-label">← Previous</span>
+                      <span className="footer-nav-title">
+                        {prev.section}
+                        {prev.order}: {prev.title}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div />
+                  )}
+                  {next ? (
+                    <Link
+                      href={`/archive/${next.slug}`}
+                      className="footer-nav-link text-right"
+                    >
+                      <span className="footer-nav-label">Next →</span>
+                      <span className="footer-nav-title">
+                        {next.section}
+                        {next.order}: {next.title}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/archive"
+                      className="footer-nav-link text-right"
+                    >
+                      <span className="footer-nav-label">Back to</span>
+                      <span className="footer-nav-title">Archive Overview</span>
+                    </Link>
+                  )}
+                </nav>
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
+      </ClaimPageClient>
     </div>
   );
 }

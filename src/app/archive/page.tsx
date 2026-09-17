@@ -3,6 +3,11 @@ import path from "path";
 import Link from "next/link";
 import matter from "gray-matter";
 import Header from "@/components/Header";
+import { NewPageButton } from "@/components/edit/NewPageDialog";
+import { SECTION_TITLES, SECTION_DESCRIPTIONS } from "@/lib/sections";
+import { checkIsAdmin } from "@/lib/auth";
+
+export type PageStatus = 'draft' | 'published';
 
 export interface ArchiveEntry {
   slug: string;
@@ -10,6 +15,7 @@ export interface ArchiveEntry {
   subtitle?: string;
   section: string;
   order: number;
+  status: PageStatus;
 }
 
 export function getArchiveEntries(): ArchiveEntry[] {
@@ -28,6 +34,7 @@ export function getArchiveEntries(): ArchiveEntry[] {
         subtitle: data.subtitle,
         section: data.section || "",
         order: data.order || 0,
+        status: (data.status as PageStatus) || "draft",
       };
     })
     .sort((a, b) => {
@@ -36,22 +43,17 @@ export function getArchiveEntries(): ArchiveEntry[] {
     });
 }
 
-const sectionTitles: Record<string, string> = {
-  A: "The Founding Tradition",
-  B: "Mutual Aid Through the Evolution of American Identity",
-  C: "The Transcendence Across Ethnicities and Identities",
-  D: "Systematic Displacement and the Contest Over American Identity",
-};
+const sectionTitles = SECTION_TITLES;
+const sectionDescriptions = SECTION_DESCRIPTIONS;
 
-const sectionDescriptions: Record<string, string> = {
-  A: "Mutual aid is real, it is old, and it reached massive scale.",
-  B: "The tradition survived displacement, co-optation, and erasure across the 20th and 21st centuries.",
-  C: "In crisis, in labour, and by design, mutual aid crossed the ethnic lines that structured everyday life.",
-  D: "Why you don't know this history, who displaced it, and what the archival document does about it.",
-};
+export default async function ArchivePage() {
+  const isDevAdmin = await checkIsAdmin();
 
-export default function ArchivePage() {
-  const entries = getArchiveEntries();
+  const allEntries = getArchiveEntries();
+  // Public visitors only see published pages; admins see everything
+  const entries = isDevAdmin
+    ? allEntries
+    : allEntries.filter((e) => e.status === "published");
   const sections = [...new Set(entries.map((e) => e.section))].sort();
 
   return (
@@ -62,9 +64,12 @@ export default function ArchivePage() {
           <p className="font-serif text-sm uppercase tracking-[0.16em] text-nis-muted mb-4">
             Claims &amp; Sources
           </p>
-          <h1 className="mb-6 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3rem] leading-[1.05] tracking-tight">
-            The Archive
-          </h1>
+          <div className="flex items-start justify-between gap-4 mb-6">
+            <h1 className="text-[color:var(--color-nis-ink)] font-sans font-bold text-[3rem] leading-[1.05] tracking-tight">
+              The Archive
+            </h1>
+            {isDevAdmin && <NewPageButton />}
+          </div>
           <p className="text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl mb-16">
             Each claim is a distinct, provable assertion supported by primary
             and secondary sources. Together they form a chain: if all hold, the
@@ -96,14 +101,23 @@ export default function ArchivePage() {
                       href={`/archive/${entry.slug}`}
                       className="nis-card group p-5"
                     >
-                      {entry.subtitle && (
-                        <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
-                          {entry.subtitle}
-                        </p>
-                      )}
-                      <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
-                        {entry.section}{entry.order}: {entry.title}
-                      </h3>
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          {entry.subtitle && (
+                            <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
+                              {entry.subtitle}
+                            </p>
+                          )}
+                          <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
+                            {entry.section}{entry.order}: {entry.title}
+                          </h3>
+                        </div>
+                        {entry.status === "draft" && (
+                          <span className="shrink-0 mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] border border-[color:var(--color-nis-earth)] text-[color:var(--color-nis-earth)]">
+                            Draft
+                          </span>
+                        )}
+                      </div>
                     </Link>
                   ))}
               </div>

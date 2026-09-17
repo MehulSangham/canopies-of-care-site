@@ -41,6 +41,7 @@ export function HeaderFrameChevron({
 interface HeaderFrameProps {
   kicker: string;
   title: string;
+  titleSlot?: React.ReactNode;
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
   titleAs?: 'h1' | 'h2';
@@ -50,6 +51,7 @@ interface HeaderFrameProps {
 export function HeaderFrame({
   kicker,
   title,
+  titleSlot,
   prev,
   next,
   titleAs = 'h1',
@@ -72,7 +74,7 @@ export function HeaderFrame({
 
         <div className="nis-header-frame__content">
         <p className="nis-header-frame__kicker">{kicker}</p>
-        <TitleTag className="nis-header-frame__title">{title}</TitleTag>
+        {titleSlot ?? <TitleTag className="nis-header-frame__title">{title}</TitleTag>}
         </div>
 
         {next ? (
