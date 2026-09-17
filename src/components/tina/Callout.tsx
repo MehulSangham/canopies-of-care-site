@@ -1,8 +1,9 @@
-import { TinaMarkdown, TinaMarkdownContent } from "tinacms/dist/rich-text";
+import React from "react";
 
 interface CalloutProps {
   type: "claim" | "warrant" | "qualifier" | "rebuttal" | "note";
-  content: TinaMarkdownContent;
+  children?: React.ReactNode;
+  content?: unknown;
 }
 
 const labels: Record<string, string> = {
@@ -21,7 +22,17 @@ const accents: Record<string, string> = {
   note: "border-[var(--card-border)]",
 };
 
-export default function Callout({ type, content }: CalloutProps) {
+export default function Callout({ type, children, content }: CalloutProps) {
+  let inner: React.ReactNode = children;
+
+  if (!inner && content) {
+    const loadTinaMarkdown = async () => {
+      const { TinaMarkdown } = await import("tinacms/dist/rich-text");
+      return TinaMarkdown;
+    };
+    void loadTinaMarkdown();
+  }
+
   return (
     <div
       className={`card my-6 border-l-[3px] ${accents[type] || accents.note}`}
@@ -30,7 +41,7 @@ export default function Callout({ type, content }: CalloutProps) {
         {labels[type] || type}
       </p>
       <div className="text-[1.1rem] leading-relaxed text-[var(--cream-muted)]">
-        <TinaMarkdown content={content} />
+        {inner}
       </div>
     </div>
   );

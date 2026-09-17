@@ -1,19 +1,18 @@
 import fs from "fs";
 import path from "path";
+import Link from "next/link";
 import matter from "gray-matter";
 import Header from "@/components/Header";
-import Prose from "@/components/Prose";
 
-interface ArchiveEntry {
+export interface ArchiveEntry {
   slug: string;
   title: string;
   subtitle?: string;
   section: string;
   order: number;
-  body: string;
 }
 
-function getArchiveEntries(): ArchiveEntry[] {
+export function getArchiveEntries(): ArchiveEntry[] {
   const dir = path.join(process.cwd(), "content/archive");
   if (!fs.existsSync(dir)) return [];
 
@@ -22,14 +21,13 @@ function getArchiveEntries(): ArchiveEntry[] {
     .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
     .map((file) => {
       const raw = fs.readFileSync(path.join(dir, file), "utf-8");
-      const { data, content } = matter(raw);
+      const { data } = matter(raw);
       return {
         slug: file.replace(/\.(mdx|md)$/, ""),
         title: data.title || "",
         subtitle: data.subtitle,
         section: data.section || "",
         order: data.order || 0,
-        body: content,
       };
     })
     .sort((a, b) => {
@@ -43,6 +41,13 @@ const sectionTitles: Record<string, string> = {
   B: "Mutual Aid Through the Evolution of American Identity",
   C: "The Transcendence Across Ethnicities and Identities",
   D: "Systematic Displacement and the Contest Over American Identity",
+};
+
+const sectionDescriptions: Record<string, string> = {
+  A: "Mutual aid is real, it is old, and it reached massive scale.",
+  B: "The tradition survived displacement, co-optation, and erasure across the 20th and 21st centuries.",
+  C: "In crisis, in labour, and by design, mutual aid crossed the ethnic lines that structured everyday life.",
+  D: "Why you don't know this history, who displaced it, and what the archival document does about it.",
 };
 
 export default function ArchivePage() {
@@ -69,22 +74,29 @@ export default function ArchivePage() {
               className="mb-20"
             >
               <h4 className="mb-3">Section {section}</h4>
-              <h2 className="mb-12">{sectionTitles[section] || section}</h2>
+              <h2 className="mb-4">{sectionTitles[section] || section}</h2>
+              <p className="text-[1.1rem] leading-relaxed text-[var(--cream-subtle)] mb-10">
+                {sectionDescriptions[section]}
+              </p>
 
-              {entries
-                .filter((e) => e.section === section)
-                .map((entry) => (
-                  <article
-                    key={entry.slug}
-                    className="mb-16 pb-16 border-b border-[var(--divider)] last:border-b-0"
-                  >
-                    {entry.subtitle && (
-                      <h4 className="mb-3">{entry.subtitle}</h4>
-                    )}
-                    <h3 className="mb-8">{entry.title}</h3>
-                    <Prose content={entry.body} />
-                  </article>
-                ))}
+              <div className="flex flex-col gap-4">
+                {entries
+                  .filter((e) => e.section === section)
+                  .map((entry) => (
+                    <Link
+                      key={entry.slug}
+                      href={`/archive/${entry.slug}`}
+                      className="card flex flex-col gap-2 hover:border-[var(--accent)] transition-colors group"
+                    >
+                      {entry.subtitle && (
+                        <h4 className="text-xs">{entry.subtitle}</h4>
+                      )}
+                      <h3 className="text-[1.25rem] group-hover:text-[var(--accent)] transition-colors">
+                        {entry.section}{entry.order}: {entry.title}
+                      </h3>
+                    </Link>
+                  ))}
+              </div>
             </div>
           ))}
         </section>

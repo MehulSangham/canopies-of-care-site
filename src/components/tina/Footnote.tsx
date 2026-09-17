@@ -1,18 +1,19 @@
-import { TinaMarkdown, TinaMarkdownContent } from "tinacms/dist/rich-text";
+import React from "react";
 
 interface FootnoteProps {
   number: number;
-  citation: TinaMarkdownContent;
+  children?: React.ReactNode;
+  citation?: unknown;
 }
 
-export default function Footnote({ number, citation }: FootnoteProps) {
+export default function Footnote({ number, children }: FootnoteProps) {
   return (
     <li
       id={`fn-${number}`}
       className="mb-4 text-[0.95rem] leading-[1.7] text-[var(--cream-subtle)]"
     >
       <span className="font-[800] text-[var(--cream-muted)] mr-2">{number}.</span>
-      <TinaMarkdown content={citation} />
+      {children}
       <a
         href={`#fnref-${number}`}
         data-footnote-backref

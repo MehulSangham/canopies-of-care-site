@@ -1,0 +1,15 @@
+fragment ArchiveParts on Archive {
+  __typename
+  title
+  subtitle
+  section
+  order
+  body
+}
+
+fragment PageParts on Page {
+  __typename
+  title
+  subtitle
+  body
+}
