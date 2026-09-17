@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Prose from "@/components/Prose";
 import SectionNav from "@/components/SectionNav";
 import BackToTop from "@/components/BackToTop";
+import { TableOfContents } from "@/components/content/TableOfContents";
 import type { Metadata } from "next";
 
 interface ClaimEntry {
@@ -87,9 +88,9 @@ export default async function ClaimPage(
     <>
       <Header />
       <main className="flex-1">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24 flex gap-16">
-          {/* Sidebar nav */}
-          <aside className="hidden lg:block w-56 shrink-0">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 flex gap-12">
+          {/* Left sidebar: section nav */}
+          <aside className="hidden lg:block w-52 shrink-0">
             <SectionNav
               claims={sectionClaims}
               currentSlug={slug}
@@ -166,6 +167,11 @@ export default async function ClaimPage(
               )}
             </nav>
           </article>
+
+          {/* Right sidebar: table of contents (scroll-spy) */}
+          <aside className="hidden xl:block w-48 shrink-0">
+            <TableOfContents />
+          </aside>
         </div>
       </main>
       <BackToTop />

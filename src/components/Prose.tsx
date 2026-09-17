@@ -5,15 +5,19 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import Callout from "@/components/tina/Callout";
 import CaptionedImage from "@/components/tina/CaptionedImage";
 import DataTable from "@/components/tina/DataTable";
-import FootnoteRef from "@/components/tina/FootnoteRef";
-import Footnote from "@/components/tina/Footnote";
+import { Sidenote, FootnoteItem, FootnoteList } from "@/components/content/Sidenote";
+import { VideoEmbed } from "@/components/content/VideoEmbed";
+import { Figure } from "@/components/content/Figure";
 
 const mdxComponents: MDXRemoteProps["components"] = {
   Callout,
   CaptionedImage,
   DataTable,
-  FootnoteRef,
-  Footnote,
+  Sidenote,
+  FootnoteItem,
+  FootnoteList,
+  VideoEmbed,
+  Figure,
 };
 
 interface ProseProps {
