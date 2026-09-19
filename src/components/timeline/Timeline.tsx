@@ -230,7 +230,7 @@ function IndexRail({
   return (
     <nav
       aria-label="Timeline index"
-      className="pointer-events-auto relative h-full w-28"
+      className="group pointer-events-auto relative h-full w-28"
     >
       <div className="absolute left-0 top-6 bottom-10 w-[6px] overflow-hidden">
         <TexturedRail
@@ -269,26 +269,31 @@ function IndexRail({
         ))}
       </div>
 
+      {/* Labels: hidden until the rail is hovered, then slide in with a
+          slight stagger (matching the article TOC interaction) */}
       <div className="absolute left-0 top-6 bottom-10 w-[230px] pl-6">
         <div className="relative h-full w-full">
-          {items.map((item) => (
+          {items.map((item, i) => (
             <button
               key={item.id}
               type="button"
               onClick={() => onJump(item.top)}
               title={item.label}
-              className={`pointer-events-auto absolute left-0 w-[204px] truncate py-0.5 pr-2 text-left font-sans text-[11px] leading-[1.2] transition-all duration-200 ${
+              className={`pointer-events-none absolute left-0 w-[204px] origin-left -translate-y-1/2 -translate-x-2 truncate py-0.5 pr-2 text-left font-sans text-[11px] leading-[1.2] opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:translate-x-0 hover:scale-[1.04] hover:text-nis-hover ${
                 item.kind === 'phase'
                   ? 'font-bold uppercase tracking-[0.08em]'
                   : 'pl-4'
               } ${
                 activeId === item.id
-                  ? 'font-bold text-[color:var(--color-nis-ink)] opacity-100'
+                  ? 'font-bold text-[color:var(--color-nis-ink)] group-hover:opacity-100'
                   : item.kind === 'phase'
-                    ? 'text-nis-muted opacity-90 hover:text-nis-hover'
-                    : 'text-nis-muted opacity-55 hover:opacity-100 hover:text-nis-hover'
+                    ? 'text-nis-muted group-hover:opacity-90 hover:opacity-100'
+                    : 'text-nis-muted group-hover:opacity-55 hover:opacity-100'
               }`}
-              style={{ top: `${item.pct}%`, transform: 'translateY(-50%)' }}
+              style={{
+                top: `${item.pct}%`,
+                transitionDelay: `${Math.min(i * 10, 200)}ms`,
+              }}
             >
               <span className="truncate">{item.label}</span>
             </button>
@@ -387,6 +392,7 @@ export function Timeline() {
   const [activeId, setActiveId] = useState('');
   const [activePhaseId, setActivePhaseId] = useState(NARRATIVE_PHASES[0].id);
   const [fillPct, setFillPct] = useState(0);
+  const [railsVisible, setRailsVisible] = useState(false);
 
   const events = [...TIMELINE_EVENTS].sort((a, b) => a.year - b.year);
 
@@ -458,6 +464,13 @@ export function Timeline() {
       );
       setFillPct(progress);
 
+      // Rails accompany the timeline only: fade in as the spine reaches
+      // the focus line, fade out once it has fully passed.
+      setRailsVisible(
+        focusY >= sectionTop - window.innerHeight * 0.1 &&
+          focusY <= sectionTop + section.offsetHeight + window.innerHeight * 0.1,
+      );
+
       let current: RailItem | null = null;
       let currentPhase: RailItem | null = null;
       for (const item of railItems) {
@@ -492,7 +505,11 @@ export function Timeline() {
   return (
     <div className="relative">
       {/* Left rail: the index */}
-      <aside className="pointer-events-none fixed left-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-72 overflow-visible pl-6 pt-10 min-[1240px]:block">
+      <aside
+        className={`pointer-events-none fixed left-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-72 overflow-visible pl-6 pt-10 transition-[opacity,visibility] duration-500 min-[1240px]:block ${
+          railsVisible ? 'visible opacity-100' : 'invisible opacity-0'
+        }`}
+      >
         <IndexRail
           items={railItems}
           activeId={activeId}
@@ -502,7 +519,11 @@ export function Timeline() {
       </aside>
 
       {/* Right rail: the story being told */}
-      <aside className="pointer-events-none fixed right-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-80 pt-10 min-[1400px]:block">
+      <aside
+        className={`pointer-events-none fixed right-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-80 pt-10 transition-[opacity,visibility] duration-500 min-[1400px]:block ${
+          railsVisible ? 'visible opacity-100' : 'invisible opacity-0'
+        }`}
+      >
         <NarrativeRail
           phases={NARRATIVE_PHASES}
           activePhase={activePhase}
