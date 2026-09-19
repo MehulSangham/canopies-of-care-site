@@ -12,11 +12,11 @@ export default function Home() {
           <p className="font-serif text-sm uppercase tracking-[0.16em] text-nis-muted mb-6">
             Archive
           </p>
-          <h1 className="mb-8 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
-            Canopies of Care
+          <h1 className="mb-6 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
+            A History of Mutual Aid
           </h1>
-          <p className="mx-auto max-w-xl text-[1.75rem] leading-relaxed font-medium text-nis-muted">
-            A History of Mutual Aid as American Civic Tradition
+          <p className="mx-auto max-w-xl font-serif text-[1.35rem] leading-relaxed text-nis-muted">
+            An American Civic Tradition
           </p>
           <p className="mx-auto mt-8 max-w-2xl text-[1.25rem] leading-relaxed text-nis-muted">
             Americans show up for each other. We always have. In 1787, in the
