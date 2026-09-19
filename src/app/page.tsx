@@ -19,25 +19,27 @@ export default function Home() {
             A History of Mutual Aid as American Civic Tradition
           </p>
           <p className="mt-8 text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl">
-            In 1787, two things happened in Philadelphia: the Constitutional
-            Convention wrote the rules for who would be recognised as American,
-            and the Free African Society built the infrastructure for those the
-            rules excluded. Both are founding traditions. Only one is remembered.
+            Americans show up for each other. We always have. In 1787, in the
+            same city where the Constitutional Convention met, the Free African
+            Society organised burial, sickness benefits, and care for widows
+            and orphans, and every generation since has rebuilt that design.
+            This is the record of a founding tradition.
           </p>
           <p className="mt-6 text-[1.05rem] leading-relaxed text-nis-muted max-w-2xl">
-            Below, both traditions on one line: the care that never stopped, and
-            the machinery that kept displacing it.
+            Below, the practice in one unbroken line, 1787 to now. Alongside
+            it, how the story told about America kept changing while the
+            practice never did.
           </p>
         </section>
 
-        {/* The two-strand timeline */}
+        {/* The timeline: practice in the stream, narrative on the rail */}
         <Timeline />
 
         {/* Closing panel */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 py-24 text-center">
           <p className="mx-auto max-w-xl font-serif text-[1.35rem] leading-relaxed text-[color:var(--color-nis-ink)]">
-            The care strand never breaks. The displacement keeps returning
-            beside it. This archive is the record of both.
+            The practice never broke. Only the story about it changed. This
+            archive is the record catching up.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link

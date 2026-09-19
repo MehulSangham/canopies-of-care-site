@@ -465,6 +465,18 @@ body {
   h2 { font-size: 1.75rem; }
 }
 
+/* ── Landing timeline: narrative panel crossfade ── */
+@keyframes tlNarrativeSwap {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tl-narrative-swap {
+  animation: tlNarrativeSwap 0.45s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-narrative-swap { animation: none; }
+}
+
 /* ── Page reader ── */
 .reader-active-block {
   background: color-mix(in srgb, var(--color-nis-accent) 22%, transparent);
