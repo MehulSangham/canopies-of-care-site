@@ -7,18 +7,18 @@ export default function Home() {
     <>
       <Header />
       <main className="flex-1">
-        {/* Hero */}
-        <section className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32">
+        {/* Hero — centred on the timeline's axis */}
+        <section className="mx-auto max-w-[760px] px-6 py-24 text-center md:py-32">
           <p className="font-serif text-sm uppercase tracking-[0.16em] text-nis-muted mb-6">
             Archive
           </p>
-          <h1 className="max-w-3xl mb-8 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
+          <h1 className="mb-8 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
             Canopies of Care
           </h1>
-          <p className="text-[1.75rem] leading-relaxed font-medium text-nis-muted max-w-2xl">
+          <p className="mx-auto max-w-xl text-[1.75rem] leading-relaxed font-medium text-nis-muted">
             A History of Mutual Aid as American Civic Tradition
           </p>
-          <p className="mt-8 text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl">
+          <p className="mx-auto mt-8 max-w-2xl text-[1.25rem] leading-relaxed text-nis-muted">
             Americans show up for each other. We always have. In 1787, in the
             same city where the Constitutional Convention met, the Free African
             Society organised burial, sickness benefits, and care for widows
@@ -26,7 +26,7 @@ export default function Home() {
             Belonging, in this tradition, is something people do: you are part
             of the community you show up for.
           </p>
-          <p className="mt-6 text-[1.05rem] leading-relaxed text-nis-muted max-w-2xl">
+          <p className="mx-auto mt-6 max-w-xl text-[1.05rem] leading-relaxed text-nis-muted">
             Below is the record of that practice, generation by generation,
             with the pressures it outlasted beside it, and, alongside both,
             the story the country told about itself while the practice
