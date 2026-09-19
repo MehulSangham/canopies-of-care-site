@@ -4,7 +4,7 @@ import Link from "next/link";
 import matter from "gray-matter";
 import Header from "@/components/Header";
 import { NewPageButton } from "@/components/edit/NewPageDialog";
-import { SECTION_TITLES, SECTION_DESCRIPTIONS } from "@/lib/sections";
+import { SECTION_TITLES, SECTION_DESCRIPTIONS, sectionRank } from "@/lib/sections";
 import { checkIsAdmin } from "@/lib/auth";
 
 export type PageStatus = 'draft' | 'published';
@@ -38,7 +38,8 @@ export function getArchiveEntries(): ArchiveEntry[] {
       };
     })
     .sort((a, b) => {
-      if (a.section !== b.section) return a.section.localeCompare(b.section);
+      if (a.section !== b.section)
+        return sectionRank(a.section) - sectionRank(b.section);
       return a.order - b.order;
     });
 }
@@ -54,7 +55,10 @@ export default async function ArchivePage() {
   const entries = isDevAdmin
     ? allEntries
     : allEntries.filter((e) => e.status === "published");
-  const sections = [...new Set(entries.map((e) => e.section))].sort();
+  const intro = entries.find((e) => e.section === "INTRO");
+  const sections = [...new Set(entries.map((e) => e.section))]
+    .filter((s) => s !== "INTRO")
+    .sort((a, b) => sectionRank(a) - sectionRank(b));
 
   return (
     <>
@@ -70,11 +74,41 @@ export default async function ArchivePage() {
             </h1>
             {isDevAdmin && <NewPageButton />}
           </div>
-          <p className="text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl mb-16">
-            Each claim is a distinct, provable assertion supported by primary
-            and secondary sources. Together they form a chain: if all hold, the
-            tradition is established as continuous.
+          <p className="text-[1.25rem] leading-relaxed text-nis-muted max-w-2xl mb-6">
+            Mutual aid is a founding American tradition, as old as the Republic
+            itself, through which excluded communities built the infrastructure
+            of civic life. Its absence from the national story is structural,
+            and this archive assembles the record: sixteen pages, each a
+            provable claim with named sources, together one continuous
+            argument.
           </p>
+
+          {intro && (
+            <Link
+              href={`/archive/${intro.slug}`}
+              className="nis-card group mb-16 block border-[color:var(--color-nis-ink)] p-5"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
+                    Start here
+                  </p>
+                  <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
+                    {intro.title}
+                  </h3>
+                  <p className="mt-1 text-[0.95rem] text-nis-muted">
+                    The argument of the whole archive, stated plainly, and how
+                    to read it.
+                  </p>
+                </div>
+                {intro.status === "draft" && (
+                  <span className="shrink-0 mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] border border-[color:var(--color-nis-earth)] text-[color:var(--color-nis-earth)]">
+                    Draft
+                  </span>
+                )}
+              </div>
+            </Link>
+          )}
 
           {sections.map((section) => (
             <div

@@ -11,7 +11,7 @@ import { ClaimPageClient, ClaimContent } from "./client";
 import { LeftRailSwitch } from "@/components/edit/LeftRailSwitch";
 import { MetaPanel } from "@/components/curriculum/MetaPanel";
 import { PageReader } from "@/components/curriculum/PageReader";
-import { SECTION_TITLES } from "@/lib/sections";
+import { SECTION_TITLES, sectionRank } from "@/lib/sections";
 import { checkIsAdmin } from "@/lib/auth";
 import { parseMdxBlocks } from "@/lib/mdx-blocks";
 import { splitFootnoteMarkdown } from "@/lib/footnote-sources";
@@ -53,7 +53,8 @@ function getAllClaims(): ClaimEntry[] {
       };
     })
     .sort((a, b) => {
-      if (a.section !== b.section) return a.section.localeCompare(b.section);
+      if (a.section !== b.section)
+        return sectionRank(a.section) - sectionRank(b.section);
       return a.order - b.order;
     });
 }

@@ -11,6 +11,12 @@ export interface SectionDef {
 
 export const SECTIONS: SectionDef[] = [
   {
+    key: 'INTRO',
+    title: 'Start Here',
+    description:
+      'The argument of the whole archive, stated plainly, and how to read it.',
+  },
+  {
     key: 'A',
     title: 'The Founding Tradition',
     description:
@@ -45,3 +51,12 @@ export const SECTION_TITLES: Record<string, string> = Object.fromEntries(
 export const SECTION_DESCRIPTIONS: Record<string, string> = Object.fromEntries(
   SECTIONS.map((s) => [s.key, s.description]),
 );
+
+/**
+ * Reading-order rank for a section key. Sections sort in the order they are
+ * defined above (INTRO first), with unknown keys after all known ones.
+ */
+export function sectionRank(key: string): number {
+  const i = SECTIONS.findIndex((s) => s.key === key);
+  return i === -1 ? SECTIONS.length : i;
+}
