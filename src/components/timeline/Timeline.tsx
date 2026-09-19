@@ -51,13 +51,13 @@ const STRAND_STYLE: Record<
     edge: 'border-l-[3px] border-l-[color:var(--color-nis-deep-forest)]',
     date: 'text-[color:var(--color-nis-deep-forest)]',
     dot: 'var(--color-nis-deep-forest)',
-    label: 'Mutual aid',
+    label: 'Belonging as practice',
   },
   exclusion: {
     edge: 'border-l-[3px] border-l-[color:var(--color-nis-earth)]',
     date: 'text-[color:var(--color-nis-earth)]',
     dot: 'var(--color-nis-earth)',
-    label: 'What the practice answered',
+    label: 'Belonging as condition',
   },
 };
 
@@ -535,16 +535,35 @@ export function Timeline() {
 
       {/* Centre stream: dual spine */}
       <section ref={sectionRef} className="relative mx-auto max-w-[760px] px-5">
-        {/* Column legend */}
-        <div className="mb-10 hidden md:grid md:grid-cols-[1fr_44px_1fr]">
-          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--color-nis-deep-forest)]">
-            {STRAND_STYLE.aid.label}
-          </p>
+        {/* Column legend: the two accounts */}
+        <div className="mb-3 hidden md:grid md:grid-cols-[1fr_44px_1fr]">
+          <div className="text-center">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--color-nis-deep-forest)]">
+              {STRAND_STYLE.aid.label}
+            </p>
+            <p className="mt-0.5 font-serif text-[0.8rem] italic text-nis-muted">
+              you are part of the community you show up for
+            </p>
+          </div>
           <span />
-          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-nis-muted">
-            {STRAND_STYLE.exclusion.label}
-          </p>
+          <div className="text-center">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-nis-muted">
+              {STRAND_STYLE.exclusion.label}
+            </p>
+            <p className="mt-0.5 font-serif text-[0.8rem] italic text-nis-muted">
+              membership first, care after the ledger is checked
+            </p>
+          </div>
         </div>
+        <p className="mb-12 text-center font-serif text-[0.85rem] text-nis-muted">
+          Two accounts of being American run the length of this history.{' '}
+          <Link
+            href="/archive/two-accounts"
+            className="font-bold text-nis-hover underline decoration-[color:var(--color-nis-soft)] underline-offset-2 hover:decoration-current"
+          >
+            Read about the two accounts
+          </Link>
+        </p>
 
         {/* The central spine (desktop) and left spine (mobile) */}
         <div className="pointer-events-none absolute bottom-0 top-0 left-[29px] w-px bg-[color:var(--color-nis-soft)] md:left-1/2 md:-translate-x-1/2" />

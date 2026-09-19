@@ -55,7 +55,9 @@ export default async function ArchivePage() {
   const entries = isDevAdmin
     ? allEntries
     : allEntries.filter((e) => e.status === "published");
-  const intro = entries.find((e) => e.section === "INTRO");
+  const intros = entries
+    .filter((e) => e.section === "INTRO")
+    .sort((a, b) => a.order - b.order);
   const sections = [...new Set(entries.map((e) => e.section))]
     .filter((s) => s !== "INTRO")
     .sort((a, b) => sectionRank(a) - sectionRank(b));
@@ -83,31 +85,35 @@ export default async function ArchivePage() {
             argument.
           </p>
 
-          {intro && (
-            <Link
-              href={`/archive/${intro.slug}`}
-              className="nis-card group mb-16 block border-[color:var(--color-nis-ink)] p-5"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
-                    Start here
-                  </p>
-                  <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
-                    {intro.title}
-                  </h3>
-                  <p className="mt-1 text-[0.95rem] text-nis-muted">
-                    The argument of the whole archive, stated plainly, and how
-                    to read it.
-                  </p>
-                </div>
-                {intro.status === "draft" && (
-                  <span className="shrink-0 mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] border border-[color:var(--color-nis-earth)] text-[color:var(--color-nis-earth)]">
-                    Draft
-                  </span>
-                )}
-              </div>
-            </Link>
+          {intros.length > 0 && (
+            <div className="mb-16 flex flex-col gap-4">
+              {intros.map((intro, i) => (
+                <Link
+                  key={intro.slug}
+                  href={`/archive/${intro.slug}`}
+                  className="nis-card group block border-[color:var(--color-nis-ink)] p-5"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-serif text-xs uppercase tracking-[0.12em] text-nis-muted mb-2">
+                        {i === 0 ? "Start here" : "Then"}
+                      </p>
+                      <h3 className="text-[1.25rem] font-bold text-[color:var(--color-nis-ink)] group-hover:text-nis-hover transition-colors">
+                        {intro.title}
+                      </h3>
+                      <p className="mt-1 text-[0.95rem] text-nis-muted">
+                        {intro.subtitle}
+                      </p>
+                    </div>
+                    {intro.status === "draft" && (
+                      <span className="shrink-0 mt-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] border border-[color:var(--color-nis-earth)] text-[color:var(--color-nis-earth)]">
+                        Draft
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
           )}
 
           {sections.map((section) => (
