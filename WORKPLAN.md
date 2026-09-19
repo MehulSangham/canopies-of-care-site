@@ -151,40 +151,46 @@ order: 1      # position within section
 ---
 ```
 
-The body follows the curriculum page pattern:
-1. **Opening prose** — sets up the claim in narrative form
-2. **Claim** (bold or callout) — the specific assertion
-3. **Warrant** — the reasoning connecting evidence to claim
-4. **Evidence prose** — the historical narrative with footnotes
-5. **Qualifier** — limits and conditions
-6. **Rebuttal addressed** — anticipated objections and responses
-7. **Footnotes** — full citations at bottom after `---`
+The body follows the editorial pattern defined in `CONTENT_STYLE.md`:
+1. **Opening prose** — lands the claim in a concrete scene or fact
+2. **Development** — historical narrative carrying the reasoning inside it
+3. **Honest limits** — qualifications woven into the prose
+4. **The objection** — anticipated and answered in the narrative flow
+5. **Footnotes** — full citations at bottom after `---`
+
+The Toulmin structure (Claim/Warrant/Qualifier/Rebuttal) is the analytical skeleton
+in the source documents only. It is never rendered as labelled callouts on the page.
+See `CONTENT_STYLE.md` for the full rules.
 
 #### 3.2 Claims to Port
 
+All sixteen pages drafted (September 2026), status `draft`, awaiting editorial review.
+Each page has images (public domain / CC, credits in `public/images/*/CREDITS.md`)
+and two-part footnotes per `CONTENT_STYLE.md`.
+
 **Section A — The Founding Tradition:**
-- [ ] A1: Mutual aid is a founding-era practice (1787) — sample exists, needs expansion
-- [ ] A2: Excluded communities built parallel civic infrastructure
-- [ ] A3: Fraternal mutual aid reached massive scale (1 in 3 men by 1920)
+- [x] A1: "The Parallel Founding" — `a1-founding-era.mdx` (also carries the meta-panel prototype)
+- [x] A2: "The Same Design" — `a2-parallel-infrastructure.mdx`
+- [x] A3: Fraternal scale — `a3-fraternal-scale.mdx`
 
 **Section B — Through American Identity:**
-- [ ] B1: The New Deal displaced mutual aid without acknowledging it
-- [ ] B2: The Civil Rights movement was built on care infrastructure
-- [ ] B3: The Black Panthers' survival programs — co-opted by the state
-- [ ] B4: AIDS crisis — queer communities built care when the state refused
-- [ ] B5: Maternal care networks — most pervasive, least recognised
+- [x] B1: New Deal displacement — `b1-new-deal-displacement.mdx`
+- [x] B2: "The Club From Nowhere" — `b2-civil-rights-care.mdx`
+- [x] B3: "Survival Pending Revolution" — `b3-black-panthers.mdx`
+- [x] B4: "The Buddy System" — `b4-aids-mutual-aid.mdx`
+- [x] B5: "Women's Work" — `b5-maternal-networks.mdx`
 
 **Section C — Transcendence Across Identities:**
-- [ ] C1: In crisis, mutual aid expanded beyond single communities
-- [ ] C2: Labour organising built mutual aid across ethnic lines
-- [ ] C3: Some institutions were deliberately built to serve everyone
-- [ ] C4: Ethnic boundedness reflected exclusion, not principle
+- [x] C1: "A Community of Sufferers" — `c1-crisis.mdx`
+- [x] C2: "One Big Union" — `c2-labor.mdx`
+- [x] C3: "Everyone in the Ward" — `c3-intentional-institutions.mdx`
+- [x] C4: "Forced to Form Their Own" — `c4-exclusion-not-principle.mdx`
 
 **Section D — Displacement & Contestation:**
-- [ ] D1: The legal and institutional order actively undermines mutual aid
-- [ ] D2: A competing tradition claimed "American" and pushed mutual aid out
-- [ ] D3: Project 2025 is the current culmination of the displacing tradition
-- [ ] D4: The archival document exists to contest this displacement
+- [x] D1: "Share No More" — `d1-legal-institutional.mdx`
+- [x] D2: "The Infrastructure of Meaning" — `d2-competing-tradition.mdx`
+- [x] D3: "Upstream of Politics" — `d3-project-2025.mdx`
+- [x] D4: "What This Archive Is For" — `d4-contestation.mdx`
 
 #### 3.3 Source Material Mapping
 
