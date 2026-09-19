@@ -26,9 +26,9 @@ export default function Home() {
             This is the record of a founding tradition.
           </p>
           <p className="mt-6 text-[1.05rem] leading-relaxed text-nis-muted max-w-2xl">
-            Below, the practice in one unbroken line, 1787 to now. Alongside
-            it, how the story told about America kept changing while the
-            practice never did.
+            Below, both strands on one spine: the aid that never stopped, and
+            the exclusion it kept answering. Alongside them, how the story
+            told about America evolved while the practice never did.
           </p>
         </section>
 

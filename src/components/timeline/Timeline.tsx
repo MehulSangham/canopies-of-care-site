@@ -14,6 +14,7 @@ import {
   phaseForYear,
   type TimelineEvent,
   type NarrativePhase,
+  type Strand,
 } from '@/lib/timeline';
 import {
   TexturedRail,
@@ -21,25 +22,44 @@ import {
 } from '@/components/curriculum/TexturedRail';
 
 /* ────────────────────────────────────────────────────────────────────
-   Scroll model
+   Layout model
 
-   One scroll listener measures progress through the timeline section
-   and feeds both rails: the left index (where you are) and the right
-   narrative panel (what the story of America says at that moment).
-   Positions are measured from the DOM and re-measured on resize, so
-   image loading cannot desynchronise the rails from the stream.
+   Centre stream: dual spine. Mutual aid events sit left of a central
+   textured line, exclusion events right, as compact index-style cards.
+   Left rail (wide screens): scroll-synced index of phases and events.
+   Right rail (widest screens): "the story being told", six narrative
+   phases that crossfade with scroll; shown inline at phase breaks on
+   smaller screens. One scroll listener feeds everything.
 ──────────────────────────────────────────────────────────────────── */
 
 interface RailItem {
   id: string;
   label: string;
-  /** 'phase' items are always visible; 'event' labels appear on hover */
   kind: 'phase' | 'event';
+  strand?: Strand;
   /** Position along the rail, 0–100 */
   pct: number;
   /** Absolute document offset, for click-to-jump */
   top: number;
 }
+
+const STRAND_STYLE: Record<
+  Strand,
+  { edge: string; date: string; dot: string; label: string }
+> = {
+  aid: {
+    edge: 'border-l-[3px] border-l-[color:var(--color-nis-deep-forest)]',
+    date: 'text-[color:var(--color-nis-deep-forest)]',
+    dot: 'var(--color-nis-deep-forest)',
+    label: 'Mutual aid',
+  },
+  exclusion: {
+    edge: 'border-l-[3px] border-l-[color:var(--color-nis-earth)]',
+    date: 'text-[color:var(--color-nis-earth)]',
+    dot: 'var(--color-nis-earth)',
+    label: 'Exclusion & displacement',
+  },
+};
 
 function eventDomId(e: TimelineEvent): string {
   return `tl-${e.year}-${e.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
@@ -64,7 +84,7 @@ function Reveal({ children }: { children: ReactNode }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -76,7 +96,7 @@ function Reveal({ children }: { children: ReactNode }) {
       className={`motion-safe:transition-all motion-safe:duration-700 ${
         visible
           ? 'opacity-100 translate-y-0'
-          : 'motion-safe:opacity-0 motion-safe:translate-y-5'
+          : 'motion-safe:opacity-0 motion-safe:translate-y-4'
       }`}
     >
       {children}
@@ -84,37 +104,91 @@ function Reveal({ children }: { children: ReactNode }) {
   );
 }
 
-/* ─── Event card (centre stream) ─── */
+/* ─── Compact event card ─── */
 
 function EventCard({ event }: { event: TimelineEvent }) {
+  const style = STRAND_STYLE[event.strand];
   return (
     <Link
       href={event.href}
-      className="group block border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] transition-all hover:border-[color:var(--color-nis-ink)] hover:shadow-[4px_4px_0_0_var(--color-nis-accent)]"
+      className={`group flex border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] transition-all hover:border-[color:var(--color-nis-ink)] hover:shadow-[3px_3px_0_0_var(--color-nis-accent)] ${style.edge}`}
     >
       {event.image && (
-        <div className="overflow-hidden border-b border-[color:var(--color-nis-soft)]">
+        <div className="w-[88px] shrink-0 self-stretch overflow-hidden border-r border-[color:var(--color-nis-soft)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={event.image}
             alt={event.title}
             loading="lazy"
-            className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            className="h-full min-h-[96px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         </div>
       )}
-      <div className="p-5">
-        <p className="font-mono text-[11px] font-bold tracking-[0.08em] text-[color:var(--color-nis-earth)]">
+      <div className="min-w-0 px-3.5 py-3">
+        <p className={`font-mono text-[10px] font-bold tracking-[0.08em] ${style.date}`}>
           {event.dateLabel}
         </p>
-        <h3 className="mt-1 font-sans text-[1.15rem] font-bold leading-snug text-[color:var(--color-nis-ink)] transition-colors group-hover:text-nis-hover">
+        <h3 className="mt-0.5 font-sans text-[0.95rem] font-bold leading-snug text-[color:var(--color-nis-ink)] transition-colors group-hover:text-nis-hover">
           {event.title}
         </h3>
-        <p className="mt-1.5 font-serif text-[0.95rem] leading-relaxed text-nis-muted">
+        <p className="mt-1 font-serif text-[0.8rem] leading-[1.5] text-nis-muted">
           {event.blurb}
         </p>
       </div>
     </Link>
+  );
+}
+
+/* ─── One event row on the dual spine ─── */
+
+function EventRow({ event }: { event: TimelineEvent }) {
+  const style = STRAND_STYLE[event.strand];
+  const isAid = event.strand === 'aid';
+
+  return (
+    <div>
+      {/* Desktop: dual columns around the spine */}
+      <div className="hidden md:grid md:grid-cols-[1fr_44px_1fr] md:items-start">
+        <div className={isAid ? 'pb-5' : ''}>
+          {isAid && (
+            <Reveal>
+              <EventCard event={event} />
+            </Reveal>
+          )}
+        </div>
+        <div className="relative flex h-full justify-center">
+          <TexturedDot
+            className="relative top-4 z-10 h-2.5 w-2.5"
+            color={style.dot}
+            shadowColor="rgba(246,243,234,1)"
+          />
+        </div>
+        <div className={!isAid ? 'pb-5' : ''}>
+          {!isAid && (
+            <Reveal>
+              <EventCard event={event} />
+            </Reveal>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile: single column with strand chip */}
+      <div className="grid grid-cols-[20px_1fr] gap-2.5 pb-5 md:hidden">
+        <div className="relative flex justify-center">
+          <TexturedDot
+            className="relative top-4 z-10 h-2 w-2"
+            color={style.dot}
+            shadowColor="rgba(246,243,234,1)"
+          />
+        </div>
+        <Reveal>
+          <p className={`mb-1 font-sans text-[9px] font-bold uppercase tracking-[0.12em] ${style.date}`}>
+            {style.label}
+          </p>
+          <EventCard event={event} />
+        </Reveal>
+      </div>
+    </div>
   );
 }
 
@@ -134,9 +208,8 @@ function IndexRail({
   return (
     <nav
       aria-label="Timeline index"
-      className="group pointer-events-auto relative h-full w-28"
+      className="pointer-events-auto relative h-full w-28"
     >
-      {/* Track and fill */}
       <div className="absolute left-0 top-6 bottom-10 w-[6px] overflow-hidden">
         <TexturedRail
           className="absolute inset-x-0 w-full"
@@ -150,7 +223,6 @@ function IndexRail({
         />
       </div>
 
-      {/* Dots */}
       <div className="pointer-events-none absolute left-0 top-6 bottom-10 z-10 w-[10px]">
         {items.map((item) => (
           <TexturedDot
@@ -163,7 +235,9 @@ function IndexRail({
                 ? 'var(--color-nis-ink)'
                 : item.kind === 'phase'
                   ? 'rgba(0, 0, 60, 0.55)'
-                  : 'rgba(0, 0, 60, 0.3)'
+                  : item.strand
+                    ? STRAND_STYLE[item.strand].dot
+                    : 'rgba(0, 0, 60, 0.3)'
             }
             shadowColor={
               activeId === item.id ? 'rgba(246,243,234,1)' : 'transparent'
@@ -173,7 +247,6 @@ function IndexRail({
         ))}
       </div>
 
-      {/* Labels: phases always visible, events on hover */}
       <div className="absolute left-0 top-6 bottom-10 w-[230px] pl-6">
         <div className="relative h-full w-full">
           {items.map((item) => (
@@ -221,7 +294,6 @@ function NarrativeRail({
 }) {
   return (
     <div className="pointer-events-auto relative flex h-full w-full">
-      {/* Narrative card, vertically centred beside the rail */}
       <div className="flex min-w-0 flex-1 flex-col justify-center pb-16 pr-6">
         <div key={activePhase.id} className="tl-narrative-swap">
           <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-nis-muted">
@@ -239,8 +311,7 @@ function NarrativeRail({
         </div>
       </div>
 
-      {/* Mirrored track on the right edge, phase dots only */}
-      <div className="relative w-28 shrink-0">
+      <div className="relative w-24 shrink-0">
         <div className="absolute right-6 top-6 bottom-10 w-[6px] overflow-hidden">
           <TexturedRail
             className="absolute inset-x-0 w-full"
@@ -273,9 +344,7 @@ function NarrativeRail({
                     active ? 'opacity-100' : 'opacity-60 hover:opacity-100'
                   }`}
                   color={
-                    active
-                      ? 'var(--color-nis-earth)'
-                      : 'rgba(0, 0, 60, 0.35)'
+                    active ? 'var(--color-nis-earth)' : 'rgba(0, 0, 60, 0.35)'
                   }
                   shadowColor={active ? 'rgba(246,243,234,1)' : 'transparent'}
                 />
@@ -299,7 +368,6 @@ export function Timeline() {
 
   const events = [...TIMELINE_EVENTS].sort((a, b) => a.year - b.year);
 
-  // Measure positions of phase headers and event cards within the section
   const measure = useCallback(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -313,21 +381,30 @@ export function Timeline() {
         id: el.id,
         label: el.dataset.tlLabel ?? '',
         kind: el.dataset.tlItem === 'phase' ? 'phase' : 'event',
+        strand: (el.dataset.tlStrand as Strand | undefined) ?? undefined,
         pct: Math.min(100, Math.max(0, ((top - sectionTop) / sectionHeight) * 100)),
         top,
       });
     }
 
-    // Keep labels from overlapping on the left rail
-    const MIN_GAP = 3.2;
-    for (let i = 1; i < items.length; i++) {
-      if (items[i].pct < items[i - 1].pct + MIN_GAP) {
-        items[i].pct = items[i - 1].pct + MIN_GAP;
+    // Keep labels from overlapping: enforce a minimum gap sized so the
+    // full list always fits the rail, then cascade forwards.
+    if (items.length > 1) {
+      const minGap = Math.min(3.2, 97 / (items.length - 1));
+      for (let i = 1; i < items.length; i++) {
+        if (items[i].pct < items[i - 1].pct + minGap) {
+          items[i].pct = items[i - 1].pct + minGap;
+        }
       }
-    }
-    if (items.length > 0 && items[items.length - 1].pct > 99) {
-      const shift = items[items.length - 1].pct - 99;
-      for (const item of items) item.pct = Math.max(0, item.pct - shift);
+      // If the cascade ran past the end, walk it back without collapsing gaps
+      if (items[items.length - 1].pct > 99) {
+        items[items.length - 1].pct = 99;
+        for (let i = items.length - 2; i >= 0; i--) {
+          if (items[i].pct > items[i + 1].pct - minGap) {
+            items[i].pct = Math.max(0, items[i + 1].pct - minGap);
+          }
+        }
+      }
     }
 
     setRailItems(items);
@@ -346,7 +423,6 @@ export function Timeline() {
     };
   }, [measure]);
 
-  // Scrollspy: focus line at 40% of the viewport
   useEffect(() => {
     const onScroll = () => {
       const section = sectionRef.current;
@@ -393,8 +469,8 @@ export function Timeline() {
 
   return (
     <div className="relative">
-      {/* Left rail: the index (like the article TOC) */}
-      <aside className="pointer-events-none fixed left-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] overflow-visible pt-10 lg:block lg:w-72 lg:pl-6 xl:pl-10">
+      {/* Left rail: the index */}
+      <aside className="pointer-events-none fixed left-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-72 overflow-visible pl-6 pt-10 min-[1240px]:block">
         <IndexRail
           items={railItems}
           activeId={activeId}
@@ -404,7 +480,7 @@ export function Timeline() {
       </aside>
 
       {/* Right rail: the story being told */}
-      <aside className="pointer-events-none fixed right-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] pt-10 xl:block xl:w-80 2xl:w-96 2xl:pr-6">
+      <aside className="pointer-events-none fixed right-0 top-[55px] z-20 hidden h-[calc(100vh-55px)] w-80 pt-10 min-[1400px]:block">
         <NarrativeRail
           phases={NARRATIVE_PHASES}
           activePhase={activePhase}
@@ -414,8 +490,22 @@ export function Timeline() {
         />
       </aside>
 
-      {/* Centre stream: the practice */}
-      <section ref={sectionRef} className="mx-auto max-w-[620px] px-6">
+      {/* Centre stream: dual spine */}
+      <section ref={sectionRef} className="relative mx-auto max-w-[760px] px-5">
+        {/* Column legend */}
+        <div className="mb-10 hidden md:grid md:grid-cols-[1fr_44px_1fr]">
+          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--color-nis-deep-forest)]">
+            {STRAND_STYLE.aid.label}
+          </p>
+          <span />
+          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--color-nis-earth)]">
+            {STRAND_STYLE.exclusion.label}
+          </p>
+        </div>
+
+        {/* The central spine (desktop) and left spine (mobile) */}
+        <div className="pointer-events-none absolute bottom-0 top-0 left-[29px] w-px bg-[color:var(--color-nis-soft)] md:left-1/2 md:-translate-x-1/2" />
+
         {NARRATIVE_PHASES.map((phase) => {
           const phaseEvents = events.filter(
             (e) => phaseForYear(e.year).id === phase.id,
@@ -423,21 +513,20 @@ export function Timeline() {
           if (phaseEvents.length === 0) return null;
           return (
             <div key={phase.id}>
-              {/* Phase header */}
               <div
                 id={phaseDomId(phase)}
                 data-tl-item="phase"
                 data-tl-label={`${phase.title} · ${phase.range}`}
-                className="pb-8 pt-14 first:pt-0"
+                className="relative pb-7 pt-10 first:pt-0"
               >
-                <p className="text-center font-serif text-xs uppercase tracking-[0.2em] text-nis-muted">
+                <p className="bg-[color:var(--color-nis-bg)] py-1 text-center font-serif text-xs uppercase tracking-[0.2em] text-nis-muted">
                   {phase.title}
                   <span className="ml-3 font-mono normal-case tracking-normal">
                     {phase.range}
                   </span>
                 </p>
                 {/* Inline narrative where the right rail is hidden */}
-                <div className="mx-auto mt-5 max-w-[480px] border-l-2 border-[color:var(--color-nis-earth)] pl-4 xl:hidden">
+                <div className="mx-auto mt-4 max-w-[480px] border-l-2 border-[color:var(--color-nis-earth)] bg-[color:var(--color-nis-bg)] pl-4 min-[1400px]:hidden">
                   <p className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-nis-muted">
                     The story being told
                   </p>
@@ -447,18 +536,15 @@ export function Timeline() {
                 </div>
               </div>
 
-              {/* Events */}
               {phaseEvents.map((event) => (
                 <div
                   key={eventDomId(event)}
                   id={eventDomId(event)}
                   data-tl-item="event"
+                  data-tl-strand={event.strand}
                   data-tl-label={`${event.dateLabel} — ${event.title}`}
-                  className="pb-8"
                 >
-                  <Reveal>
-                    <EventCard event={event} />
-                  </Reveal>
+                  <EventRow event={event} />
                 </div>
               ))}
             </div>
