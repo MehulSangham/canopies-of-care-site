@@ -464,3 +464,10 @@ body {
   h1 { font-size: 2.25rem; }
   h2 { font-size: 1.75rem; }
 }
+
+/* ── Page reader ── */
+.reader-active-block {
+  background: color-mix(in srgb, var(--color-nis-accent) 22%, transparent);
+  box-shadow: -6px 0 0 0 var(--color-nis-accent);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}

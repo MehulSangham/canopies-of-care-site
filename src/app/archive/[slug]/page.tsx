@@ -9,8 +9,13 @@ import Prose from "@/components/Prose";
 import { PageTableOfContents } from "@/components/curriculum/PageTableOfContents";
 import { ClaimPageClient, ClaimContent } from "./client";
 import { LeftRailSwitch } from "@/components/edit/LeftRailSwitch";
+import { MetaPanel } from "@/components/curriculum/MetaPanel";
+import { PageReader } from "@/components/curriculum/PageReader";
 import { SECTION_TITLES } from "@/lib/sections";
 import { checkIsAdmin } from "@/lib/auth";
+import { parseMdxBlocks } from "@/lib/mdx-blocks";
+import { splitFootnoteMarkdown } from "@/lib/footnote-sources";
+import type { MetaPanelData, PanelSourceGroup } from "@/lib/meta-panel";
 import type { Metadata } from "next";
 
 type PageStatus = 'draft' | 'published';
@@ -23,6 +28,7 @@ interface ClaimEntry {
   order: number;
   status: PageStatus;
   body: string;
+  panel?: MetaPanelData;
 }
 
 function getAllClaims(): ClaimEntry[] {
@@ -43,6 +49,7 @@ function getAllClaims(): ClaimEntry[] {
         order: data.order || 0,
         status: (data.status as PageStatus) || "draft",
         body: content,
+        panel: data.panel as MetaPanelData | undefined,
       };
     })
     .sort((a, b) => {
@@ -98,6 +105,16 @@ export default async function ClaimPage(
   const next = navIndex < navClaims.length - 1 ? navClaims[navIndex + 1] : null;
 
   const renderedBody = <Prose content={claim.body} />;
+
+  // Aggregate footnote sources for the meta panel's Sources tab
+  const panelSources: PanelSourceGroup[] = parseMdxBlocks(claim.body)
+    .filter((b) => b.type === "footnote" && b.meta?.footnoteId)
+    .map((b) => {
+      const body = b.raw.replace(/^\[\^\w+\]:\s?/, "");
+      const { sources } = splitFootnoteMarkdown(body);
+      return { id: b.meta!.footnoteId!, items: sources };
+    })
+    .filter((g) => g.items.length > 0);
 
   return (
     <div className="min-h-screen bg-[color:var(--color-nis-bg)]">
@@ -170,6 +187,9 @@ export default async function ClaimPage(
         isAdmin={isDevAdmin}
         renderedBody={renderedBody}
       >
+        {claim.panel && <MetaPanel data={claim.panel} sources={panelSources} />}
+        <PageReader slug={slug} />
+
         <div className="flex w-full flex-col lg:flex-row">
           {/* Left rail */}
           <aside className="pointer-events-none hidden fixed left-0 top-[55px] z-20 h-[calc(100vh-55px)] overflow-hidden lg:block lg:w-72 lg:pl-6 xl:w-80 xl:pl-10 2xl:w-96 2xl:pl-14">

@@ -8,11 +8,13 @@ import {
   Code,
   ChevronDown,
   Hash,
+  Sparkles,
 } from 'lucide-react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import LinkExtension from '@tiptap/extension-link';
 import { BlockPreview } from './BlockPreview';
+import { AiAssist } from './AiAssist';
 import { uploadImage } from '@/app/actions/upload-image';
 import type { MdxBlock, BlockType } from '@/lib/mdx-blocks';
 
@@ -23,7 +25,7 @@ interface ExpandedBlockEditorProps {
   /** Existing footnote IDs in the document, for inserting references */
   footnoteIds?: string[];
   /** Callback to add a new footnote definition block */
-  onAddFootnote?: (id: string, text: string) => void;
+  onAddFootnote?: (id: string, note: string, sources: string[]) => void;
 }
 
 const HEADING_LEVELS = [2, 3, 4, 5, 6] as const;
@@ -38,6 +40,7 @@ export function ExpandedBlockEditor({
 }: ExpandedBlockEditorProps) {
   const [draft, setDraft] = useState(block.raw);
   const [showPreview, setShowPreview] = useState(false);
+  const [showAi, setShowAi] = useState(block.type !== 'hr');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Parse structured fields from draft based on block type
@@ -90,7 +93,11 @@ export function ExpandedBlockEditor({
       />
 
       {/* Panel */}
-      <div className="relative w-full max-w-[800px] max-h-[85vh] mx-4 flex flex-col border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[8px_8px_0_0_var(--color-nis-accent)]">
+      <div
+        className={`relative w-full mx-4 flex flex-col border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[8px_8px_0_0_var(--color-nis-accent)] ${
+          showAi ? 'max-w-[1280px] h-[88vh]' : 'max-w-[800px] max-h-[85vh]'
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[color:var(--color-nis-soft)] px-5 py-3 bg-[color:var(--color-nis-paper)] shrink-0">
           <div className="flex items-center gap-3">
@@ -119,6 +126,20 @@ export function ExpandedBlockEditor({
           </div>
 
           <div className="flex items-center gap-2">
+            {block.type !== 'hr' && (
+              <button
+                type="button"
+                onClick={() => setShowAi(!showAi)}
+                className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                  showAi
+                    ? 'bg-[color:var(--color-nis-ink)] text-[color:var(--color-nis-bg)]'
+                    : 'text-nis-muted hover:text-[color:var(--color-nis-ink)]'
+                }`}
+              >
+                <Sparkles className="h-3 w-3" />
+                AI
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
@@ -141,8 +162,9 @@ export function ExpandedBlockEditor({
           </div>
         </div>
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Body: editor (left) + AI assistant (right) */}
+        <div className="flex flex-1 min-h-0">
+        <div className="flex-1 min-w-0 overflow-y-auto">
           {showPreview ? (
             <div className="px-8 py-6">
               <BlockPreview block={previewBlock} />
@@ -196,6 +218,18 @@ export function ExpandedBlockEditor({
           )}
         </div>
 
+        {/* AI assistant column */}
+        {showAi && block.type !== 'hr' && (
+          <div className="w-[420px] shrink-0 min-h-0 border-l border-[color:var(--color-nis-soft)]">
+            <AiAssist
+              draft={draft}
+              onApplyEdit={setDraft}
+              onAddFootnote={onAddFootnote}
+            />
+          </div>
+        )}
+        </div>
+
         {/* Footer */}
         <div className="flex items-center justify-between border-t border-[color:var(--color-nis-soft)] px-5 py-2.5 bg-[color:var(--color-nis-paper)] shrink-0">
           <span className="font-mono text-[10px] text-nis-muted">⌘⏎ save · esc close</span>
@@ -223,15 +257,48 @@ export function ExpandedBlockEditor({
 
 /* ─── Structured editors for specific block types ─── */
 
-function buildImageRaw(alt: string, src: string, caption?: string): string {
-  if (caption) return `![${alt}](${src} "${caption}")`;
-  return `![${alt}](${src})`;
+interface ImageFields {
+  src: string;
+  alt: string;
+  description: string;
+  credit: string;
+  creditHref: string;
+}
+
+/** Parse the caption convention: "Description © Credit https://source-url" */
+export function parseImageCaption(caption?: string): {
+  description: string;
+  credit: string;
+  creditHref: string;
+} {
+  if (!caption?.trim()) return { description: '', credit: '', creditHref: '' };
+  const urlMatch = caption.trim().match(/\s(https?:\/\/\S+)\s*$/);
+  if (!urlMatch) return { description: caption.trim(), credit: '', creditHref: '' };
+  const working = caption.trim().slice(0, urlMatch.index).trim();
+  const creditHref = urlMatch[1];
+  const copyrightMatch = working.match(/\s(©.+)$/);
+  if (!copyrightMatch) return { description: working, credit: '', creditHref };
+  return {
+    description: working.slice(0, copyrightMatch.index).trim(),
+    credit: copyrightMatch[1].replace(/^©\s*/, '').trim(),
+    creditHref,
+  };
+}
+
+/** Compose the image markdown from structured fields */
+function buildImageMarkdown(f: ImageFields): string {
+  const parts: string[] = [];
+  if (f.description.trim()) parts.push(f.description.trim());
+  if (f.credit.trim()) parts.push(`© ${f.credit.trim()}`);
+  if (f.creditHref.trim()) parts.push(f.creditHref.trim());
+  const title = parts.join(' ');
+  if (title) return `![${f.alt}](${f.src} "${title}")`;
+  return `![${f.alt}](${f.src})`;
 }
 
 function ImageEditor({
   draft,
   onChange,
-  parsed,
 }: {
   draft: string;
   onChange: (v: string) => void;
@@ -239,6 +306,23 @@ function ImageEditor({
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
+
+  // Structured fields held as local state so typing is never mangled by re-parsing
+  const [fields, setFields] = useState<ImageFields>(() => {
+    const im = draft.match(/^!\[([^\]]*)\]\(([^)"]+)(?:\s+"([^"]*)")?\)/);
+    const cap = parseImageCaption(im?.[3]);
+    return {
+      src: im?.[2]?.trim() || '',
+      alt: im?.[1] || '',
+      ...cap,
+    };
+  });
+
+  const update = (patch: Partial<ImageFields>) => {
+    const next = { ...fields, ...patch };
+    setFields(next);
+    onChange(buildImageMarkdown(next));
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -248,7 +332,7 @@ function ImageEditor({
       const fd = new FormData();
       fd.append('file', file);
       const result = await uploadImage(fd);
-      onChange(buildImageRaw(parsed.alt || 'Image', result.url, parsed.caption));
+      update({ src: result.url });
     } catch {
       alert('Upload failed');
     } finally {
@@ -259,64 +343,102 @@ function ImageEditor({
 
   return (
     <div className="p-5 space-y-4">
-      {parsed.src && (
-        <div className="border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)] p-4 text-center">
+      {/* Live preview, rendered as it will appear on the site */}
+      {fields.src && (
+        <figure className="border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)] p-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={parsed.src} alt={parsed.alt || ''} className="max-h-48 mx-auto object-contain" />
-        </div>
+          <img src={fields.src} alt={fields.alt} className="max-h-56 mx-auto object-contain" />
+          {(fields.description || fields.credit) && (
+            <figcaption className="mt-2 text-center font-serif text-sm text-nis-muted italic">
+              {fields.description}
+              {fields.credit && (
+                <span className="not-italic text-xs block mt-0.5">
+                  © {fields.credit}
+                  {fields.creditHref && ' ↗'}
+                </span>
+              )}
+            </figcaption>
+          )}
+        </figure>
       )}
 
       <div className="grid gap-3">
-        <label className="block">
-          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
-            Image URL
-          </span>
-          <input
-            type="text"
-            value={parsed.src || ''}
-            onChange={(e) => onChange(buildImageRaw(parsed.alt || '', e.target.value, parsed.caption))}
-            className="field-input"
-            placeholder="/images/example.jpg"
-          />
-        </label>
-
-        <label className="block">
-          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
-            Alt text
-          </span>
-          <input
-            type="text"
-            value={parsed.alt || ''}
-            onChange={(e) => onChange(buildImageRaw(e.target.value, parsed.src || '', parsed.caption))}
-            className="field-input"
-            placeholder="Describe the image for accessibility"
-          />
-        </label>
-
-        <label className="block">
-          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
-            Caption
-          </span>
-          <input
-            type="text"
-            value={parsed.caption || ''}
-            onChange={(e) => onChange(buildImageRaw(parsed.alt || '', parsed.src || '', e.target.value || undefined))}
-            className="field-input"
-            placeholder="Visible caption below the image (optional)"
-          />
-        </label>
-
-        <div>
+        <div className="flex items-end gap-2">
+          <label className="block flex-1">
+            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
+              Image URL
+            </span>
+            <input
+              type="text"
+              value={fields.src}
+              onChange={(e) => update({ src: e.target.value })}
+              className="field-input"
+              placeholder="/images/example.jpg"
+            />
+          </label>
           <input ref={fileRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold border border-[color:var(--color-nis-ink)] text-[color:var(--color-nis-ink)] hover:bg-[color:var(--color-nis-accent-soft)] disabled:opacity-40 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-[11px] font-bold border border-[color:var(--color-nis-ink)] text-[color:var(--color-nis-ink)] hover:bg-[color:var(--color-nis-accent-soft)] disabled:opacity-40 transition-colors shrink-0"
           >
             <Upload className="h-3 w-3" />
-            {uploading ? 'Uploading…' : 'Upload new image'}
+            {uploading ? 'Uploading…' : 'Upload'}
           </button>
+        </div>
+
+        <label className="block">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
+            Alt text <span className="normal-case font-normal">(for accessibility, not shown)</span>
+          </span>
+          <input
+            type="text"
+            value={fields.alt}
+            onChange={(e) => update({ alt: e.target.value })}
+            className="field-input"
+            placeholder="Describe the image"
+          />
+        </label>
+
+        <label className="block">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
+            Caption <span className="normal-case font-normal">(shown below the image)</span>
+          </span>
+          <textarea
+            value={fields.description}
+            onChange={(e) => update({ description: e.target.value })}
+            rows={2}
+            className="field-input resize-y"
+            placeholder="The visible caption text…"
+          />
+        </label>
+
+        <div className="grid grid-cols-2 gap-3">
+          <label className="block">
+            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
+              Credit
+            </span>
+            <input
+              type="text"
+              value={fields.credit}
+              onChange={(e) => update({ credit: e.target.value })}
+              className="field-input"
+              placeholder="Public domain, via Wikimedia Commons"
+            />
+          </label>
+          <label className="block">
+            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted mb-1 block">
+              Source link
+            </span>
+            <input
+              type="text"
+              value={fields.creditHref}
+              onChange={(e) => update({ creditHref: e.target.value })}
+              className="field-input"
+              placeholder="https://…"
+            />
+          </label>
         </div>
       </div>
     </div>
@@ -492,11 +614,12 @@ function ExpandedRichEditor({
   headingLevel: number;
   onChange: (md: string) => void;
   footnoteIds?: string[];
-  onAddFootnote?: (id: string, text: string) => void;
+  onAddFootnote?: (id: string, note: string, sources: string[]) => void;
 }) {
   const [showFootnoteMenu, setShowFootnoteMenu] = useState(false);
   const [showFnCreate, setShowFnCreate] = useState(false);
   const [newFnText, setNewFnText] = useState('');
+  const [newFnSources, setNewFnSources] = useState('');
   const fnMenuRef = useRef<HTMLDivElement>(null);
   const fnTextRef = useRef<HTMLTextAreaElement>(null);
 
@@ -650,6 +773,7 @@ function ExpandedRichEditor({
                     onClick={() => {
                       setShowFnCreate(true);
                       setNewFnText('');
+                      setNewFnSources('');
                       setTimeout(() => fnTextRef.current?.focus(), 50);
                     }}
                     className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm font-medium text-[color:var(--color-nis-ink)] hover:bg-[color:var(--color-nis-accent-soft)] transition-colors"
@@ -662,37 +786,62 @@ function ExpandedRichEditor({
             )}
 
             {/* Inline footnote creation form */}
-            {showFnCreate && (
-              <div className="absolute left-0 top-full mt-1 z-50 w-[320px] border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[4px_4px_0_0_var(--color-nis-accent)]">
+            {showFnCreate && (() => {
+              const canAdd = !!(newFnText.trim() || newFnSources.trim());
+              const submitNewFootnote = () => {
+                if (!canAdd) return;
+                const nextNum = footnoteIds && footnoteIds.length > 0
+                  ? Math.max(...footnoteIds.map((id) => parseInt(id) || 0)) + 1
+                  : 1;
+                const newId = String(nextNum);
+                editor.chain().focus().insertContent(`[^${newId}]`).run();
+                onAddFootnote!(newId, newFnText.trim(), newFnSources.split('\n').map((s) => s.trim()).filter(Boolean));
+                setShowFnCreate(false);
+                setShowFootnoteMenu(false);
+                setNewFnText('');
+                setNewFnSources('');
+              };
+              return (
+              <div className="absolute left-0 top-full mt-1 z-50 w-[340px] border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[4px_4px_0_0_var(--color-nis-accent)]">
                 <div className="px-3 py-2 border-b border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)]">
                   <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
                     New footnote
                   </span>
                 </div>
                 <div className="px-3 py-2.5">
+                  <label className="mb-1 block font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
+                    Note
+                  </label>
                   <textarea
                     ref={fnTextRef}
                     value={newFnText}
                     onChange={(e) => setNewFnText(e.target.value)}
-                    placeholder="Write the footnote text…"
+                    placeholder="The substantive point (optional if sources given)…"
+                    rows={2}
+                    className="w-full resize-none border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-2.5 py-2 text-sm text-[color:var(--color-nis-ink)] outline-none focus:border-[color:var(--color-nis-ink)] transition-colors"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && e.metaKey) {
+                        e.preventDefault();
+                        submitNewFootnote();
+                      }
+                      if (e.key === 'Escape') setShowFnCreate(false);
+                    }}
+                  />
+                  <label className="mb-1 mt-2 block font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
+                    Sources — one per line
+                  </label>
+                  <textarea
+                    value={newFnSources}
+                    onChange={(e) => setNewFnSources(e.target.value)}
+                    placeholder={'Author, Title (Publisher, Year). https://…'}
                     rows={3}
                     className="w-full resize-none border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-2.5 py-2 text-sm text-[color:var(--color-nis-ink)] outline-none focus:border-[color:var(--color-nis-ink)] transition-colors"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && e.metaKey && newFnText.trim()) {
+                      if (e.key === 'Enter' && e.metaKey) {
                         e.preventDefault();
-                        const nextNum = footnoteIds && footnoteIds.length > 0
-                          ? Math.max(...footnoteIds.map((id) => parseInt(id) || 0)) + 1
-                          : 1;
-                        const newId = String(nextNum);
-                        editor.chain().focus().insertContent(`[^${newId}]`).run();
-                        onAddFootnote!(newId, newFnText.trim());
-                        setShowFnCreate(false);
-                        setShowFootnoteMenu(false);
-                        setNewFnText('');
+                        submitNewFootnote();
                       }
-                      if (e.key === 'Escape') {
-                        setShowFnCreate(false);
-                      }
+                      if (e.key === 'Escape') setShowFnCreate(false);
                     }}
                   />
                 </div>
@@ -708,18 +857,8 @@ function ExpandedRichEditor({
                     </button>
                     <button
                       type="button"
-                      disabled={!newFnText.trim()}
-                      onClick={() => {
-                        const nextNum = footnoteIds && footnoteIds.length > 0
-                          ? Math.max(...footnoteIds.map((id) => parseInt(id) || 0)) + 1
-                          : 1;
-                        const newId = String(nextNum);
-                        editor.chain().focus().insertContent(`[^${newId}]`).run();
-                        onAddFootnote!(newId, newFnText.trim());
-                        setShowFnCreate(false);
-                        setShowFootnoteMenu(false);
-                        setNewFnText('');
-                      }}
+                      disabled={!canAdd}
+                      onClick={submitNewFootnote}
                       className="px-2.5 py-1 text-[11px] font-bold bg-[color:var(--color-nis-ink)] text-[color:var(--color-nis-bg)] hover:bg-[color:var(--color-nis-hover)] disabled:opacity-40 transition-colors"
                     >
                       Add footnote
@@ -727,7 +866,8 @@ function ExpandedRichEditor({
                   </div>
                 </div>
               </div>
-            )}
+              );
+            })()}
           </div>
         )}
       </div>
