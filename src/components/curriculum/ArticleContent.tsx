@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Pin, X } from 'lucide-react';
 import { TexturedRail } from './TexturedRail';
 import { decorateOutboundLinksHtml } from '@/lib/link-behavior';
+import { splitFootnoteHtml } from '@/lib/footnote-sources';
 
 interface ArticleContentProps {
   children: React.ReactNode;
@@ -13,7 +14,8 @@ interface ArticleContentProps {
 interface Sidenote {
   id: string;
   number: string;
-  content: string;
+  noteHtml: string;
+  sourcesHtml: string | null;
   refTop: number;
   adjustedTop: number;
   refElementId: string;
@@ -75,10 +77,13 @@ export function ArticleContent({ children }: ArticleContentProps) {
         refTop = rect.top - containerRect.top;
       }
 
+      const { noteHtml, sourcesHtml } = splitFootnoteHtml(clone.innerHTML);
+
       extractedNotes.push({
         id,
         number: noteNum,
-        content: decorateOutboundLinksHtml(clone.innerHTML),
+        noteHtml: decorateOutboundLinksHtml(noteHtml),
+        sourcesHtml: sourcesHtml ? decorateOutboundLinksHtml(sourcesHtml) : null,
         refTop,
         adjustedTop: refTop,
         refElementId,
@@ -373,10 +378,23 @@ export function ArticleContent({ children }: ArticleContentProps) {
                         </span>
                       )}
                     </div>
-                    <span
-                      dangerouslySetInnerHTML={{ __html: note.content }}
-                      className="[&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_p]:text-nis-muted"
-                    />
+                    {note.noteHtml && (
+                      <span
+                        dangerouslySetInnerHTML={{ __html: note.noteHtml }}
+                        className="[&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_p]:text-nis-muted"
+                      />
+                    )}
+                    {note.sourcesHtml && (
+                      <div className={note.noteHtml ? 'mt-2.5 border-t border-[color:var(--color-nis-soft2)] pt-2' : ''}>
+                        <div className="mb-1 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-nis-muted">
+                          Sources
+                        </div>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: note.sourcesHtml }}
+                          className="text-[12px] leading-[1.5] text-nis-muted [&_ul]:m-0 [&_ul]:list-none [&_ul]:p-0 [&_li]:m-0 [&_li]:mb-1.5 [&_li]:p-0 [&_p]:m-0 [&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_a]:whitespace-nowrap"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -427,10 +445,23 @@ export function ArticleContent({ children }: ArticleContentProps) {
             </div>
 
             <div className="overflow-y-auto px-5 py-4">
-              <span
-                dangerouslySetInnerHTML={{ __html: mobilePinnedNote.content }}
-                className="text-[13px] leading-[1.55] [&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_p]:text-[color:var(--color-nis-ink)]"
-              />
+              {mobilePinnedNote.noteHtml && (
+                <span
+                  dangerouslySetInnerHTML={{ __html: mobilePinnedNote.noteHtml }}
+                  className="text-[13px] leading-[1.55] [&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_p]:text-[color:var(--color-nis-ink)]"
+                />
+              )}
+              {mobilePinnedNote.sourcesHtml && (
+                <div className={mobilePinnedNote.noteHtml ? 'mt-3 border-t border-[color:var(--color-nis-soft2)] pt-2.5' : ''}>
+                  <div className="mb-1 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-nis-muted">
+                    Sources
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: mobilePinnedNote.sourcesHtml }}
+                    className="text-[12px] leading-[1.5] text-nis-muted [&_ul]:m-0 [&_ul]:list-none [&_ul]:p-0 [&_li]:m-0 [&_li]:mb-1.5 [&_li]:p-0 [&_p]:m-0 [&_a]:font-bold [&_a]:text-nis-hover [&_a]:no-underline [&_a:hover]:underline [&_a]:whitespace-nowrap"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

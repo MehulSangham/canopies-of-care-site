@@ -109,9 +109,24 @@ export function parseMdxBlocks(source: string): MdxBlock[] {
     if (footnoteMatch) {
       const fnLines = [line];
       i++;
-      while (i < lines.length && lines[i].match(/^\s+\S/)) {
-        fnLines.push(lines[i]);
-        i++;
+      // Continuation: indented lines, and blank lines that are followed by
+      // more indented content (multi-paragraph footnotes, e.g. note + Sources).
+      while (i < lines.length) {
+        if (lines[i].match(/^\s+\S/)) {
+          fnLines.push(lines[i]);
+          i++;
+          continue;
+        }
+        if (lines[i].trim() === '') {
+          let j = i;
+          while (j < lines.length && lines[j].trim() === '') j++;
+          if (j < lines.length && lines[j].match(/^\s+\S/)) {
+            for (let k = i; k < j; k++) fnLines.push(lines[k]);
+            i = j;
+            continue;
+          }
+        }
+        break;
       }
       pushBlock('footnote', fnLines.join('\n'), {
         footnoteId: footnoteMatch[1],

@@ -7,6 +7,7 @@ import { ExpandedBlockEditor } from './ExpandedBlockEditor';
 import { useBlocksOptional } from './BlocksContext';
 import { uploadImage } from '@/app/actions/upload-image';
 import type { MdxBlock, BlockType } from '@/lib/mdx-blocks';
+import { composeFootnoteMarkdown } from '@/lib/footnote-sources';
 
 const BLOCK_LABELS: Record<BlockType, string> = {
   heading: 'Heading',
@@ -65,7 +66,7 @@ export function BlockEditor({
   }, [blocksCtx]);
 
   const handleAddFootnote = useCallback(
-    (id: string, text: string) => {
+    (id: string, note: string, sources: string[]) => {
       if (!blocksCtx) return;
       // Find the last footnote block index, or the end of the document
       let insertAfter = blocksCtx.blocks.length - 1;
@@ -75,7 +76,7 @@ export function BlockEditor({
           break;
         }
       }
-      blocksCtx.addBlock(insertAfter, `[^${id}]: ${text}`);
+      blocksCtx.addBlock(insertAfter, composeFootnoteMarkdown(id, note, sources));
     },
     [blocksCtx],
   );
@@ -101,9 +102,14 @@ export function BlockEditor({
 
   const handleEdit = useCallback(() => {
     setDraft(block.raw);
-    setIsEditing(true);
+    // Images and videos go straight to the structured expanded editor
+    if (block.type === 'image' || block.type === 'video') {
+      setIsExpanded(true);
+    } else {
+      setIsEditing(true);
+    }
     onFocus?.();
-  }, [block.raw, onFocus]);
+  }, [block.raw, block.type, onFocus]);
 
   const handleConfirm = useCallback(
     (value?: string) => {

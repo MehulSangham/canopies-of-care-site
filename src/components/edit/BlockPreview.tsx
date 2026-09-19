@@ -1,6 +1,7 @@
 'use client';
 
 import type { MdxBlock } from '@/lib/mdx-blocks';
+import { splitFootnoteMarkdown, compactSourceLine } from '@/lib/footnote-sources';
 
 interface BlockPreviewProps {
   block: MdxBlock;
@@ -103,11 +104,28 @@ function FootnotePreview({ block }: { block: MdxBlock }) {
   const match = block.raw.match(/^\[\^(\w+)\]:\s([\s\S]*)$/);
   const id = match?.[1] || '?';
   const text = match?.[2] || block.raw;
+  const { note, sources } = splitFootnoteMarkdown(text);
 
   return (
     <div className="flex gap-3 py-2 text-sm text-nis-muted border-t border-[color:var(--color-nis-soft2)]">
       <span className="font-mono text-xs font-bold shrink-0">[{id}]</span>
-      <span className="leading-relaxed"><InlineMarkdown text={text} /></span>
+      <div className="min-w-0 flex-1">
+        {note && (
+          <div className="leading-relaxed"><InlineMarkdown text={note} /></div>
+        )}
+        {sources.length > 0 && (
+          <div className={note ? 'mt-1.5 border-t border-dashed border-[color:var(--color-nis-soft2)] pt-1.5' : ''}>
+            <div className="mb-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.14em]">Sources</div>
+            <ul className="m-0 list-none p-0 text-[13px]">
+              {sources.map((s, i) => (
+                <li key={i} className="mb-0.5">
+                  <InlineMarkdown text={compactSourceLine(s)} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -122,7 +140,15 @@ function BlockquotePreview({ block }: { block: MdxBlock }) {
 }
 
 function ImagePreview({ block }: { block: MdxBlock }) {
-  const caption = block.meta?.caption || block.meta?.alt;
+  // Parse the caption convention: "Description © Credit https://url"
+  const raw = block.meta?.caption || '';
+  const urlMatch = raw.trim().match(/\s(https?:\/\/\S+)\s*$/);
+  const working = urlMatch ? raw.trim().slice(0, urlMatch.index).trim() : raw.trim();
+  const copyrightMatch = working.match(/\s(©.+)$/);
+  const description = copyrightMatch
+    ? working.slice(0, copyrightMatch.index).trim()
+    : working;
+  const credit = copyrightMatch ? copyrightMatch[1].trim() : '';
 
   return (
     <figure className="my-6">
@@ -136,9 +162,12 @@ function ImagePreview({ block }: { block: MdxBlock }) {
           />
         )}
       </div>
-      {caption && (
+      {(description || credit) && (
         <figcaption className="mt-2 text-center font-serif text-sm text-nis-muted italic">
-          {caption}
+          {description}
+          {credit && (
+            <span className="not-italic text-xs block mt-0.5">{credit}</span>
+          )}
         </figcaption>
       )}
     </figure>
