@@ -23,12 +23,14 @@ export default function Home() {
             same city where the Constitutional Convention met, the Free African
             Society organised burial, sickness benefits, and care for widows
             and orphans, and every generation since has rebuilt that design.
-            This is the record of a founding tradition.
+            Belonging, in this tradition, is something people do: you are part
+            of the community you show up for.
           </p>
           <p className="mt-6 text-[1.05rem] leading-relaxed text-nis-muted max-w-2xl">
-            Below, both strands on one spine: the aid that never stopped, and
-            the exclusion it kept answering. Alongside them, how the story
-            told about America evolved while the practice never did.
+            Below is the record of that practice, generation by generation,
+            with the pressures it outlasted beside it, and, alongside both,
+            the story the country told about itself while the practice
+            carried on.
           </p>
         </section>
 
@@ -38,8 +40,9 @@ export default function Home() {
         {/* Closing panel */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 py-24 text-center">
           <p className="mx-auto max-w-xl font-serif text-[1.35rem] leading-relaxed text-[color:var(--color-nis-ink)]">
-            The practice never broke. Only the story about it changed. This
-            archive is the record catching up.
+            Community in America was woven, not bounded. The practice never
+            broke; only the story about it changed. This archive is the
+            record catching up.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link

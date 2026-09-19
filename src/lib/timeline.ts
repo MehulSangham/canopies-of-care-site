@@ -45,7 +45,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 0,
     to: 1848,
     narrative:
-      'The official story records one founding: a convention, a constitution, a list of names. The other founding keeps no seat in that story. From the first decade of the Republic, showing up for each other is how excluded Americans practise citizenship, and the record of it lives in minute books, dues ledgers, and burial rolls rather than in the national telling.',
+      'The official story records one founding: a convention, a constitution, a list of names. The other founding keeps no seat in that story, yet from the first decade of the Republic, showing up for each other is how excluded Americans practise citizenship. Belonging, in this tradition, is what you do rather than what you are, and the proof of it fills minute books, dues ledgers, and burial rolls the national telling never opens.',
   },
   {
     id: 'practice-at-scale',
@@ -63,7 +63,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1929,
     to: 1954,
     narrative:
-      'The Depression breaks the societies\u2019 finances, and the New Deal absorbs their work without their names. Help now arrives from Washington, and within a generation the memory of who built the first system transfers to the state. The practice continues in kitchens and church basements, off the books, as it always had.',
+      'The Depression breaks the societies\u2019 finances, and the New Deal absorbs their work without their names. Help now arrives from Washington, and within a generation the memory of who built the first system transfers to the state. What the societies knew, the new story forgets: help is not a transaction between a giver and a taker. It is the reinforcement that keeps a structure standing, and the structure keeps being kept, in kitchens and church basements, off the books.',
   },
   {
     id: 'care-as-citizenship',
@@ -81,7 +81,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1971,
     to: 2016,
     narrative:
-      'For the first time, the other story is built deliberately: memoranda, foundations, curricula, courts. Going it alone becomes the moral of American history by design rather than by memory. The constructed account comes to read as timeless, while the older tradition carries on mostly in the places the account does not reach.',
+      'For the first time, the other story is built deliberately: memoranda, foundations, curricula, courts, infrastructure raised to make one account of the country feel like what the Founders intended. Going it alone becomes the moral of American history by design rather than by memory. The constructed account comes to read as timeless, while the older tradition carries on in the places the account does not reach.',
   },
   {
     id: 'record-returns',
@@ -90,7 +90,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 2017,
     to: 3000,
     narrative:
-      'Each crisis reintroduces Americans to their own tradition: neighbours organise faster than agencies, and are surprised to learn they are not the first. The practice never needed recovering. The record did, and this archive is that recovery.',
+      'Each crisis reintroduces Americans to their own tradition: neighbours organise faster than agencies, and are surprised to learn they are not the first. What the country does in hurricanes is what it has always done everywhere. The practice never needed recovering. The record did, and this archive is that recovery.',
   },
 ];
 
@@ -106,10 +106,10 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1784,
     dateLabel: '1784',
-    title: 'The refused charter',
-    strand: 'exclusion',
+    title: 'African Lodge No. 1',
+    strand: 'aid',
     blurb:
-      'No American lodge will seat Black Masons, so Prince Hall obtains a charter from England. The boundedness of the societies begins as a wall built by others.',
+      'Prince Hall and fourteen free Black men found their own lodge in Boston, and when no American charter is offered they obtain one from England. From the start, belonging is something practised, not granted.',
     image: '/images/c4/prince-hall.jpg',
     href: '/archive/c4-exclusion-not-principle',
   },
@@ -190,7 +190,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The colour bars go up',
     strand: 'exclusion',
     blurb:
-      'The white orders write whites-only clauses into their constitutions. Every excluded community is forced to build its own parallel world.',
+      'The white orders write whites-only clauses into their constitutions. Every community shut out answers the same way: it builds a complete world of its own.',
     href: '/archive/c4-exclusion-not-principle',
   },
   {
@@ -237,7 +237,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'One in three',
     strand: 'aid',
     blurb:
-      'A third of adult American men belong to a fraternal order. Two dollars a year buys a family the lodge doctor. It is the largest civic institution in the country.',
+      'A third of adult American men belong to a fraternal order. Two dollars a year buys a family the lodge doctor, hired by the members and answerable to them.',
     image: '/images/a3/ioof-parade-1890.jpg',
     href: '/archive/a3-fraternal-scale',
   },
@@ -342,7 +342,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The machinery is built',
     strand: 'exclusion',
     blurb:
-      'Heritage is founded with 250,000 dollars; the Federalist Society follows from one student conference. Forty years later, their account reads as common sense.',
+      'Heritage is founded with 250,000 dollars; the Federalist Society follows from one student conference. Infrastructure built patiently, until one account of America reads as common sense.',
     image: '/images/d3/heritage-foundation-building.jpg',
     href: '/archive/d4-contestation',
   },

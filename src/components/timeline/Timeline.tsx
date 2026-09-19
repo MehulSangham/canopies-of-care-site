@@ -57,7 +57,7 @@ const STRAND_STYLE: Record<
     edge: 'border-l-[3px] border-l-[color:var(--color-nis-earth)]',
     date: 'text-[color:var(--color-nis-earth)]',
     dot: 'var(--color-nis-earth)',
-    label: 'Exclusion & displacement',
+    label: 'What the practice answered',
   },
 };
 
@@ -108,6 +108,28 @@ function Reveal({ children }: { children: ReactNode }) {
 
 function EventCard({ event }: { event: TimelineEvent }) {
   const style = STRAND_STYLE[event.strand];
+
+  // The practice is the protagonist: full cards with images. The pressure
+  // it answered renders as compact, muted counterpoint without imagery.
+  if (event.strand === 'exclusion') {
+    return (
+      <Link
+        href={event.href}
+        className={`group block border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)] px-3.5 py-2.5 transition-all hover:border-[color:var(--color-nis-ink)] ${style.edge}`}
+      >
+        <p className={`font-mono text-[10px] font-bold tracking-[0.08em] ${style.date}`}>
+          {event.dateLabel}
+        </p>
+        <h3 className="mt-0.5 font-sans text-[0.85rem] font-bold leading-snug text-[color:var(--color-nis-ink)] transition-colors group-hover:text-nis-hover">
+          {event.title}
+        </h3>
+        <p className="mt-1 font-serif text-[0.75rem] leading-[1.5] text-nis-muted">
+          {event.blurb}
+        </p>
+      </Link>
+    );
+  }
+
   return (
     <Link
       href={event.href}
@@ -498,7 +520,7 @@ export function Timeline() {
             {STRAND_STYLE.aid.label}
           </p>
           <span />
-          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[color:var(--color-nis-earth)]">
+          <p className="text-center font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-nis-muted">
             {STRAND_STYLE.exclusion.label}
           </p>
         </div>
