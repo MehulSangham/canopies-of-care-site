@@ -34,21 +34,53 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Hero image: the practice, in one photograph */}
-        <figure className="mx-auto mb-20 max-w-[900px] px-6 md:-mt-8">
-          <div className="border border-[color:var(--color-nis-ink)] shadow-[6px_6px_0_0_var(--color-nis-accent)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/home/pie-town-dinner-1940.jpg"
-              alt="Neighbours serving each other plates at an outdoor community dinner, Pie Town, New Mexico, 1940"
-              className="block w-full"
-            />
+        {/* Hero images: the practice, the people it carries, the ethic today */}
+        <figure className="mx-auto mb-20 max-w-[1100px] px-6 md:-mt-8">
+          <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+            <div>
+              <div className="border border-[color:var(--color-nis-ink)] shadow-[5px_5px_0_0_var(--color-nis-accent)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/home/pie-town-barbeque-color-1940.jpg"
+                  alt="Neighbours serving each other plates of barbeque under a pine tree at the Pie Town, New Mexico fair, 1940, in colour"
+                  className="block h-[220px] w-full object-cover md:h-[280px]"
+                />
+              </div>
+              <p className="mt-3 font-serif text-[0.8rem] italic leading-relaxed text-nis-muted">
+                Serving up the barbeque at the community fair. Pie Town, New
+                Mexico, 1940. Russell Lee, Farm Security Administration.
+              </p>
+            </div>
+            <div>
+              <div className="border border-[color:var(--color-nis-ink)] shadow-[5px_5px_0_0_var(--color-nis-accent)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/home/chicago-talent-show-1973.jpg"
+                  alt="Three children with their arms around each other, smiling into the camera at a community talent show on Chicago's South Side, 1973"
+                  className="block h-[220px] w-full object-cover md:h-[280px]"
+                />
+              </div>
+              <p className="mt-3 font-serif text-[0.8rem] italic leading-relaxed text-nis-muted">
+                A community talent show on Chicago&rsquo;s South Side, 1973.
+                John H. White, National Archives.
+              </p>
+            </div>
+            <div>
+              <div className="border border-[color:var(--color-nis-ink)] shadow-[5px_5px_0_0_var(--color-nis-accent)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/home/community-fridge-nola-2020.jpg"
+                  alt="A community fridge in New Orleans painted with the words: take what you need, leave what you can, 2020"
+                  className="block h-[220px] w-full object-cover object-[center_72%] md:h-[280px]"
+                />
+              </div>
+              <p className="mt-3 font-serif text-[0.8rem] italic leading-relaxed text-nis-muted">
+                &ldquo;Take what you need, leave what you can.&rdquo; A
+                community fridge in Mid-City New Orleans, December 2020.
+                Photograph by Infrogmation, CC BY.
+              </p>
+            </div>
           </div>
-          <figcaption className="mt-3 text-center font-serif text-[0.85rem] italic leading-relaxed text-nis-muted">
-            Helping the plates at dinner on the grounds, an all-day community
-            sing. Pie Town, New Mexico, October 1940. Photograph by Russell
-            Lee for the Farm Security Administration. Library of Congress.
-          </figcaption>
         </figure>
 
         {/* The timeline: practice in the stream, narrative on the rail */}
