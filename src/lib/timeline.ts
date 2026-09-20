@@ -181,7 +181,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     strand: 'aid',
     blurb:
       'Hull House opens to whoever lives on Halsted Street, in the most ethnically mixed neighbourhood on the continent. The membership rule is the address.',
-    image: '/images/c3/hull-house-postcard.jpg',
+    image: '/images/c3/hull-house-kindergarten.jpg',
     href: '/archive/c3-intentional-institutions',
   },
   {

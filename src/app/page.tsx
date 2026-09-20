@@ -34,6 +34,23 @@ export default function Home() {
           </p>
         </section>
 
+        {/* Hero image: the practice, in one photograph */}
+        <figure className="mx-auto mb-20 max-w-[900px] px-6 md:-mt-8">
+          <div className="border border-[color:var(--color-nis-ink)] shadow-[6px_6px_0_0_var(--color-nis-accent)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/home/pie-town-dinner-1940.jpg"
+              alt="Neighbours serving each other plates at an outdoor community dinner, Pie Town, New Mexico, 1940"
+              className="block w-full"
+            />
+          </div>
+          <figcaption className="mt-3 text-center font-serif text-[0.85rem] italic leading-relaxed text-nis-muted">
+            Helping the plates at dinner on the grounds, an all-day community
+            sing. Pie Town, New Mexico, October 1940. Photograph by Russell
+            Lee for the Farm Security Administration. Library of Congress.
+          </figcaption>
+        </figure>
+
         {/* The timeline: practice in the stream, narrative on the rail */}
         <Timeline />
 
