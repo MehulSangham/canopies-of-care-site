@@ -39,10 +39,19 @@ export interface NarrativePhase {
 
 export const NARRATIVE_PHASES: NarrativePhase[] = [
   {
+    id: 'elder-tradition',
+    title: 'The Elder Tradition',
+    range: 'before 1784',
+    from: 0,
+    to: 1783,
+    narrative:
+      'Before there is a Republic to tell stories about itself, the continent already runs on reciprocity. The potlatch, the giveaway, and the kinship economies of Indigenous nations feed the hungry, insure the unlucky, and keep their records in witnesses rather than ledgers. Everything that follows in this timeline has an elder, and the elder is still practising.',
+  },
+  {
     id: 'two-foundings',
     title: 'Two Foundings',
     range: '1784–1848',
-    from: 0,
+    from: 1784,
     to: 1848,
     narrative:
       'The official story records one founding: a convention, a constitution, a list of names. The other founding keeps no seat in that story, yet from the first decade of the Republic, showing up for each other is how excluded Americans practise citizenship. Belonging, in this tradition, is what you do rather than what you are, and the proof of it fills minute books, dues ledgers, and burial rolls the national telling never opens.',
@@ -102,6 +111,18 @@ export function phaseForYear(year: number): NarrativePhase {
 }
 
 export const TIMELINE_EVENTS: TimelineEvent[] = [
+  /* ── The Elder Tradition, before 1784 ── */
+  {
+    year: 1750,
+    dateLabel: 'before the Republic',
+    title: 'The elder tradition',
+    strand: 'aid',
+    blurb:
+      'The potlatch, the giveaway, and the Diné ethic of k\u2019é run complete economies of mutual obligation across the continent: wealth is validated by giving it away, and the witnesses are the record. The practice this archive documents has an elder.',
+    image: '/images/a0/klukwan-canoes-1898.jpg',
+    href: '/archive/a0-elder-tradition',
+  },
+
   /* ── Two Foundings, 1784–1848 ── */
   {
     year: 1784,
@@ -119,8 +140,8 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The Free African Society',
     strand: 'aid',
     blurb:
-      'Richard Allen and Absalom Jones found the first organised mutual aid network in the country, in the same city and year as the Constitutional Convention. Dues, sickness benefits, burial, widows and orphans: the design every community will rebuild.',
-    image: '/images/a1/fas-preamble-1787.jpg',
+      'Richard Allen and Absalom Jones found the Republic\u2019s first organised mutual aid network, in the same city and year as the Constitutional Convention. Dues, sickness benefits, burial, widows and orphans: the design every community will rebuild.',
+    image: '/images/a1/richard-allen.jpg',
     href: '/archive/a1-founding-era',
   },
   {
@@ -130,7 +151,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     strand: 'aid',
     blurb:
       'Yellow fever kills a tenth of Philadelphia. The society nurses and buries the whole city, member and stranger alike, then publishes its own account of the year.',
-    image: '/images/a1/narrative-1794-title.jpg',
+    image: '/images/a1/absalom-jones-peale.jpg',
     href: '/archive/c1-crisis',
   },
   {
@@ -153,6 +174,16 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     href: '/archive/a3-fraternal-scale',
   },
 
+  {
+    year: 1847,
+    dateLabel: 'March 1847',
+    title: 'The gift that crosses an ocean',
+    strand: 'aid',
+    blurb:
+      'Sixteen years after the Trail of Tears, the Choctaw at Skullyville take up a collection for the starving poor of Ireland. A dispossessed nation recognises famine under a different empire, and gives.',
+    href: '/archive/a0-elder-tradition',
+  },
+
   /* ── The Practice at Scale, 1849–1928 ── */
   {
     year: 1849,
@@ -173,6 +204,15 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Federal law singles out one community by name. Its benevolent associations spend the next sixty years doing their work underneath it.',
     image: '/images/c4/chinese-exclusion-act-1882.jpg',
     href: '/archive/c4-exclusion-not-principle',
+  },
+  {
+    year: 1883,
+    dateLabel: '1883–87',
+    title: 'A law against giving',
+    strand: 'exclusion',
+    blurb:
+      'The Code of Indian Offenses makes the feasts through which wealth changes hands punishable by withheld rations and jail. Senator Dawes states the reasoning at Lake Mohonk: \u201cThere is no selfishness, which is at the bottom of civilization.\u201d Allotment follows.',
+    href: '/archive/a0-elder-tradition',
   },
   {
     year: 1889,
@@ -394,7 +434,18 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     strand: 'aid',
     blurb:
       'Hundreds of neighbourhood networks assemble in weeks, organised by building and zip code. Most pandemic giving moves through neighbours.',
+    image: '/images/c1/community-fridge-nola-2020.jpg',
     href: '/archive/c1-crisis',
+  },
+  {
+    year: 2020,
+    dateLabel: 'May 2020',
+    title: 'The gift returns',
+    strand: 'aid',
+    blurb:
+      'Twenty thousand Irish donors flood the Navajo & Hopi relief fund, citing the Choctaw gift of 1847 by name. Aid organised on k\u2019é is answered across an ocean and seven generations.',
+    image: '/images/a0/kindred-spirits-midleton.jpg',
+    href: '/archive/a0-elder-tradition',
   },
   {
     year: 2023,
