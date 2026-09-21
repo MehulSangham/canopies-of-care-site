@@ -12,6 +12,8 @@ import {
   TIMELINE_EVENTS,
   NARRATIVE_PHASES,
   phaseForYear,
+  eventDomId,
+  eventLink,
   type TimelineEvent,
   type NarrativePhase,
   type Strand,
@@ -61,9 +63,6 @@ const STRAND_STYLE: Record<
   },
 };
 
-function eventDomId(e: TimelineEvent): string {
-  return `tl-${e.year}-${e.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-}
 
 function phaseDomId(p: NarrativePhase): string {
   return `tl-phase-${p.id}`;
@@ -114,7 +113,7 @@ function EventCard({ event }: { event: TimelineEvent }) {
   if (event.strand === 'exclusion') {
     return (
       <Link
-        href={event.href}
+        href={eventLink(event)}
         className={`group block border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)] px-3.5 py-2.5 transition-all hover:border-[color:var(--color-nis-ink)] ${style.edge}`}
       >
         <p className={`font-mono text-[10px] font-bold tracking-[0.08em] ${style.date}`}>
@@ -132,7 +131,7 @@ function EventCard({ event }: { event: TimelineEvent }) {
 
   return (
     <Link
-      href={event.href}
+      href={eventLink(event)}
       className={`group flex border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] transition-all hover:border-[color:var(--color-nis-ink)] hover:shadow-[3px_3px_0_0_var(--color-nis-accent)] ${style.edge}`}
     >
       {event.image && (
@@ -450,6 +449,19 @@ export function Timeline() {
       window.removeEventListener('resize', measure);
     };
   }, [measure]);
+
+  // Returning from a page via "back to the timeline": scroll to the
+  // originating event node once the stream has been laid out.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash.startsWith('#tl-')) return;
+    const timer = setTimeout(() => {
+      document
+        .getElementById(hash.slice(1))
+        ?.scrollIntoView({ block: 'center' });
+    }, 250);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {

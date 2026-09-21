@@ -496,3 +496,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reader-w { transition: none; }
 }
+
+/* Anchored headings land clear of the sticky header (55px) plus the
+   timeline-origin chip when present (~34px) */
+article h2[id],
+article h3[id],
+article h4[id] {
+  scroll-margin-top: 104px;
+}

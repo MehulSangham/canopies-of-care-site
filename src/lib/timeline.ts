@@ -24,6 +24,22 @@ export interface TimelineEvent {
   strand: Strand;
   image?: string;
   href: string;
+  /**
+   * Heading id on the destination page (rehype-slug) for events whose
+   * story sits mid-page. Omitted when the event is the page's opening
+   * story, in which case the top of the page is the right landing spot.
+   */
+  anchor?: string;
+}
+
+/** Stable DOM id for an event node on the landing timeline. */
+export function eventDomId(e: TimelineEvent): string {
+  return `tl-${e.year}-${e.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+
+/** Href for an event card: page, origin marker, and section anchor. */
+export function eventLink(e: TimelineEvent): string {
+  return `${e.href}?tl=${eventDomId(e)}${e.anchor ? `#${e.anchor}` : ''}`;
 }
 
 export interface NarrativePhase {
@@ -172,6 +188,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Refused at home, Black Odd Fellows charter their own order from England, and a complete fraternal world follows, with lodges, benefits, burial funds, and a place to be somebody.',
     image: '/images/a3/guoof-member-1890s.jpg',
     href: '/archive/a3-fraternal-scale',
+    anchor: 'lodges-on-both-sides-of-the-colour-line',
   },
 
   {
@@ -182,6 +199,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'Sixteen years after the Trail of Tears, the Choctaw at Skullyville take up a collection for the starving poor of Ireland. A nation that has just survived dispossession and famine recognises both under a different empire, and it gives.',
     href: '/archive/a0-elder-tradition',
+    anchor: 'the-choctaw-gift-to-ireland-1847',
   },
 
   /* ── The Practice at Scale, 1849–1928 ── */
@@ -194,6 +212,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Chinese district associations organise lodging, work, medicine, dispute resolution, and the return of remains to ancestral villages, which amounts to the whole of civic life for the people they serve.',
     image: '/images/a2/six-companies-dignitary.jpg',
     href: '/archive/a2-parallel-infrastructure',
+    anchor: 'the-same-institution-in-every-language',
   },
   {
     year: 1882,
@@ -213,6 +232,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'The Code of Indian Offenses makes the feasts through which wealth changes hands punishable by withheld rations and jail. Senator Dawes states the reasoning at Lake Mohonk: \u201cThere is no selfishness, which is at the bottom of civilization.\u201d Allotment follows.',
     href: '/archive/a0-elder-tradition',
+    anchor: 'the-law-against-giving-1883',
   },
   {
     year: 1889,
@@ -232,6 +252,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'The white orders write whites-only clauses into their constitutions, and every community shut out answers the same way, by building a complete world of its own.',
     href: '/archive/c4-exclusion-not-principle',
+    anchor: 'the-mechanism-stated-plainly',
   },
   {
     year: 1903,
@@ -242,6 +263,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Jewish landsmanshaftn, Italian società di mutuo soccorso, Mexican American sociedades mutualistas, and Japanese tanomoshi-kō appear in the same decades, because every immigrant community independently builds the same institution.',
     image: '/images/a2/hester-street-1903.jpg',
     href: '/archive/a2-parallel-infrastructure',
+    anchor: 'the-same-institution-in-every-language',
   },
   {
     year: 1906,
@@ -251,6 +273,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'Organised medicine campaigns against the lodge doctor, whose collective contracts keep fees within reach of working families.',
     href: '/archive/a3-fraternal-scale',
+    anchor: 'the-lodge-doctor',
   },
   {
     year: 1907,
@@ -292,6 +315,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Before federal relief exists, the unemployed build labour exchanges, cooperative farms, and barter networks, enough that the Bureau of Labor Statistics sends surveyors.',
     image: '/images/b1/breadline-1932.jpg',
     href: '/archive/b1-new-deal-displacement',
+    anchor: 'what-was-already-there',
   },
   {
     year: 1935,
@@ -302,6 +326,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Social Security takes over the societies\u2019 core functions. The lodges empty over a generation, and the memory of who built the first system follows.',
     image: '/images/b1/ssa-signing-1935.jpg',
     href: '/archive/b1-new-deal-displacement',
+    anchor: 'the-quiet-displacement',
   },
   {
     year: 1941,
@@ -333,6 +358,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'Leflore County halts surplus food distribution to punish voter registration. SNCC answers with tons of donated food, moved alongside the canvass.',
     href: '/archive/b2-civil-rights-care',
+    anchor: 'turning-food-into-organising',
   },
   {
     year: 1964,
@@ -343,6 +369,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Citizenship schools and Freedom Schools teach reading and the machinery of civic life in church basements and beauty parlours across the South.',
     image: '/images/b2/sncc-freedom-summer-flyer-1964.jpg',
     href: '/archive/b2-civil-rights-care',
+    anchor: 'citizenship-schools-in-kitchens',
   },
   {
     year: 1969,
@@ -363,6 +390,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Hoover names breakfast the party\u2019s greatest threat and COINTELPRO raids the kitchens, while federal school breakfast expands on the model without credit.',
     image: '/images/b3/black-panther-paper-1967.jpg',
     href: '/archive/b3-black-panthers',
+    anchor: 'the-model-taken-the-authors-erased',
   },
 
   /* ── A Rival Account, 1971–2016 ── */
@@ -404,6 +432,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     blurb:
       'Welfare reform writes immigrant exclusions into federal aid, and the same rule later bars disaster relief by status. The community networks become the only provision left.',
     href: '/archive/d1-legal-institutional',
+    anchor: 'taxed-unrecognised-excluded',
   },
   {
     year: 2012,
@@ -414,6 +443,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Common Ground forms after Katrina and Occupy Sandy after the storm, and both organise relief by whoever shows up, for whoever is there, moving supplies while the official paperwork is still being drafted.',
     image: '/images/c1/occupy-sandy-2012.jpg',
     href: '/archive/c1-crisis',
+    anchor: 'the-pattern-in-every-disaster',
   },
   {
     year: 2014,
@@ -436,6 +466,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Hundreds of neighbourhood networks assemble in weeks, organised by building and zip code. Most pandemic giving moves through neighbours.',
     image: '/images/c1/community-fridge-nola-2020.jpg',
     href: '/archive/c1-crisis',
+    anchor: 'the-pattern-in-every-disaster',
   },
   {
     year: 2020,
@@ -446,6 +477,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
       'Twenty thousand Irish donors flood the Navajo & Hopi relief fund, citing the Choctaw gift of 1847 by name. Aid organised on k\u2019é is answered across an ocean and seven generations.',
     image: '/images/a0/kindred-spirits-midleton.jpg',
     href: '/archive/a0-elder-tradition',
+    anchor: 'the-gift-returns-2020',
   },
   {
     year: 2023,

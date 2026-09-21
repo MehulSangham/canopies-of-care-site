@@ -11,6 +11,7 @@ import { ClaimPageClient, ClaimContent } from "./client";
 import { LeftRailSwitch } from "@/components/edit/LeftRailSwitch";
 import { MetaPanel } from "@/components/curriculum/MetaPanel";
 import { PageReader } from "@/components/curriculum/PageReader";
+import { TimelineOrigin } from "@/components/curriculum/TimelineOrigin";
 import { SECTION_TITLES, sectionRank } from "@/lib/sections";
 import { checkIsAdmin } from "@/lib/auth";
 import { parseMdxBlocks } from "@/lib/mdx-blocks";
@@ -169,6 +170,9 @@ export default async function ClaimPage(
           </div>
         </div>
       </header>
+
+      {/* Origin chip when arriving from a landing-timeline node */}
+      <TimelineOrigin />
 
       {/* Draft banner */}
       {claim.status === "draft" && (

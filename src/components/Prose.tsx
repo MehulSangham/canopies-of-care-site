@@ -1,6 +1,7 @@
 import { Children, type ComponentProps, Fragment, type ReactNode, isValidElement } from "react";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
 import Callout from "@/components/tina/Callout";
 import { ZoomableImage } from "@/components/curriculum/ZoomableImage";
 import { parseMdxImageCaption } from "@/lib/content/imageSources";
@@ -180,6 +181,7 @@ export default function Prose({ content }: ProseProps) {
       options={{
         mdxOptions: {
           remarkPlugins: [remarkGfm],
+          rehypePlugins: [rehypeSlug],
         },
       }}
     />
