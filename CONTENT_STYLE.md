@@ -2,6 +2,99 @@
 
 How to write the archive pages. This governs all content in `content/archive/`.
 
+## The Register (read this first)
+
+The pages sit between a New York Times explanatory feature and a well-edited
+Wikipedia article. They tell the story of mutual aid in America. The writing is
+patient, systematic, and fully explanatory, and it is evocative only through
+concrete detail, never through figurative language or rhetorical compression.
+
+Three rules govern every sentence, in this order:
+
+### 1. Explain fully rather than compress
+
+Never carry a concept in a metaphor, an epigram, or a summarising phrase before
+the literal explanation has been given in full. If a mechanism matters (how a
+benefit fund worked, how a gift economy provided insurance, what a lodge did for
+its members), walk through it step by step, in order, so that a reader with no
+background understands how it actually worked. Once the literal account is on
+the page, the metaphor is almost always unnecessary, so cut it. The
+significance of a fact is something the reader should arrive at by
+understanding it, never something a phrase gestures toward.
+
+### 2. Every sentence is complete and carries one idea
+
+No fragments, and no fragments disguised as style ("Dues, sickness benefits,
+burial: the design every community will rebuild"). No colon followed by a list
+standing in for an explanation. No semicolon chains holding unrelated clauses
+together. Each sentence has a subject and a verb and does one job.
+
+### 3. Bind sentences with explicit conjunctions
+
+The logical relationship between every sentence and its neighbour is written
+down, never implied by adjacency. Use *and*, *because*, *when*, *although*,
+*nevertheless*, *therefore*, *in this way*, *as a result*, *rather than*. The
+reader must always know whether they are reading a cause, a consequence, a
+contrast, or a continuation. A passage should read as one continuous line of
+reasoning, not a list of facts in sequence.
+
+### Calibration: the same passage at four stages
+
+The failure modes, in the order they were diagnosed. Only the final version is
+acceptable.
+
+**Compressed (wrong — metaphor instead of explanation):**
+
+> Wealth that accumulated in one house was sent around the community on a fixed
+> loom of obligation, and every gift created a claim that would return when the
+> giver's own luck turned.
+
+**Choppy (wrong — explained, but unlinked declaratives):**
+
+> The society's structure was simple. Members paid a shilling a month into a
+> common fund. When a member fell sick, the fund paid them a weekly benefit.
+> When a member died, the fund covered the burial.
+
+**Colon-spliced (wrong — connectives replaced by punctuation):**
+
+> The society ran on a simple mechanism: each member paid a shilling a month
+> into a common fund, so that when any member fell sick, the fund could pay
+> them a weekly benefit; because the same fund also covered burial costs, a
+> single payment protected a member against the great disasters of working life.
+
+**Correct — complete sentences, one idea each, joined by stated conjunctions:**
+
+> The society ran on a simple arrangement. Each member paid a shilling every
+> month into a common fund, and that fund was used to support any member who
+> could no longer support himself. When a member became too sick to work, he
+> received a weekly payment from the fund until he recovered. When a member
+> died, the fund paid for his burial and continued to make payments to his
+> widow and his children. In this way, a single monthly contribution protected
+> a member against the three financial disasters that most threatened a working
+> family, which were illness, death, and the poverty of those left behind.
+> Over the following fifty years, immigrant and Black communities across the
+> country founded hundreds of similar societies. Although nearly all of these
+> societies were organised independently of one another, they arrived at the
+> same basic design, because the needs they were answering were the same
+> everywhere.
+
+**A second worked pair, for the slogan failure mode.** Slogans assert what the
+prose should demonstrate:
+
+> *Wrong:* From the start, belonging is something practised, not granted.
+
+> *Right:* Prince Hall and the fourteen other founders could not vote, and in
+> most courts they could not testify. When they applied to join the established
+> American lodges, they were turned away because they were Black. Nevertheless,
+> the lodge that they built for themselves performed many of the duties that
+> citizenship was supposed to guarantee. It collected monthly dues from its
+> members and used that money to pay benefits when a member fell sick or died.
+> It kept its own records of births, marriages, and deaths, and it represented
+> its members in disputes that the courts would not hear. The standing of these
+> men in civic life therefore did not rest on a legal status, which they had
+> been denied. It rested on an institution that they had built with their own
+> money and governed under their own rules.
+
 ## The Governing Principle
 
 The site is an **editorial essay**, not an argument diagram. The Toulmin structure
@@ -102,7 +195,9 @@ Study how it handles what we need:
 From the curriculum style guide (`NLSC_curriculum/04-change/module-4-style-guide.md`):
 
 - British English spelling (organised, recognised, labour, defence)
-- Oxford comma; no em dashes or en dashes (use commas, colons, parentheses)
+- Oxford comma; no em dashes or en dashes. Restructure the sentence with a
+  conjunction instead. A colon may introduce a quotation or a genuine list of
+  items, and never a clause that should have been its own sentence
 - No exclamation marks, no emoji, no colloquialisms
 - **Avoid the "not X, but Y" contrastive pattern**: in headings and body. Prefer
   connected prose: "The FAS operated on reciprocal obligation" rather than
@@ -142,6 +237,38 @@ becomes the page title.
 | Mutual aid is a founding-era American practice | The Parallel Founding | The Free African Society, Philadelphia, 1787 |
 | Fraternal mutual aid reached massive scale | One in Three | Fraternal orders and lodge practice, 1870–1920 |
 | The New Deal displaced mutual aid without acknowledging it | The Quiet Replacement | Social Security and the fraternal decline, 1930s |
+
+## The Editorial Pass (systematic rewrite workflow)
+
+To bring an existing page up to this standard, use this exact prompt, replacing
+only the slug:
+
+> Rewrite the prose of `content/archive/<slug>.mdx` to conform to
+> CONTENT_STYLE.md, applying the Register rules above all others. Hard
+> constraints: do not change any fact, date, name, figure, or quotation; keep
+> every footnote marker attached to the claim it supports; keep all images,
+> captions, and frontmatter (including the panel block) exactly as they are;
+> keep the heading structure unless a heading names an argumentative move.
+> Self-reference to "this archive" or "this page" is banned (the introduction
+> and two-accounts pages are the only exceptions). Expect the prose to get
+> longer, because explanation replaces compression. After rewriting, read the
+> page once as a sceptical copy editor and fix what you catch.
+
+Process discipline:
+
+1. **One page per pass.** Never batch pages in a single rewrite, because
+   quality degrades and tics repeat.
+2. **Reading order.** Edit in section order (A → B → C → D) so recurring
+   concepts are introduced patiently once, in the earliest page where they
+   appear, and referred to briefly afterwards.
+3. **Consistency sweep at the end.** After all pages are done, one pass across
+   the whole set for: repeated sentence openers, overused conjunctions,
+   terminology drift (the same institution named differently on different
+   pages), and page-opening sameness. Then verify the build renders and every
+   footnote resolves.
+4. **The reader test.** The final check for every page: a reader who knows
+   nothing about the subject can explain the mechanism back to you after one
+   reading, and a reader who knows the subject well finds nothing overstated.
 
 ## Frontmatter
 
