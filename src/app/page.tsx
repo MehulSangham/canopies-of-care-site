@@ -13,10 +13,10 @@ export default function Home() {
             Archive
           </p>
           <h1 className="mb-6 text-[color:var(--color-nis-ink)] font-sans font-bold text-[3.5rem] leading-[1.05] tracking-tight">
-            A History of Mutual Aid
+            A History of Mutual Aid in the United States
           </h1>
           <p className="mx-auto max-w-xl font-serif text-[1.35rem] leading-relaxed text-nis-muted">
-            An American Civic Tradition
+            An Authentic American Tradition
           </p>
           <p className="mx-auto mt-8 max-w-2xl text-[1.25rem] leading-relaxed text-nis-muted">
             Americans show up for each other. We always have. In 1787, in the
