@@ -115,7 +115,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1750,
     dateLabel: 'before the Republic',
-    title: 'The elder tradition',
+    title: 'The Elder Tradition',
     strand: 'aid',
     blurb:
       'The potlatch, the giveaway, and the Diné ethic of k\u2019é run complete economies of mutual obligation across the continent. Wealth confers standing when it is given away, and the witnesses at the feast are the record. Everything that follows has an elder.',
@@ -137,7 +137,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1787,
     dateLabel: 'April 1787',
-    title: 'The parallel founding of 1787',
+    title: 'The Parallel Founding of 1787',
     strand: 'aid',
     blurb:
       'Richard Allen and Absalom Jones found the Free African Society, the Republic\u2019s first organised mutual aid network, in the same city and year as the Constitutional Convention. Monthly dues carry the sick, bury the dead, and support widows and orphans, and every excluded community will rebuild this design.',
@@ -147,7 +147,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1793,
     dateLabel: '1793–94',
-    title: 'The fever year of 1793',
+    title: 'The Fever Year of 1793',
     strand: 'aid',
     blurb:
       'Yellow fever kills a tenth of Philadelphia. The society nurses and buries the whole city, member and stranger alike, and then it publishes its own account of the year.',
@@ -157,7 +157,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1808,
     dateLabel: '1790–1838',
-    title: 'The same design in every community',
+    title: 'The Same Design in Every Community',
     strand: 'aid',
     blurb:
       'Within fifty years, more than a hundred societies in Charleston, New York, Boston, and beyond stand on the Philadelphia pattern, and each one is founded independently.',
@@ -177,7 +177,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1847,
     dateLabel: 'March 1847',
-    title: 'The Choctaw gift to Ireland',
+    title: 'The Choctaw Gift to Ireland',
     strand: 'aid',
     blurb:
       'Sixteen years after the Trail of Tears, the Choctaw at Skullyville take up a collection for the starving poor of Ireland. A nation that has just survived dispossession and famine recognises both under a different empire, and it gives.',
@@ -208,7 +208,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1883,
     dateLabel: '1883–87',
-    title: 'A law against giving',
+    title: 'A Law Against Giving',
     strand: 'exclusion',
     blurb:
       'The Code of Indian Offenses makes the feasts through which wealth changes hands punishable by withheld rations and jail. Senator Dawes states the reasoning at Lake Mohonk: \u201cThere is no selfishness, which is at the bottom of civilization.\u201d Allotment follows.',
@@ -217,7 +217,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1889,
     dateLabel: '1889',
-    title: 'Built for everyone in the ward',
+    title: 'Built for Everyone in the Ward',
     strand: 'aid',
     blurb:
       'Hull House opens to whoever lives on Halsted Street, in the most ethnically mixed neighbourhood on the continent. The membership rule is the address.',
@@ -227,7 +227,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1896,
     dateLabel: '1890s',
-    title: 'The boundary drawn by exclusion',
+    title: 'The Boundary Drawn by Exclusion',
     strand: 'exclusion',
     blurb:
       'The white orders write whites-only clauses into their constitutions, and every community shut out answers the same way, by building a complete world of its own.',
@@ -236,7 +236,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1903,
     dateLabel: '1880s–1920s',
-    title: 'The same institution in every language',
+    title: 'The Same Institution in Every Language',
     strand: 'aid',
     blurb:
       'Jewish landsmanshaftn, Italian società di mutuo soccorso, Mexican American sociedades mutualistas, and Japanese tanomoshi-kō appear in the same decades, because every immigrant community independently builds the same institution.',
@@ -255,7 +255,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1907,
     dateLabel: '1907',
-    title: 'Du Bois counts the societies',
+    title: 'Du Bois Counts the Societies',
     strand: 'aid',
     blurb:
       'The first systematic survey finds thousands of Black mutual aid organisations, which have been the principal provider of insurance, education, and burial for over a century.',
@@ -264,7 +264,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1913,
     dateLabel: '1913',
-    title: 'Solidarity across the colour line',
+    title: 'Solidarity Across the Colour Line',
     strand: 'aid',
     blurb:
       'IWW Local 8, a third Black, a third Irish, a third immigrant, runs Philadelphia\u2019s waterfront for a decade and pools survival across every line the city drew.',
@@ -274,7 +274,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1920,
     dateLabel: 'by 1920',
-    title: 'One in three American men',
+    title: 'One in Three American Men',
     strand: 'aid',
     blurb:
       'A third of adult American men belong to a fraternal order. Two dollars a year buys a family the lodge doctor, hired by the members and answerable to them.',
@@ -286,7 +286,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1932,
     dateLabel: 'early 1930s',
-    title: 'What was already there',
+    title: 'What Was Already There',
     strand: 'aid',
     blurb:
       'Before federal relief exists, the unemployed build labour exchanges, cooperative farms, and barter networks, enough that the Bureau of Labor Statistics sends surveyors.',
@@ -296,7 +296,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1935,
     dateLabel: 'August 1935',
-    title: 'The quiet displacement',
+    title: 'The Quiet Displacement',
     strand: 'exclusion',
     blurb:
       'Social Security takes over the societies\u2019 core functions. The lodges empty over a generation, and the memory of who built the first system follows.',
@@ -306,7 +306,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1941,
     dateLabel: '1785–present',
-    title: 'Dismissed as women\u2019s work',
+    title: 'Dismissed as Women\u2019s Work',
     strand: 'aid',
     blurb:
       'Midwives, meal circuits, and neighbours sitting up with the sick form the largest care system in the country, and it runs continuously from before the Republic while leaving almost no paper.',
@@ -328,7 +328,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1962,
     dateLabel: 'winter 1962–63',
-    title: 'The food cutoff',
+    title: 'The Food Cutoff',
     strand: 'exclusion',
     blurb:
       'Leflore County halts surplus food distribution to punish voter registration. SNCC answers with tons of donated food, moved alongside the canvass.',
@@ -337,7 +337,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1964,
     dateLabel: '1957–64',
-    title: 'Citizenship schools in kitchens',
+    title: 'Citizenship Schools in Kitchens',
     strand: 'aid',
     blurb:
       'Citizenship schools and Freedom Schools teach reading and the machinery of civic life in church basements and beauty parlours across the South.',
@@ -347,7 +347,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1969,
     dateLabel: 'January 1969',
-    title: 'The Panther survival programmes',
+    title: 'The Panther Survival Programmes',
     strand: 'aid',
     blurb:
       'The survival programmes feed thousands of children every school morning, run clinics in a dozen cities, and make sickle cell anaemia a national issue.',
@@ -357,7 +357,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1970,
     dateLabel: '1969–75',
-    title: 'The model taken, the authors erased',
+    title: 'The Model Taken, the Authors Erased',
     strand: 'exclusion',
     blurb:
       'Hoover names breakfast the party\u2019s greatest threat and COINTELPRO raids the kitchens, while federal school breakfast expands on the model without credit.',
@@ -379,7 +379,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1973,
     dateLabel: '1973–82',
-    title: 'Who built the story on the shelf',
+    title: 'Who Built the Story on the Shelf',
     strand: 'exclusion',
     blurb:
       'Heritage is founded with 250,000 dollars, and the Federalist Society follows from a single student conference. The infrastructure is built patiently, until one account of America reads as common sense.',
@@ -389,7 +389,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1982,
     dateLabel: 'January 1982',
-    title: 'The buddy system of the AIDS years',
+    title: 'The Buddy System of the AIDS Years',
     strand: 'aid',
     blurb:
       'Six men and an answering machine become Gay Men\u2019s Health Crisis. The buddy networks carry meals, medicine, and company for years before the famous protests grow out of them.',
@@ -399,7 +399,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1996,
     dateLabel: '1996',
-    title: 'How the law excludes',
+    title: 'How the Law Excludes',
     strand: 'exclusion',
     blurb:
       'Welfare reform writes immigrant exclusions into federal aid, and the same rule later bars disaster relief by status. The community networks become the only provision left.',
@@ -408,7 +408,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2012,
     dateLabel: '2005–12',
-    title: 'Faster than the agencies',
+    title: 'Faster Than the Agencies',
     strand: 'aid',
     blurb:
       'Common Ground forms after Katrina and Occupy Sandy after the storm, and both organise relief by whoever shows up, for whoever is there, moving supplies while the official paperwork is still being drafted.',
@@ -418,7 +418,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2014,
     dateLabel: '2014–26',
-    title: 'Feeding people becomes a charge',
+    title: 'Feeding People Becomes a Charge',
     strand: 'exclusion',
     blurb:
       'A ninety-year-old veteran is arrested for serving meals in a park. Cities keep passing food-sharing ordinances after courts strike them down.',
@@ -430,7 +430,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2020,
     dateLabel: 'spring 2020',
-    title: 'The block organises',
+    title: 'The Block Organises',
     strand: 'aid',
     blurb:
       'Hundreds of neighbourhood networks assemble in weeks, organised by building and zip code. Most pandemic giving moves through neighbours.',
@@ -440,7 +440,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2020,
     dateLabel: 'May 2020',
-    title: 'The gift returns',
+    title: 'The Gift Returns',
     strand: 'aid',
     blurb:
       'Twenty thousand Irish donors flood the Navajo & Hopi relief fund, citing the Choctaw gift of 1847 by name. Aid organised on k\u2019é is answered across an ocean and seven generations.',
@@ -450,7 +450,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2023,
     dateLabel: '2023–26',
-    title: 'Project 2025 and bounded care',
+    title: 'Project 2025 and Bounded Care',
     strand: 'exclusion',
     blurb:
       'Nine hundred pages translate the account of bounded care into plans for government, and by the author\u2019s own count more than half are implemented within three years.',
@@ -459,7 +459,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 2026,
     dateLabel: 'now',
-    title: 'What this archive is for',
+    title: 'What This Archive Is For',
     strand: 'aid',
     blurb:
       'The tradition\u2019s oldest act of self-defence is writing itself down, as the Free African Society did in 1794. This archive performs that act for the whole tradition at once.',
