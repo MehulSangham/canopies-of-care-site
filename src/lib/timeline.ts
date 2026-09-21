@@ -54,7 +54,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1784,
     to: 1848,
     narrative:
-      'The official story records one founding: a convention, a constitution, a list of names. The other founding keeps no seat in that story, yet from the first decade of the Republic, showing up for each other is how excluded Americans practise citizenship. Belonging, in this tradition, is what you do rather than what you are, and the proof of it fills minute books, dues ledgers, and burial rolls the national telling never opens.',
+      'The official story records one founding, with a convention, a constitution, and a list of names. The other founding keeps no seat in that story, yet from the first decade of the Republic, showing up for each other is how excluded Americans practise citizenship. Belonging, in this tradition, is what you do rather than what you are, and the proof of it fills minute books, dues ledgers, and burial rolls the national telling never opens.',
   },
   {
     id: 'practice-at-scale',
@@ -72,7 +72,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1929,
     to: 1954,
     narrative:
-      'The Depression breaks the societies\u2019 finances, and the New Deal absorbs their work without their names. Help now arrives from Washington, and within a generation the memory of who built the first system transfers to the state. What the societies knew, the new story forgets: help is not a transaction between a giver and a taker. It is the reinforcement that keeps a structure standing, and the structure keeps being kept, in kitchens and church basements, off the books.',
+      'The Depression breaks the societies\u2019 finances, and the New Deal absorbs their work without their names. Help now arrives from Washington, and within a generation the memory of who built the first system transfers to the state. The new story forgets what the societies knew, which is that help is the reinforcement that keeps a structure standing rather than a transaction between a giver and a taker. And the structure keeps being kept, in kitchens and church basements, off the books.',
   },
   {
     id: 'care-as-citizenship',
@@ -81,7 +81,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1955,
     to: 1970,
     narrative:
-      'The movement runs on the tradition: cooks fund the boycott, schools meet in beauty parlours, breakfast is served before the bell. The official account calls this radical. It is the oldest practice in the Republic doing what it has always done, now in front of cameras.',
+      'The movement runs on the tradition, as cooks fund the boycott, schools meet in beauty parlours, and breakfast is served before the bell. The official account calls this radical. It is the oldest practice in the Republic doing what it has always done, now in front of cameras.',
   },
   {
     id: 'rival-account',
@@ -90,7 +90,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 1971,
     to: 2016,
     narrative:
-      'For the first time, the other story is built deliberately: memoranda, foundations, curricula, courts, infrastructure raised to make one account of the country feel like what the Founders intended. Going it alone becomes the moral of American history by design rather than by memory. The constructed account comes to read as timeless, while the older tradition carries on in the places the account does not reach.',
+      'For the first time, the other story is built deliberately, through memoranda, foundations, curricula, and courts, an infrastructure raised to make one account of the country feel like what the Founders intended. Going it alone becomes the moral of American history by design rather than by memory. The constructed account comes to read as timeless, while the older tradition carries on in the places the account does not reach.',
   },
   {
     id: 'record-returns',
@@ -99,7 +99,7 @@ export const NARRATIVE_PHASES: NarrativePhase[] = [
     from: 2017,
     to: 3000,
     narrative:
-      'Each crisis reintroduces Americans to their own tradition: neighbours organise faster than agencies, and are surprised to learn they are not the first. What the country does in hurricanes is what it has always done everywhere. The practice never needed recovering. The record did, and this archive is that recovery.',
+      'Each crisis reintroduces Americans to their own tradition, as neighbours organise faster than agencies and are surprised to learn they are not the first. What the country does in hurricanes is what it has always done everywhere. The practice never needed recovering. The record did, and this archive is that recovery.',
   },
 ];
 
@@ -118,7 +118,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The elder tradition',
     strand: 'aid',
     blurb:
-      'The potlatch, the giveaway, and the Diné ethic of k\u2019é run complete economies of mutual obligation across the continent: wealth is validated by giving it away, and the witnesses are the record. The practice this archive documents has an elder.',
+      'The potlatch, the giveaway, and the Diné ethic of k\u2019é run complete economies of mutual obligation across the continent. Wealth confers standing when it is given away, and the witnesses at the feast are the record. Everything that follows has an elder.',
     image: '/images/a0/klukwan-canoes-1898.jpg',
     href: '/archive/a0-elder-tradition',
   },
@@ -130,7 +130,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'African Lodge No. 1',
     strand: 'aid',
     blurb:
-      'Prince Hall and fourteen free Black men found their own lodge in Boston, and when no American charter is offered they obtain one from England. From the start, belonging is something practised, not granted.',
+      'Prince Hall and fourteen free Black men found their own lodge in Boston, and when no American charter is offered they obtain one from England. The lodge collects dues, pays benefits, and keeps its own records, performing the duties that citizenship was supposed to guarantee.',
     image: '/images/c4/prince-hall.jpg',
     href: '/archive/c4-exclusion-not-principle',
   },
@@ -140,7 +140,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The Free African Society',
     strand: 'aid',
     blurb:
-      'Richard Allen and Absalom Jones found the Republic\u2019s first organised mutual aid network, in the same city and year as the Constitutional Convention. Dues, sickness benefits, burial, widows and orphans: the design every community will rebuild.',
+      'Richard Allen and Absalom Jones found the Republic\u2019s first organised mutual aid network in the same city and year as the Constitutional Convention. Monthly dues carry the sick, bury the dead, and support widows and orphans, and every excluded community will rebuild this design.',
     image: '/images/a1/richard-allen.jpg',
     href: '/archive/a1-founding-era',
   },
@@ -150,7 +150,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The fever year',
     strand: 'aid',
     blurb:
-      'Yellow fever kills a tenth of Philadelphia. The society nurses and buries the whole city, member and stranger alike, then publishes its own account of the year.',
+      'Yellow fever kills a tenth of Philadelphia. The society nurses and buries the whole city, member and stranger alike, and then it publishes its own account of the year.',
     image: '/images/a1/absalom-jones-peale.jpg',
     href: '/archive/c1-crisis',
   },
@@ -160,7 +160,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The design repeats',
     strand: 'aid',
     blurb:
-      'Charleston, New York, Boston: within fifty years, more than a hundred societies stand on the Philadelphia pattern, each founded independently.',
+      'Within fifty years, more than a hundred societies in Charleston, New York, Boston, and beyond stand on the Philadelphia pattern, and each one is founded independently.',
     href: '/archive/a2-parallel-infrastructure',
   },
   {
@@ -169,7 +169,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The Grand United Order',
     strand: 'aid',
     blurb:
-      'Refused at home, Black Odd Fellows charter their own order from England. A complete fraternal world follows: lodges, benefits, burial funds, a place to be somebody.',
+      'Refused at home, Black Odd Fellows charter their own order from England, and a complete fraternal world follows, with lodges, benefits, burial funds, and a place to be somebody.',
     image: '/images/a3/guoof-member-1890s.jpg',
     href: '/archive/a3-fraternal-scale',
   },
@@ -180,7 +180,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The gift that crosses an ocean',
     strand: 'aid',
     blurb:
-      'Sixteen years after the Trail of Tears, the Choctaw at Skullyville take up a collection for the starving poor of Ireland. A dispossessed nation recognises famine under a different empire, and gives.',
+      'Sixteen years after the Trail of Tears, the Choctaw at Skullyville take up a collection for the starving poor of Ireland. A nation that has just survived dispossession and famine recognises both under a different empire, and it gives.',
     href: '/archive/a0-elder-tradition',
   },
 
@@ -191,7 +191,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Huiguan of San Francisco',
     strand: 'aid',
     blurb:
-      'Chinese district associations organise lodging, work, medicine, dispute resolution, and the return of remains home: the whole of civic life for the people they serve.',
+      'Chinese district associations organise lodging, work, medicine, dispute resolution, and the return of remains to ancestral villages, which amounts to the whole of civic life for the people they serve.',
     image: '/images/a2/six-companies-dignitary.jpg',
     href: '/archive/a2-parallel-infrastructure',
   },
@@ -230,16 +230,16 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The colour bars go up',
     strand: 'exclusion',
     blurb:
-      'The white orders write whites-only clauses into their constitutions. Every community shut out answers the same way: it builds a complete world of its own.',
+      'The white orders write whites-only clauses into their constitutions, and every community shut out answers the same way, by building a complete world of its own.',
     href: '/archive/c4-exclusion-not-principle',
   },
   {
     year: 1903,
     dateLabel: '1880s–1920s',
-    title: 'In every language',
+    title: 'The same institution in every language',
     strand: 'aid',
     blurb:
-      'Landsmanshaftn, società di mutuo soccorso, sociedades mutualistas, tanomoshi-kō: every immigrant community independently builds the same institution.',
+      'Jewish landsmanshaftn, Italian società di mutuo soccorso, Mexican American sociedades mutualistas, and Japanese tanomoshi-kō appear in the same decades, because every immigrant community independently builds the same institution.',
     image: '/images/a2/hester-street-1903.jpg',
     href: '/archive/a2-parallel-infrastructure',
   },
@@ -258,7 +258,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Du Bois counts the societies',
     strand: 'aid',
     blurb:
-      'The first systematic survey finds thousands of Black mutual aid organisations: for over a century, the principal provider of insurance, education, and burial.',
+      'The first systematic survey finds thousands of Black mutual aid organisations, which have been the principal provider of insurance, education, and burial for over a century.',
     href: '/archive/a2-parallel-infrastructure',
   },
   {
@@ -274,7 +274,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1920,
     dateLabel: 'by 1920',
-    title: 'One in three',
+    title: 'One man in three',
     strand: 'aid',
     blurb:
       'A third of adult American men belong to a fraternal order. Two dollars a year buys a family the lodge doctor, hired by the members and answerable to them.',
@@ -309,7 +309,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The uncounted economy',
     strand: 'aid',
     blurb:
-      'Midwives, meal circuits, sitting up with the sick: the largest care system in the country runs continuously from before the Republic and leaves almost no paper.',
+      'Midwives, meal circuits, and neighbours sitting up with the sick form the largest care system in the country, and it runs continuously from before the Republic while leaving almost no paper.',
     image: '/images/b5/midwife-delano-1941.jpg',
     href: '/archive/b5-maternal-networks',
   },
@@ -321,7 +321,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The Club From Nowhere',
     strand: 'aid',
     blurb:
-      'Georgia Gilmore\u2019s cooks bake the Montgomery boycott\u2019s budget into pound cakes; a parallel transit system moves tens of thousands for 381 days without the buses.',
+      'Georgia Gilmore\u2019s cooks bake the Montgomery boycott\u2019s budget into pound cakes, and a parallel transit system moves tens of thousands to work for 381 days without the buses.',
     image: '/images/b2/mia-flyer-1956.jpg',
     href: '/archive/b2-civil-rights-care',
   },
@@ -337,7 +337,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: 1964,
     dateLabel: '1957–64',
-    title: 'Schools in kitchens',
+    title: 'Citizenship schools in kitchens',
     strand: 'aid',
     blurb:
       'Citizenship schools and Freedom Schools teach reading and the machinery of civic life in church basements and beauty parlours across the South.',
@@ -372,7 +372,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The Powell Memorandum',
     strand: 'exclusion',
     blurb:
-      'A confidential memo to the Chamber of Commerce lays out the plan: build durable infrastructure in the places where public meaning is made.',
+      'A confidential memo to the Chamber of Commerce lays out a plan to build durable infrastructure in the places where public meaning is made.',
     image: '/images/d2/lewis-powell-1976.jpg',
     href: '/archive/d2-competing-tradition',
   },
@@ -382,7 +382,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'The machinery is built',
     strand: 'exclusion',
     blurb:
-      'Heritage is founded with 250,000 dollars; the Federalist Society follows from one student conference. Infrastructure built patiently, until one account of America reads as common sense.',
+      'Heritage is founded with 250,000 dollars, and the Federalist Society follows from a single student conference. The infrastructure is built patiently, until one account of America reads as common sense.',
     image: '/images/d3/heritage-foundation-building.jpg',
     href: '/archive/d4-contestation',
   },
@@ -402,7 +402,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Exclusion by statute',
     strand: 'exclusion',
     blurb:
-      'Welfare reform writes immigrant exclusions into federal aid, the rule that later bars disaster relief by status. The networks become the only provision left.',
+      'Welfare reform writes immigrant exclusions into federal aid, and the same rule later bars disaster relief by status. The community networks become the only provision left.',
     href: '/archive/d1-legal-institutional',
   },
   {
@@ -411,7 +411,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Faster than the agencies',
     strand: 'aid',
     blurb:
-      'Common Ground after Katrina, Occupy Sandy after the storm: relief organised by whoever shows up, for whoever is there, moving supplies while the paperwork is drafted.',
+      'Common Ground forms after Katrina and Occupy Sandy after the storm, and both organise relief by whoever shows up, for whoever is there, moving supplies while the official paperwork is still being drafted.',
     image: '/images/c1/occupy-sandy-2012.jpg',
     href: '/archive/c1-crisis',
   },
@@ -453,7 +453,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     title: 'Project 2025',
     strand: 'exclusion',
     blurb:
-      'Nine hundred pages translating the rival account into government. By its author\u2019s own count, more than half implemented within three years.',
+      'Nine hundred pages translate the account of bounded care into plans for government, and by the author\u2019s own count more than half are implemented within three years.',
     href: '/archive/d3-project-2025',
   },
   {

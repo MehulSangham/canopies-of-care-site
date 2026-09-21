@@ -23,8 +23,8 @@ export default function Home() {
             same city where the Constitutional Convention met, the Free African
             Society organised burial, sickness benefits, and care for widows
             and orphans, and every generation since has rebuilt that design.
-            Belonging, in this tradition, is something people do: you are part
-            of the community you show up for.
+            Belonging, in this tradition, is something people do, because you
+            are part of the community you show up for.
           </p>
           <p className="mx-auto mt-6 max-w-xl text-[1.05rem] leading-relaxed text-nis-muted">
             Below is the record of that practice, generation by generation,
