@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import matter from 'gray-matter';
+import { head, put } from '@vercel/blob';
 import { parseMdxBlocks } from '@/lib/mdx-blocks';
 
 /**
@@ -12,8 +13,12 @@ import { parseMdxBlocks } from '@/lib/mdx-blocks';
  *   from a page's MDX.
  * - Synthesizes each segment with ElevenLabs, requesting character-level
  *   timestamps, and converts them to word timings for karaoke highlighting.
- * - Caches audio + timings on disk keyed by a hash of (voice, model, text),
- *   so a segment is only ever synthesized once until its text changes.
+ * - Caches audio + timings keyed by a hash of (voice, model, text), so a
+ *   segment is only ever synthesized (and paid for) once until its text
+ *   changes. Two cache layers:
+ *     1. Vercel Blob (when BLOB_READ_WRITE_TOKEN is set): persistent and
+ *        shared across dev/prod; audio is served to the client as a CDN URL.
+ *     2. Local disk (.tts-cache): dev fallback when no Blob store exists.
  */
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'archive');
@@ -43,7 +48,10 @@ export interface ReadableSegment {
 }
 
 export interface SynthesizedSegment {
-  audioBase64: string;
+  /** CDN URL when the segment lives in the Blob store */
+  audioUrl?: string;
+  /** Base64 payload when serving from local disk (dev without Blob) */
+  audioBase64?: string;
   words: WordTiming[];
 }
 
@@ -131,7 +139,54 @@ function charsToWords(
   return words;
 }
 
-/** Synthesize one segment, using the disk cache when possible. */
+const hasBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+const blobPath = (key: string, ext: 'mp3' | 'json') => `tts/${key}.${ext}`;
+
+/** Look a segment up in the Blob store. Null on miss or any Blob error. */
+async function blobLookup(key: string): Promise<SynthesizedSegment | null> {
+  try {
+    const [audio, timings] = await Promise.all([
+      head(blobPath(key, 'mp3')),
+      head(blobPath(key, 'json')),
+    ]);
+    const words: WordTiming[] = await fetch(timings.url).then((r) => r.json());
+    return { audioUrl: audio.url, words };
+  } catch {
+    return null;
+  }
+}
+
+/** Store a segment in the Blob store. Best effort; returns the audio URL. */
+async function blobStore(
+  key: string,
+  audio: Buffer,
+  words: WordTiming[],
+): Promise<string | null> {
+  try {
+    const [audioBlob] = await Promise.all([
+      put(blobPath(key, 'mp3'), audio, {
+        access: 'public',
+        contentType: 'audio/mpeg',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+      }),
+      put(blobPath(key, 'json'), JSON.stringify(words), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+      }),
+    ]);
+    return audioBlob.url;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Synthesize one segment, cheapest source first:
+ * Blob store → local disk → ElevenLabs (then write back to both caches).
+ */
 export async function synthesizeSegment(
   text: string,
 ): Promise<SynthesizedSegment> {
@@ -139,11 +194,22 @@ export async function synthesizeSegment(
   const audioPath = path.join(CACHE_DIR, `${key}.mp3`);
   const timingPath = path.join(CACHE_DIR, `${key}.json`);
 
+  // 1. Blob store: persistent, shared, serves a CDN URL
+  if (hasBlob()) {
+    const hit = await blobLookup(key);
+    if (hit) return hit;
+  }
+
+  // 2. Local disk: promote to Blob when a token is present so the shared
+  //    cache fills up from work already paid for
   if (fs.existsSync(audioPath) && fs.existsSync(timingPath)) {
-    return {
-      audioBase64: fs.readFileSync(audioPath).toString('base64'),
-      words: JSON.parse(fs.readFileSync(timingPath, 'utf8')),
-    };
+    const audio = fs.readFileSync(audioPath);
+    const words: WordTiming[] = JSON.parse(fs.readFileSync(timingPath, 'utf8'));
+    if (hasBlob()) {
+      const url = await blobStore(key, audio, words);
+      if (url) return { audioUrl: url, words };
+    }
+    return { audioBase64: audio.toString('base64'), words };
   }
 
   const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -180,9 +246,21 @@ export async function synthesizeSegment(
       )
     : [];
 
-  fs.mkdirSync(CACHE_DIR, { recursive: true });
-  fs.writeFileSync(audioPath, Buffer.from(data.audio_base64, 'base64'));
-  fs.writeFileSync(timingPath, JSON.stringify(words));
+  const audio = Buffer.from(data.audio_base64, 'base64');
+
+  // Write back to both caches (disk is best-effort: read-only on Vercel
+  // outside /tmp, which is why CACHE_DIR points there in production)
+  try {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+    fs.writeFileSync(audioPath, audio);
+    fs.writeFileSync(timingPath, JSON.stringify(words));
+  } catch {
+    // non-fatal
+  }
+  if (hasBlob()) {
+    const url = await blobStore(key, audio, words);
+    if (url) return { audioUrl: url, words };
+  }
 
   return { audioBase64: data.audio_base64, words };
 }

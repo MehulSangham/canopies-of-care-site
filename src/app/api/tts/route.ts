@@ -45,11 +45,14 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { audioBase64, words } = await synthesizeSegment(segments[index].text);
+    const { audioUrl, audioBase64, words } = await synthesizeSegment(
+      segments[index].text,
+    );
     return NextResponse.json({
       ok: true,
       index,
       text: segments[index].text,
+      audioUrl,
       audioBase64,
       words,
     });

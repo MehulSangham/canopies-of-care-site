@@ -479,7 +479,20 @@ body {
 
 /* ── Page reader ── */
 .reader-active-block {
-  background: color-mix(in srgb, var(--color-nis-accent) 22%, transparent);
+  background: color-mix(in srgb, var(--color-nis-accent) 12%, transparent);
   box-shadow: -6px 0 0 0 var(--color-nis-accent);
   transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Words are wrapped in spans only while their block is being read aloud. */
+.reader-w {
+  border-radius: 1px;
+  transition: background 0.12s ease;
+}
+.reader-word-active {
+  background: var(--color-nis-accent);
+  box-shadow: 0 0 0 2px var(--color-nis-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-w { transition: none; }
 }

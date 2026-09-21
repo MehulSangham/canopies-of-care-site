@@ -26,6 +26,7 @@ interface ManifestSegment {
 }
 
 interface LoadedSegment {
+  /** Audio source: a remote (Blob store) URL or a local object URL */
   url: string;
   words: WordTiming[];
   text: string;
@@ -37,9 +38,94 @@ function normalize(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+/** Normalize a single token for word-level alignment. */
+function normToken(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
 function base64ToUrl(b64: string): string {
   const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
   return URL.createObjectURL(new Blob([bytes], { type: 'audio/mpeg' }));
+}
+
+/**
+ * Wrap the words of a block element in spans, leaving all element nodes
+ * (bold, links, footnote sups) untouched so React-managed children keep
+ * their listeners. Returns the spans in document order.
+ */
+function wrapWords(el: Element): HTMLSpanElement[] {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+    acceptNode: (node) => {
+      // Skip footnote markers and anything already inside our own spans
+      if ((node.parentElement)?.closest('sup, .reader-w')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return /\S/.test(node.textContent || '')
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const textNodes: Text[] = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode as Text);
+
+  const spans: HTMLSpanElement[] = [];
+  for (const node of textNodes) {
+    const parts = (node.textContent || '').split(/(\s+)/);
+    const frag = document.createDocumentFragment();
+    for (const part of parts) {
+      if (!part) continue;
+      if (/^\s+$/.test(part)) {
+        frag.appendChild(document.createTextNode(part));
+      } else {
+        const span = document.createElement('span');
+        span.className = 'reader-w';
+        span.textContent = part;
+        frag.appendChild(span);
+        spans.push(span);
+      }
+    }
+    node.replaceWith(frag);
+  }
+  return spans;
+}
+
+/** Undo wrapWords: replace each span with its text and re-merge text nodes. */
+function unwrapWords(el: Element, spans: HTMLSpanElement[]) {
+  for (const span of spans) {
+    if (span.isConnected) {
+      span.replaceWith(document.createTextNode(span.textContent || ''));
+    }
+  }
+  el.normalize();
+}
+
+/**
+ * Align timing words to DOM word spans with a greedy two-pointer walk.
+ * Small mismatches (tokens present on only one side) are skipped with a
+ * bounded lookahead.
+ */
+function alignTimings(
+  words: WordTiming[],
+  spans: HTMLSpanElement[],
+): (HTMLSpanElement | null)[] {
+  const map: (HTMLSpanElement | null)[] = new Array(words.length).fill(null);
+  let si = 0;
+  for (let wi = 0; wi < words.length; wi++) {
+    const target = normToken(words[wi].word);
+    if (!target) continue;
+    let found = -1;
+    for (let k = si; k < Math.min(si + 4, spans.length); k++) {
+      if (normToken(spans[k].textContent || '') === target) {
+        found = k;
+        break;
+      }
+    }
+    if (found >= 0) {
+      map[wi] = spans[found];
+      si = found + 1;
+    }
+  }
+  return map;
 }
 
 export function PageReader({ slug }: { slug: string }) {
@@ -51,36 +137,52 @@ export function PageReader({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [speedIdx, setSpeedIdx] = useState(0);
-  const [activeWord, setActiveWord] = useState(-1);
-  const [words, setWords] = useState<WordTiming[]>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const cacheRef = useRef<Map<number, LoadedSegment>>(new Map());
-  const highlightedRef = useRef<Element | null>(null);
   const wordsRef = useRef<WordTiming[]>([]);
   const currentRef = useRef(0);
   const segmentsRef = useRef<ManifestSegment[]>([]);
-  const activeWordElRef = useRef<HTMLSpanElement | null>(null);
+
+  // In-page karaoke state (all direct DOM, no React re-renders per word)
+  const blockRef = useRef<Element | null>(null);
+  const spansRef = useRef<HTMLSpanElement[]>([]);
+  const timingMapRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const activeSpanRef = useRef<HTMLSpanElement | null>(null);
+  const lastScrollAtRef = useRef(0);
 
   const clearHighlight = useCallback(() => {
-    highlightedRef.current?.classList.remove('reader-active-block');
-    highlightedRef.current = null;
+    activeSpanRef.current?.classList.remove('reader-word-active');
+    activeSpanRef.current = null;
+    if (blockRef.current) {
+      blockRef.current.classList.remove('reader-active-block');
+      unwrapWords(blockRef.current, spansRef.current);
+    }
+    blockRef.current = null;
+    spansRef.current = [];
+    timingMapRef.current = [];
   }, []);
 
+  /**
+   * Find the block on the page for a segment, tint it, wrap its words,
+   * and align the word timings to the wrapped spans.
+   */
   const highlightSegment = useCallback(
-    (index: number) => {
+    (index: number, words: WordTiming[]) => {
       clearHighlight();
       const seg = segmentsRef.current[index];
       if (!seg || seg.kind === 'title') return;
       const article = document.querySelector('article');
       if (!article) return;
-      const prefix = normalize(seg.text).slice(0, 50);
+      const prefix = normalize(seg.text).slice(0, 60);
       const candidates = article.querySelectorAll('p, h2, h3, h4, blockquote');
       for (const el of candidates) {
         if (normalize(el.textContent || '').startsWith(prefix)) {
           el.classList.add('reader-active-block');
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          highlightedRef.current = el;
+          blockRef.current = el;
+          spansRef.current = wrapWords(el);
+          timingMapRef.current = alignTimings(words, spansRef.current);
           return;
         }
       }
@@ -103,7 +205,7 @@ export function PageReader({ slug }: { slug: string }) {
         return null;
       }
       const loaded: LoadedSegment = {
-        url: base64ToUrl(data.audioBase64),
+        url: data.audioUrl ?? base64ToUrl(data.audioBase64),
         words: data.words ?? [],
         text: data.text,
       };
@@ -121,13 +223,11 @@ export function PageReader({ slug }: { slug: string }) {
       setError(null);
       setCurrent(index);
       currentRef.current = index;
-      setActiveWord(-1);
       const seg = await fetchSegment(index);
       setLoading(false);
       if (!seg || currentRef.current !== index) return;
       wordsRef.current = seg.words;
-      setWords(seg.words);
-      highlightSegment(index);
+      highlightSegment(index, seg.words);
       audio.src = seg.url;
       audio.playbackRate = SPEEDS[speedIdx];
       try {
@@ -142,7 +242,7 @@ export function PageReader({ slug }: { slug: string }) {
     [fetchSegment, highlightSegment, speedIdx],
   );
 
-  // Audio element lifecycle
+  // Audio element lifecycle: drive the in-page highlight from timeupdate
   useEffect(() => {
     const audio = new Audio();
     audioRef.current = audio;
@@ -155,7 +255,24 @@ export function PageReader({ slug }: { slug: string }) {
         if (t >= ws[i].start) idx = i;
         else break;
       }
-      setActiveWord(idx);
+      if (idx < 0) return;
+      // Nearest mapped span at or before the active timing word
+      const map = timingMapRef.current;
+      let span: HTMLSpanElement | null = null;
+      for (let i = idx; i >= 0 && !span; i--) span = map[i];
+      if (!span || span === activeSpanRef.current) return;
+      activeSpanRef.current?.classList.remove('reader-word-active');
+      span.classList.add('reader-word-active');
+      activeSpanRef.current = span;
+      // Keep the reading position on screen without constant scrolling
+      const now = Date.now();
+      if (now - lastScrollAtRef.current > 400) {
+        const rect = span.getBoundingClientRect();
+        if (rect.top < 90 || rect.bottom > window.innerHeight - 130) {
+          span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          lastScrollAtRef.current = now;
+        }
+      }
     };
     const onEnded = () => {
       const next = currentRef.current + 1;
@@ -163,7 +280,6 @@ export function PageReader({ slug }: { slug: string }) {
         void playSegment(next);
       } else {
         setPlaying(false);
-        setActiveWord(-1);
         clearHighlight();
       }
     };
@@ -175,11 +291,6 @@ export function PageReader({ slug }: { slug: string }) {
       audio.pause();
     };
   }, [playSegment, clearHighlight]);
-
-  // Keep the active word visible inside the transcript strip
-  useEffect(() => {
-    activeWordElRef.current?.scrollIntoView({ block: 'nearest' });
-  }, [activeWord]);
 
   const start = useCallback(async () => {
     setOpen(true);
@@ -226,7 +337,6 @@ export function PageReader({ slug }: { slug: string }) {
     audioRef.current?.pause();
     setPlaying(false);
     setOpen(false);
-    setActiveWord(-1);
     clearHighlight();
   }, [clearHighlight]);
 
@@ -253,11 +363,18 @@ export function PageReader({ slug }: { slug: string }) {
     );
   }
 
-  const segText = words.length > 0 ? null : segments[current]?.text;
+  const kind = segments[current]?.kind;
+  const status = error
+    ? null
+    : loading
+      ? 'Preparing audio…'
+      : kind === 'title'
+        ? 'Reading the title'
+        : 'Reading along on the page';
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[70] border-t border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[0_-4px_0_0_var(--color-nis-accent)]">
-      <div className="mx-auto flex max-w-[900px] items-center gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-[700px] items-center gap-4 px-4 py-2.5">
         {/* Controls */}
         <div className="flex shrink-0 items-center gap-1">
           <button
@@ -295,30 +412,14 @@ export function PageReader({ slug }: { slug: string }) {
           </button>
         </div>
 
-        {/* Transcript with karaoke highlight */}
+        {/* Status — the page itself is the transcript */}
         <div className="min-w-0 flex-1">
           {error ? (
-            <p className="font-sans text-[12px] text-red-700">{error}</p>
+            <p className="truncate font-sans text-[12px] text-red-700">{error}</p>
           ) : (
-            <div className="max-h-[72px] overflow-y-auto font-serif text-[14px] leading-relaxed text-[color:var(--color-nis-ink)]">
-              {words.length > 0
-                ? words.map((w, i) => (
-                    <span
-                      key={i}
-                      ref={i === activeWord ? activeWordElRef : undefined}
-                      className={
-                        i === activeWord
-                          ? 'bg-[color:var(--color-nis-accent)] text-[color:var(--color-nis-ink)]'
-                          : i < activeWord
-                            ? 'text-nis-muted'
-                            : undefined
-                      }
-                    >
-                      {w.word}{' '}
-                    </span>
-                  ))
-                : segText}
-            </div>
+            <p className="truncate font-sans text-[11px] uppercase tracking-[0.12em] text-nis-muted">
+              {status}
+            </p>
           )}
         </div>
 
