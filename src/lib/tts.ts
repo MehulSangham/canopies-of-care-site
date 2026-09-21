@@ -139,7 +139,17 @@ function charsToWords(
   return words;
 }
 
-const hasBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+/**
+ * Blob is available with either a classic read-write token or Vercel OIDC
+ * federation (automatic on Vercel; locally via `vercel env pull`'s
+ * VERCEL_OIDC_TOKEN). Auth failures fall through to the disk cache.
+ */
+const hasBlob = () =>
+  Boolean(
+    process.env.BLOB_READ_WRITE_TOKEN ||
+      process.env.VERCEL_OIDC_TOKEN ||
+      process.env.VERCEL,
+  );
 const blobPath = (key: string, ext: 'mp3' | 'json') => `tts/${key}.${ext}`;
 
 /** Look a segment up in the Blob store. Null on miss or any Blob error. */
