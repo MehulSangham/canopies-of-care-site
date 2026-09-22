@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   Upload,
@@ -84,7 +85,10 @@ export function ExpandedBlockEditor({
 
   const isRichEditable = block.type === 'paragraph' || block.type === 'heading';
 
-  return (
+  // Rendered through a portal so the overlay escapes any ancestor stacking
+  // context (the focused block wrapper is `relative z-10`, which would
+  // otherwise trap this modal underneath the outline rail and edit toolbar).
+  return createPortal(
     <div className="fixed inset-0 z-[200] flex items-center justify-center">
       {/* Backdrop */}
       <div
@@ -251,7 +255,8 @@ export function ExpandedBlockEditor({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
