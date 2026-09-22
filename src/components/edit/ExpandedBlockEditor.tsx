@@ -89,21 +89,9 @@ export function ExpandedBlockEditor({
   // context (the focused block wrapper is `relative z-10`, which would
   // otherwise trap this modal underneath the outline rail and edit toolbar).
   return createPortal(
-    <div className="fixed inset-0 z-[200] flex items-center justify-center">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-[color:var(--color-nis-ink)]/40 backdrop-blur-sm"
-        onClick={onCancel}
-      />
-
-      {/* Panel */}
-      <div
-        className={`relative w-full mx-4 flex flex-col border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[8px_8px_0_0_var(--color-nis-accent)] ${
-          showAi ? 'max-w-[1280px] h-[88vh]' : 'max-w-[800px] max-h-[85vh]'
-        }`}
-      >
+    <div className="fixed inset-0 z-[200] flex flex-col bg-[color:var(--color-nis-white)]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[color:var(--color-nis-soft)] px-5 py-3 bg-[color:var(--color-nis-paper)] shrink-0">
+        <div className="flex items-center justify-between border-b border-[color:var(--color-nis-soft)] px-6 py-3 shrink-0">
           <div className="flex items-center gap-3">
             <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
               {block.type}
@@ -169,6 +157,7 @@ export function ExpandedBlockEditor({
         {/* Body: editor (left) + AI assistant (right) */}
         <div className="flex flex-1 min-h-0">
         <div className="flex-1 min-w-0 overflow-y-auto">
+        <div className="mx-auto w-full max-w-[760px] pt-4">
           {showPreview ? (
             <div className="px-8 py-6">
               <BlockPreview block={previewBlock} />
@@ -221,6 +210,7 @@ export function ExpandedBlockEditor({
             </div>
           )}
         </div>
+        </div>
 
         {/* AI assistant column */}
         {showAi && block.type !== 'hr' && (
@@ -235,7 +225,7 @@ export function ExpandedBlockEditor({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-[color:var(--color-nis-soft)] px-5 py-2.5 bg-[color:var(--color-nis-paper)] shrink-0">
+        <div className="flex items-center justify-between border-t border-[color:var(--color-nis-soft)] px-6 py-2.5 shrink-0">
           <span className="font-mono text-[10px] text-nis-muted">⌘⏎ save · esc close</span>
           <div className="flex items-center gap-2">
             <button
@@ -254,7 +244,6 @@ export function ExpandedBlockEditor({
             </button>
           </div>
         </div>
-      </div>
     </div>,
     document.body,
   );
@@ -691,7 +680,7 @@ function ExpandedRichEditor({
   return (
     <div>
       {/* Toolbar */}
-      <div className="flex items-center gap-0.5 border-b border-[color:var(--color-nis-soft)] px-5 py-2 bg-[color:var(--color-nis-paper)] flex-wrap">
+      <div className="flex items-center gap-0.5 border-b border-[color:var(--color-nis-soft)] px-5 py-2 flex-wrap">
         <ToolbarBtn
           active={editor.isActive('bold')}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -747,7 +736,7 @@ function ExpandedRichEditor({
             />
 
             {showFootnoteMenu && !showFnCreate && (
-              <div className="absolute left-0 top-full mt-1 z-50 min-w-[200px] border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[4px_4px_0_0_var(--color-nis-accent)]">
+              <div className="absolute left-0 top-full mt-1 z-50 min-w-[200px] border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] shadow-lg">
                 <div className="px-3 py-2 border-b border-[color:var(--color-nis-soft)]">
                   <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
                     Insert footnote
@@ -807,7 +796,7 @@ function ExpandedRichEditor({
                 setNewFnSources('');
               };
               return (
-              <div className="absolute left-0 top-full mt-1 z-50 w-[340px] border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)] shadow-[4px_4px_0_0_var(--color-nis-accent)]">
+              <div className="absolute left-0 top-full mt-1 z-50 w-[340px] border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] shadow-lg">
                 <div className="px-3 py-2 border-b border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)]">
                   <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
                     New footnote
