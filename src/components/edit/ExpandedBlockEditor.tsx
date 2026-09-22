@@ -92,7 +92,7 @@ export function ExpandedBlockEditor({
   // context (the focused block wrapper is `relative z-10`, which would
   // otherwise trap this modal underneath the outline rail and edit toolbar).
   return createPortal(
-    <div className="fixed inset-0 z-[200] flex flex-col bg-[color:var(--color-nis-white)]">
+    <div data-overlay="expanded-editor" className="fixed inset-0 z-[230] flex flex-col bg-[color:var(--color-nis-white)]">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[color:var(--color-nis-soft)] px-6 py-3 shrink-0">
           <div className="flex items-center gap-3">

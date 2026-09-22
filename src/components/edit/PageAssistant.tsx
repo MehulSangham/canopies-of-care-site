@@ -5,7 +5,9 @@ import { createPortal } from 'react-dom';
 import { Sparkles, Loader2, Send, X, Check, Ban } from 'lucide-react';
 import { useBlocks } from './BlocksContext';
 import { useEditModeOptional } from './EditModeProvider';
+import { BlockEditor } from './BlockEditor';
 import { BlockPreview } from './BlockPreview';
+import { AddBlockButton } from './AddBlockMenu';
 import {
   AI_MODELS,
   DEFAULT_MODEL_ID,
@@ -13,7 +15,6 @@ import {
   MODEL_STORAGE_KEY,
   type AiModelId,
 } from '@/lib/ai/models';
-import type { MdxBlock } from '@/lib/mdx-blocks';
 
 interface PageChange {
   blockId: string;
@@ -57,8 +58,6 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [changes, setChanges] = useState<ReviewChange[]>([]);
-  /** Block list as it was when the current proposal arrived, so deletes stay visible. */
-  const [reviewBlocks, setReviewBlocks] = useState<MdxBlock[]>([]);
   const [modelId, setModelId] = useState<AiModelId>(DEFAULT_MODEL_ID);
   const scrollRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -87,13 +86,17 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.stopImmediatePropagation();
-        requestClose();
-      }
+      if (e.key !== 'Escape') return;
+      // Nested overlays (expanded block, style guide) and in-progress
+      // typing handle Escape themselves; do not close the page editor.
+      if (document.querySelector('[data-overlay]')) return;
+      const el = e.target as HTMLElement | null;
+      if (el?.closest('textarea, input, [contenteditable="true"]')) return;
+      e.preventDefault();
+      requestClose();
     };
-    window.addEventListener('keydown', handler, true);
-    return () => window.removeEventListener('keydown', handler, true);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [requestClose]);
 
   useEffect(() => {
@@ -142,7 +145,6 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
       if (proposal?.kind === 'page') {
         const snapshot = ctx.blocks;
         const blockById = new Map(snapshot.map((b) => [b.id, b]));
-        setReviewBlocks(snapshot);
         setChanges(
           proposal.changes
             .filter((c) => blockById.has(c.blockId))
@@ -176,11 +178,26 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
     }
   };
 
+  const blockHasDiverged = useCallback(
+    (change: ReviewChange) => {
+      if (change.op === 'insert_after') return false;
+      const live = ctx.blocks.find((b) => b.id === change.blockId);
+      return Boolean(live && live.raw !== change.oldRaw);
+    },
+    [ctx.blocks],
+  );
+
   const resolveChange = useCallback(
     (index: number, accept: boolean) => {
       const change = changes[index];
       if (!change || change.status !== 'pending') return;
       if (accept) {
+        if (blockHasDiverged(change)) {
+          const confirmed = window.confirm(
+            'You edited this block after the proposal. Accepting will overwrite your edit.',
+          );
+          if (!confirmed) return;
+        }
         ctx.applyPageEdits([
           {
             blockId: change.blockId,
@@ -195,12 +212,19 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
         ),
       );
     },
-    [changes, ctx],
+    [blockHasDiverged, changes, ctx],
   );
 
   const acceptAll = useCallback(() => {
     const pending = changes.filter((c) => c.status === 'pending');
     if (pending.length === 0) return;
+    const diverged = pending.filter(blockHasDiverged);
+    if (diverged.length > 0) {
+      const confirmed = window.confirm(
+        `You edited ${diverged.length} of these blocks after the proposal. Accepting all will overwrite those edits.`,
+      );
+      if (!confirmed) return;
+    }
     ctx.applyPageEdits(
       pending.map((c) => ({
         blockId: c.blockId,
@@ -211,7 +235,7 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
     setChanges((prev) =>
       prev.map((c) => (c.status === 'pending' ? { ...c, status: 'accepted' as const } : c)),
     );
-  }, [changes, ctx]);
+  }, [blockHasDiverged, changes, ctx]);
 
   // Index changes by target block for the review column
   const changesByBlock = new Map<string, { change: ReviewChange; index: number }[]>();
@@ -220,8 +244,6 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
     list.push({ change, index });
     changesByBlock.set(change.blockId, list);
   });
-  const hasActiveProposal = pendingCount > 0;
-
   return createPortal(
     <div className="fixed inset-0 z-[200] flex flex-col bg-[color:var(--color-nis-white)]">
       {/* Header */}
@@ -261,40 +283,51 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
 
       {/* Body */}
       <div className="flex flex-1 min-h-0">
-        {/* Review column */}
+        {/* Live page — click any unlocked block to edit */}
         <div ref={reviewRef} className="flex-1 min-w-0 overflow-y-auto">
-          <div className="mx-auto w-full max-w-[760px] px-6 py-6 space-y-1">
-            {(reviewBlocks.length > 0 ? reviewBlocks : ctx.blocks).map((block) => {
-              const blockChanges = changesByBlock.get(block.id) ?? [];
-              const replaceOrDelete = blockChanges.find(
+          <div className="mx-auto w-full max-w-[760px] px-10 py-6">
+            <AddBlockButton onAdd={(raw) => ctx.addBlock(-1, raw)} />
+            {ctx.blocks.map((block, index) => {
+              const pending = (changesByBlock.get(block.id) ?? []).filter(
+                ({ change }) => change.status === 'pending',
+              );
+              const replaceOrDelete = pending.find(
                 ({ change }) => change.op !== 'insert_after',
               );
-              const inserts = blockChanges.filter(
+              const inserts = pending.filter(
                 ({ change }) => change.op === 'insert_after',
               );
               return (
-                <div key={block.id}>
+                <div key={block.id} data-block-id={block.id}>
                   {replaceOrDelete ? (
                     <ChangeCard
                       change={replaceOrDelete.change}
                       onResolve={(accept) => resolveChange(replaceOrDelete.index, accept)}
                     />
                   ) : (
-                    <div
-                      className={`px-1 py-2 transition-opacity ${
-                        hasActiveProposal ? 'opacity-40' : ''
-                      }`}
-                    >
-                      <BlockPreview block={block} />
-                    </div>
+                    <BlockEditor
+                      block={block}
+                      rendered={<BlockPreview block={block} />}
+                      onUpdate={ctx.updateBlock}
+                      onMoveUp={() => ctx.moveUp(index)}
+                      onMoveDown={() => ctx.moveDown(index)}
+                      onDuplicate={() => ctx.duplicateBlock(index)}
+                      onDelete={() => ctx.deleteBlock(index)}
+                      isFirst={index === 0}
+                      isLast={index === ctx.blocks.length - 1}
+                      onFocus={() => ctx.setActiveBlockId(block.id)}
+                      isDirty={ctx.dirtyBlockIds.has(block.id)}
+                      isFocused={block.id === ctx.activeBlockId}
+                    />
                   )}
-                  {inserts.map(({ change, index }) => (
+                  {inserts.map(({ change, index: changeIndex }) => (
                     <ChangeCard
-                      key={index}
+                      key={changeIndex}
                       change={change}
-                      onResolve={(accept) => resolveChange(index, accept)}
+                      onResolve={(accept) => resolveChange(changeIndex, accept)}
                     />
                   ))}
+                  <AddBlockButton onAdd={(raw) => ctx.addBlock(index, raw)} />
                 </div>
               );
             })}
@@ -324,10 +357,10 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
           <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-3">
             {entries.length === 0 && !loading && (
               <p className="font-sans text-[11px] leading-relaxed text-nis-muted">
-                Give a page-level instruction: tighten the whole page to the style
-                guide, restructure a section, verify every date. Changes come back
-                anchored to their blocks on the left, each with accept and reject
-                controls; nothing is saved until you save the page.
+                The left column is the page — click any block to edit it. Give a
+                page-level instruction here and proposed changes lock their
+                blocks until you accept or reject them. Nothing is saved until
+                you save the page.
               </p>
             )}
             {entries.map((entry, i) => (
@@ -403,7 +436,7 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
 
       <div className="flex items-center justify-between border-t border-[color:var(--color-nis-soft)] px-6 py-2.5 shrink-0">
         <span className="font-mono text-[10px] text-nis-muted">
-          Accepted changes land in the draft · nothing is saved until you save the page · esc close
+          Click a block to edit · proposals lock that block until you decide · esc close
         </span>
         <button
           type="button"

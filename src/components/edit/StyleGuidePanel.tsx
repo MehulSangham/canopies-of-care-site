@@ -57,7 +57,7 @@ export function StyleGuidePanel({ onClose }: { onClose: () => void }) {
   }, [draft]);
 
   return createPortal(
-    <div className="fixed inset-0 z-[220] flex justify-end">
+    <div data-overlay="style-guide" className="fixed inset-0 z-[240] flex justify-end">
       <div className="absolute inset-0 bg-[color:var(--color-nis-ink)]/20" onClick={onClose} />
       <div className="relative flex h-full w-full max-w-[680px] flex-col border-l border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)]">
         {/* Header */}
