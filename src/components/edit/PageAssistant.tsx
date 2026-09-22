@@ -9,6 +9,7 @@ import { BlockEditor } from './BlockEditor';
 import { BlockPreview } from './BlockPreview';
 import { AddBlockButton } from './AddBlockMenu';
 import { ChatMarkdown } from './ChatMarkdown';
+import { ChatTurn } from './ChatTurn';
 import {
   AI_MODELS,
   DEFAULT_MODEL_ID,
@@ -405,13 +406,11 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
               </p>
             )}
             {entries.map((entry, i) => (
-              <div key={i}>
+              <ChatTurn key={i} role={entry.role}>
                 {entry.role === 'user' ? (
-                  <p className="font-sans text-[12px] leading-relaxed text-nis-muted">
-                    {entry.content}
-                  </p>
+                  entry.content
                 ) : (
-                  <div className="space-y-2">
+                  <>
                     {entry.steps && (
                       <div className="space-y-0.5">
                         {entry.steps.map((s, j) => (
@@ -432,9 +431,9 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
                         {' '}{entry.proposalSummary}
                       </p>
                     )}
-                  </div>
+                  </>
                 )}
-              </div>
+              </ChatTurn>
             ))}
             {error && <p className="font-sans text-[11px] text-red-700">{error}</p>}
           </div>

@@ -7,6 +7,7 @@ import { useEditModeOptional } from './EditModeProvider';
 import { blocksToMarkdown } from '@/lib/mdx-blocks';
 import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId, MODEL_STORAGE_KEY, type AiModelId } from '@/lib/ai/models';
 import { ChatMarkdown } from './ChatMarkdown';
+import { ChatTurn } from './ChatTurn';
 
 interface EditProposal {
   kind: 'edit';
@@ -179,13 +180,11 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
         )}
 
         {entries.map((entry, i) => (
-          <div key={i}>
+          <ChatTurn key={i} role={entry.role}>
             {entry.role === 'user' ? (
-              <p className="font-sans text-[12px] leading-relaxed text-nis-muted">
-                {entry.content}
-              </p>
+              entry.content
             ) : (
-              <div className="space-y-2">
+              <>
                 {entry.steps && (
                   <div className="space-y-0.5">
                     {entry.steps.map((s, j) => (
@@ -245,9 +244,9 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
                     </div>
                   </div>
                 )}
-              </div>
+              </>
             )}
-          </div>
+          </ChatTurn>
         ))}
 
         {loading && (
