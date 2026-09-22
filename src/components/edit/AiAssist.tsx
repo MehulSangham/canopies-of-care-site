@@ -6,6 +6,7 @@ import { useBlocksOptional } from './BlocksContext';
 import { useEditModeOptional } from './EditModeProvider';
 import { blocksToMarkdown } from '@/lib/mdx-blocks';
 import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId, MODEL_STORAGE_KEY, type AiModelId } from '@/lib/ai/models';
+import { ChatMarkdown } from './ChatMarkdown';
 
 interface EditProposal {
   kind: 'edit';
@@ -147,7 +148,7 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col bg-[color:var(--color-nis-paper)]">
+    <div className="flex h-full min-h-0 flex-col">
       {/* Panel header */}
       <div className="flex items-center gap-1.5 border-b border-[color:var(--color-nis-soft)] px-4 py-2.5 shrink-0">
         <Sparkles className="h-3.5 w-3.5 text-nis-muted" />
@@ -180,15 +181,13 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
         {entries.map((entry, i) => (
           <div key={i}>
             {entry.role === 'user' ? (
-              <div className="ml-6 border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-3 py-2">
-                <p className="whitespace-pre-wrap font-sans text-[12px] leading-relaxed">
-                  {entry.content}
-                </p>
-              </div>
+              <p className="font-sans text-[12px] leading-relaxed text-nis-muted">
+                {entry.content}
+              </p>
             ) : (
-              <div className="mr-2 space-y-2">
+              <div className="space-y-2">
                 {entry.steps && (
-                  <div className="border-l-2 border-[color:var(--color-nis-soft)] pl-2">
+                  <div className="space-y-0.5">
                     {entry.steps.map((s, j) => (
                       <p key={j} className="font-mono text-[10px] text-nis-muted">
                         {s}
@@ -196,11 +195,7 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
                     ))}
                   </div>
                 )}
-                {entry.content && (
-                  <p className="whitespace-pre-wrap font-sans text-[12px] leading-relaxed">
-                    {entry.content}
-                  </p>
-                )}
+                {entry.content && <ChatMarkdown text={entry.content} />}
                 {entry.proposal && (
                   <div className="border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-white)]">
                     <div className="px-3 py-2">

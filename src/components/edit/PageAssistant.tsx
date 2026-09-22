@@ -8,6 +8,7 @@ import { useEditModeOptional } from './EditModeProvider';
 import { BlockEditor } from './BlockEditor';
 import { BlockPreview } from './BlockPreview';
 import { AddBlockButton } from './AddBlockMenu';
+import { ChatMarkdown } from './ChatMarkdown';
 import {
   AI_MODELS,
   DEFAULT_MODEL_ID,
@@ -119,8 +120,8 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
     }
     setError(null);
     setInput('');
-    const nextEntries: ChatEntry[] = [...entries, { role: 'user', content: trimmed }];
-    setEntries(nextEntries);
+    const history = [...entries, { role: 'user' as const, content: trimmed }];
+    setEntries([...history, { role: 'assistant', content: '' }]);
     setLoading(true);
     try {
       const res = await fetch('/api/agent', {
@@ -128,20 +129,71 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           mode: 'page',
+          stream: true,
           slug,
           modelId,
           blocks: ctx.blocks.map((b) => ({ id: b.id, type: b.type, raw: b.raw })),
-          messages: nextEntries.map((e) => ({ role: e.role, content: entryToContent(e) })),
+          messages: history.map((e) => ({ role: e.role, content: entryToContent(e) })),
         }),
       });
-      const data = await res.json();
-      if (!data.ok) {
-        setError(data.error ?? 'Request failed');
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => null);
+        setError(data?.error ?? 'Request failed');
+        setEntries(history);
         return;
       }
-      const proposal = data.proposal as
-        | { kind: 'page'; summary: string; changes: PageChange[] }
-        | null;
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let fullText = '';
+      let proposal: { kind: 'page'; summary: string; changes: PageChange[] } | null = null;
+      let steps: string[] = [];
+
+      const patchAssistant = (partial: Partial<ChatEntry>) => {
+        setEntries((prev) => {
+          const next = [...prev];
+          const last = next[next.length - 1];
+          if (last?.role === 'assistant') next[next.length - 1] = { ...last, ...partial };
+          return next;
+        });
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const chunks = buffer.split('\n\n');
+        buffer = chunks.pop() ?? '';
+        for (const chunk of chunks) {
+          const line = chunk.split('\n').find((l) => l.startsWith('data: '));
+          if (!line) continue;
+          let ev: { type: string; delta?: string; proposal?: typeof proposal; steps?: string[]; error?: string };
+          try {
+            ev = JSON.parse(line.slice(6));
+          } catch {
+            continue;
+          }
+          if (ev.type === 'text' && ev.delta) {
+            fullText += ev.delta;
+            patchAssistant({ content: fullText });
+          } else if (ev.type === 'proposal' && ev.proposal?.kind === 'page') {
+            proposal = ev.proposal;
+          } else if (ev.type === 'steps' && ev.steps) {
+            steps = ev.steps;
+          } else if (ev.type === 'error') {
+            setError(ev.error ?? 'Request failed');
+          }
+        }
+      }
+
+      patchAssistant({
+        content: fullText,
+        steps: steps.length ? steps : undefined,
+        proposalSummary: proposal?.summary,
+        proposalCount: proposal?.changes.length,
+      });
+
       if (proposal?.kind === 'page') {
         const snapshot = ctx.blocks;
         const blockById = new Map(snapshot.map((b) => [b.id, b]));
@@ -154,23 +206,12 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
               status: 'pending' as const,
             })),
         );
-        // Bring the first proposed change into view
         setTimeout(() => {
           reviewRef.current
             ?.querySelector('[data-change]')
             ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 150);
       }
-      setEntries((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: data.text ?? '',
-          steps: data.steps?.length ? data.steps : undefined,
-          proposalSummary: proposal?.summary,
-          proposalCount: proposal?.changes.length,
-        },
-      ]);
     } catch {
       setError('Network error — is the dev server running?');
     } finally {
@@ -335,7 +376,7 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Conversation rail */}
-        <div className="flex w-[420px] shrink-0 min-h-0 flex-col border-l border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-paper)]">
+        <div className="flex w-[420px] shrink-0 min-h-0 flex-col border-l border-[color:var(--color-nis-soft)]">
           <div className="flex items-center gap-1.5 border-b border-[color:var(--color-nis-soft)] px-4 py-2.5 shrink-0">
             <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
               Conversation
@@ -354,9 +395,9 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
             </select>
           </div>
 
-          <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-3">
+          <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-5 py-4 space-y-5">
             {entries.length === 0 && !loading && (
-              <p className="font-sans text-[11px] leading-relaxed text-nis-muted">
+              <p className="font-sans text-[12px] leading-relaxed text-nis-muted">
                 The left column is the page — click any block to edit it. Give a
                 page-level instruction here and proposed changes lock their
                 blocks until you accept or reject them. Nothing is saved until
@@ -366,15 +407,13 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
             {entries.map((entry, i) => (
               <div key={i}>
                 {entry.role === 'user' ? (
-                  <div className="ml-6 border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-3 py-2">
-                    <p className="whitespace-pre-wrap font-sans text-[12px] leading-relaxed">
-                      {entry.content}
-                    </p>
-                  </div>
+                  <p className="font-sans text-[12px] leading-relaxed text-nis-muted">
+                    {entry.content}
+                  </p>
                 ) : (
-                  <div className="mr-2 space-y-2">
+                  <div className="space-y-2">
                     {entry.steps && (
-                      <div className="border-l-2 border-[color:var(--color-nis-soft)] pl-2">
+                      <div className="space-y-0.5">
                         {entry.steps.map((s, j) => (
                           <p key={j} className="font-mono text-[10px] text-nis-muted">
                             {s}
@@ -382,32 +421,26 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
                         ))}
                       </div>
                     )}
-                    {entry.content && (
-                      <p className="whitespace-pre-wrap font-sans text-[12px] leading-relaxed">
-                        {entry.content}
-                      </p>
-                    )}
+                    {entry.content ? (
+                      <ChatMarkdown text={entry.content} />
+                    ) : loading && i === entries.length - 1 ? (
+                      <span className="inline-block h-3 w-1.5 animate-pulse bg-[color:var(--color-nis-ink)]" />
+                    ) : null}
                     {entry.proposalSummary && (
-                      <p className="border-l-2 border-[color:var(--color-nis-ink)] pl-2 font-sans text-[11px] italic text-nis-muted">
-                        {entry.proposalCount} change{entry.proposalCount === 1 ? '' : 's'} proposed
-                        — review them in the left column. {entry.proposalSummary}
+                      <p className="font-sans text-[11px] italic text-nis-muted">
+                        {entry.proposalCount} change{entry.proposalCount === 1 ? '' : 's'} proposed.
+                        {' '}{entry.proposalSummary}
                       </p>
                     )}
                   </div>
                 )}
               </div>
             ))}
-            {loading && (
-              <p className="inline-flex items-center gap-1.5 font-sans text-[11px] text-nis-muted">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                Reading the page, style guide, and sources…
-              </p>
-            )}
             {error && <p className="font-sans text-[11px] text-red-700">{error}</p>}
           </div>
 
-          <div className="shrink-0 border-t border-[color:var(--color-nis-soft)] px-4 py-3">
-            <div className="flex items-end gap-2">
+          <div className="shrink-0 px-5 py-3">
+            <div className="flex items-end gap-2 border-t border-[color:var(--color-nis-soft)] pt-3">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -417,15 +450,15 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
                     send(input);
                   }
                 }}
-                placeholder="Instruct the assistant… (Enter to send)"
+                placeholder="Instruct the assistant…"
                 rows={2}
-                className="min-h-0 w-full resize-none border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-2 py-1.5 font-sans text-[12px] leading-relaxed focus:border-[color:var(--color-nis-ink)] focus:outline-none"
+                className="min-h-0 w-full resize-none border-0 bg-transparent px-0 py-0.5 font-sans text-[13px] leading-relaxed text-[color:var(--color-nis-ink)] outline-none placeholder:text-nis-muted"
               />
               <button
                 type="button"
                 onClick={() => send(input)}
                 disabled={loading || !input.trim()}
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-ink)] text-[color:var(--color-nis-bg)] transition-opacity disabled:opacity-40"
+                className="inline-flex h-7 w-7 shrink-0 items-center justify-center text-[color:var(--color-nis-ink)] transition-opacity disabled:opacity-30"
               >
                 {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
               </button>

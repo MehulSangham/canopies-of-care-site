@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { generateText, tool, stepCountIs, hasToolCall, type ModelMessage } from 'ai';
+import { generateText, streamText, tool, stepCountIs, hasToolCall, type ModelMessage } from 'ai';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { z } from 'zod';
 import { checkIsAdmin } from '@/lib/auth';
@@ -64,6 +64,7 @@ interface AgentRequest {
   blocks?: BlockDescriptor[];
   messages: ChatMessage[];
   modelId?: string;
+  stream?: boolean;
 }
 
 interface EditProposal {
@@ -119,6 +120,7 @@ export async function POST(req: Request) {
   }
 
   const { slug, blockRaw, pageMarkdown, blocks, messages } = body;
+  const wantStream = Boolean(body.stream);
   const mode = body.mode === 'page' ? 'page' : 'block';
   const validMessages =
     Array.isArray(messages) &&
@@ -360,32 +362,67 @@ export async function POST(req: Request) {
     content: m.content,
   }));
 
-  try {
-    const result = await generateText({
-      model,
-      system,
-      messages: [
-        contextMessage,
-        {
-          role: 'assistant',
-          content:
-            mode === 'page'
-              ? 'Understood. I have the page as a block list, the style guide, and the sources.'
-              : 'Understood. I have the page, the target block, the style guide, and the sources.',
-        },
-        ...history,
-      ],
-      tools,
-      stopWhen: [
-        stepCountIs(mode === 'page' ? 14 : 10),
-        hasToolCall('propose_edit'),
-        hasToolCall('propose_footnote'),
-        // Page proposals stop the loop only once one is actually recorded,
-        // so a rejected change set (bad block id) lets the model retry.
-        () => proposal !== null && proposal.kind === 'page',
-      ],
-    });
+  const generation = {
+    model,
+    system,
+    messages: [
+      contextMessage,
+      {
+        role: 'assistant' as const,
+        content:
+          mode === 'page'
+            ? 'Understood. I have the page as a block list, the style guide, and the sources.'
+            : 'Understood. I have the page, the target block, the style guide, and the sources.',
+      },
+      ...history,
+    ],
+    tools,
+    stopWhen: [
+      stepCountIs(mode === 'page' ? 14 : 10),
+      hasToolCall('propose_edit'),
+      hasToolCall('propose_footnote'),
+      // Page proposals stop the loop only once one is actually recorded,
+      // so a rejected change set (bad block id) lets the model retry.
+      () => proposal !== null && proposal.kind === 'page',
+    ],
+  };
 
+  try {
+    if (wantStream) {
+      const result = streamText(generation);
+      const encoder = new TextEncoder();
+      const readable = new ReadableStream({
+        async start(controller) {
+          const send = (data: unknown) => {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+          };
+          try {
+            for await (const part of result.fullStream) {
+              if (part.type === 'text-delta' && part.text) {
+                send({ type: 'text', delta: part.text });
+              }
+            }
+            send({ type: 'proposal', proposal });
+            send({ type: 'steps', steps });
+            send({ type: 'done' });
+          } catch (err) {
+            const message = err instanceof Error ? err.message : 'Agent request failed';
+            send({ type: 'error', error: message });
+          } finally {
+            controller.close();
+          }
+        },
+      });
+      return new Response(readable, {
+        headers: {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          Connection: 'keep-alive',
+        },
+      });
+    }
+
+    const result = await generateText(generation);
     return NextResponse.json({
       ok: true,
       text: result.text,
