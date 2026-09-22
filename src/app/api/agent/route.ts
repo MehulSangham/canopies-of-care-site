@@ -8,6 +8,7 @@ import {
   getCitationFile,
   getArchiveOverview,
 } from '@/lib/ai/agent-context';
+import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId } from '@/lib/ai/models';
 
 export const maxDuration = 120;
 
@@ -16,8 +17,17 @@ export const maxDuration = 120;
  * - ANTHROPIC_API_KEY set → call Anthropic directly.
  * - Otherwise, with AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN present, route
  *   through Vercel AI Gateway (federated identity; billed to the Vercel team).
+ *
+ * The editor's model selector sends a `modelId`; it is validated against the
+ * shared whitelist. AI_MODEL in the environment overrides the default only.
  */
-function resolveModel() {
+function resolveModel(requestedId?: unknown) {
+  const fallback = isValidModelId(process.env.AI_MODEL)
+    ? process.env.AI_MODEL
+    : DEFAULT_MODEL_ID;
+  const id = isValidModelId(requestedId) ? requestedId : fallback;
+  const entry = AI_MODELS.find((m) => m.id === id)!;
+
   if (process.env.ANTHROPIC_API_KEY) {
     const anthropic = createAnthropic({
       // Some Anthropic orgs require requests to name a workspace when the
@@ -26,10 +36,10 @@ function resolveModel() {
         ? { 'anthropic-workspace-id': process.env.ANTHROPIC_WORKSPACE_ID }
         : undefined,
     });
-    return anthropic(process.env.AI_MODEL || 'claude-sonnet-4-5');
+    return anthropic(entry.id);
   }
   if (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN) {
-    return process.env.AI_MODEL || 'anthropic/claude-sonnet-4.5';
+    return entry.gateway;
   }
   return null;
 }
@@ -44,6 +54,7 @@ interface AgentRequest {
   blockRaw: string;
   pageMarkdown: string;
   messages: ChatMessage[];
+  modelId?: string;
 }
 
 interface EditProposal {
@@ -66,7 +77,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
 
-  const model = resolveModel();
+  let body: AgentRequest;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const model = resolveModel(body.modelId);
   if (!model) {
     return NextResponse.json(
       {
@@ -76,13 +94,6 @@ export async function POST(req: Request) {
       },
       { status: 503 },
     );
-  }
-
-  let body: AgentRequest;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
   }
 
   const { slug, blockRaw, pageMarkdown, messages } = body;

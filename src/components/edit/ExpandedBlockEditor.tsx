@@ -10,12 +10,14 @@ import {
   ChevronDown,
   Hash,
   Sparkles,
+  BookOpen,
 } from 'lucide-react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import LinkExtension from '@tiptap/extension-link';
 import { BlockPreview } from './BlockPreview';
 import { AiAssist } from './AiAssist';
+import { StyleGuidePanel } from './StyleGuidePanel';
 import { uploadImage } from '@/app/actions/upload-image';
 import type { MdxBlock, BlockType } from '@/lib/mdx-blocks';
 
@@ -42,6 +44,7 @@ export function ExpandedBlockEditor({
   const [draft, setDraft] = useState(block.raw);
   const [showPreview, setShowPreview] = useState(false);
   const [showAi, setShowAi] = useState(block.type !== 'hr');
+  const [showStyleGuide, setShowStyleGuide] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Parse structured fields from draft based on block type
@@ -118,6 +121,14 @@ export function ExpandedBlockEditor({
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowStyleGuide(true)}
+              className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-nis-muted transition-colors hover:text-[color:var(--color-nis-ink)]"
+            >
+              <BookOpen className="h-3 w-3" />
+              Style guide
+            </button>
             {block.type !== 'hr' && (
               <button
                 type="button"
@@ -244,6 +255,8 @@ export function ExpandedBlockEditor({
             </button>
           </div>
         </div>
+
+        {showStyleGuide && <StyleGuidePanel onClose={() => setShowStyleGuide(false)} />}
     </div>,
     document.body,
   );

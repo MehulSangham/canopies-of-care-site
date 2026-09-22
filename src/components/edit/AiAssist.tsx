@@ -5,6 +5,7 @@ import { Sparkles, Loader2, Check, Send } from 'lucide-react';
 import { useBlocksOptional } from './BlocksContext';
 import { useEditModeOptional } from './EditModeProvider';
 import { blocksToMarkdown } from '@/lib/mdx-blocks';
+import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId, type AiModelId } from '@/lib/ai/models';
 
 interface EditProposal {
   kind: 'edit';
@@ -40,10 +41,10 @@ interface AiAssistProps {
 }
 
 const PRESETS = [
-  { label: 'Tighten to style', message: 'Tighten this block so it fully conforms to the style guide. Keep the meaning and facts identical.' },
-  { label: 'Suggest footnote', message: 'Suggest one footnote for this block: a short interpretive note plus sources grounded in the citation file or a verified web source.' },
   { label: 'Verify claims', message: 'Check every factual claim in this block against the citation file and the web. Tell me which are supported, unsupported, or contradicted.' },
 ];
+
+const MODEL_STORAGE_KEY = 'nis-ai-model';
 
 /** Serialize an assistant entry (incl. proposal) back into plain text for the model's history. */
 function entryToContent(e: ChatEntry): string {
@@ -70,6 +71,18 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [modelId, setModelId] = useState<AiModelId>(DEFAULT_MODEL_ID);
+
+  // Restore the last-used model
+  useEffect(() => {
+    const stored = window.localStorage.getItem(MODEL_STORAGE_KEY);
+    if (isValidModelId(stored)) setModelId(stored);
+  }, []);
+
+  const changeModel = (id: AiModelId) => {
+    setModelId(id);
+    window.localStorage.setItem(MODEL_STORAGE_KEY, id);
+  };
   const scrollRef = useRef<HTMLDivElement>(null);
   const draftRef = useRef(draft);
   draftRef.current = draft;
@@ -97,6 +110,7 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
           slug,
           blockRaw: draftRef.current,
           pageMarkdown,
+          modelId,
           messages: nextEntries.map((e) => ({ role: e.role, content: entryToContent(e) })),
         }),
       });
@@ -142,9 +156,18 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
         <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-nis-muted">
           Assistant
         </span>
-        <span className="ml-auto font-mono text-[9px] text-nis-muted">
-          sees full page + style guide + sources
-        </span>
+        <select
+          value={modelId}
+          onChange={(e) => changeModel(e.target.value as AiModelId)}
+          title="Model used for this conversation"
+          className="ml-auto max-w-[150px] cursor-pointer appearance-none border border-[color:var(--color-nis-soft)] bg-[color:var(--color-nis-white)] px-1.5 py-0.5 font-mono text-[9px] text-nis-muted outline-none hover:border-[color:var(--color-nis-ink)] hover:text-[color:var(--color-nis-ink)]"
+        >
+          {AI_MODELS.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Conversation */}
