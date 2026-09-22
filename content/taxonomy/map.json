@@ -1,0 +1,442 @@
+{
+  "nodes": [
+    {
+      "id": "claim-a0",
+      "kind": "claim",
+      "label": "A0 · Elder tradition",
+      "stance": "reframe",
+      "definition": "Organised reciprocity on this continent is older than the Republic. Indigenous nations ran complete economies of mutual obligation, and the United States tried to outlaw them by name.",
+      "argument": {
+        "warrant": "If the practice was old and functioning, and the state's own documents say it was suppressed because communal obligation stood in the way of self-interest, the contest between the two accounts is the oldest legal conflict on the continent.",
+        "qualifier": "This page does not claim Indigenous reciprocity as a chapter of the American civic tradition. It precedes that tradition.",
+        "rebuttal": "The bans were about religion and public order, not economics.",
+        "answer": "Teller condemned the feasts through which property was given away; Dawes named selfishness as the foundation the Cherokee lacked. The economic motive is the stated rationale."
+      },
+      "parentId": "claim-spine-a",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-a1",
+      "kind": "claim",
+      "label": "A1 · Parallel founding of 1787",
+      "stance": "reframe",
+      "definition": "Organised mutual aid in the United States is as old as the constitutional Republic. The Free African Society, 1787, Philadelphia, is the earliest documented formally organised network.",
+      "argument": {
+        "warrant": "The simultaneous founding of the Convention and the FAS in the same city, the same year, establishes mutual aid as a parallel founding act, not a later response.",
+        "qualifier": "Earliest documented formally organised network; older informal and Indigenous traditions precede it.",
+        "rebuttal": "The FAS was a small local organisation, not a national tradition.",
+        "answer": "Traditions begin somewhere. The Convention was also a small gathering in one city."
+      },
+      "parentId": "claim-spine-a",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-a2",
+      "kind": "claim",
+      "label": "A2 · Parallel civic infrastructure",
+      "stance": "reframe",
+      "definition": "Excluded communities built mutual aid as the primary social safety net — healthcare, insurance, burial, education — that the state and market denied them.",
+      "parentId": "claim-spine-a",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS",
+      "argument": {
+        "grounds": [
+          "The Free African Society's design — dues, sickness benefits, burial provision — repeated in Charleston's Brown Fellowship Society (1790) and the New York African Society for Mutual Relief (1808).",
+          "Chinese huiguan consolidated as the Six Companies, Jewish landsmanshaftn, Italian società di mutuo soccorso, and Mexican sociedades mutualistas each independently built the same institution.",
+          "Du Bois's 1907 survey documented these organisations in the thousands as the principal provider of insurance, healthcare, education, and burial for Black Americans.",
+          "Public relief before the New Deal was local, discretionary, and racially exclusionary, so the societies were the system, not a supplement to it."
+        ],
+        "groundSources": [
+          [
+            "src-brown-fellowship-society-records-charleston-1790",
+            "src-new-york-african-society-for-mutual",
+            "src-prince-hall-freemasonry-records-1784-schomburg"
+          ],
+          [
+            "src-chinese-consolidated-benevolent-association-bylaws-and",
+            "src-landsmanshaftn-constitutions-and-financial-records-yivo",
+            "src-italian-mutual-benefit-society-charters-immigration",
+            "src-sociedades-mutualistas-handbook-of-texas-online"
+          ],
+          [
+            "src-w-e-b-du-bois-economic",
+            "src-jessica-gordon-nembhard-collective-courage-a-x"
+          ],
+          [
+            "src-cybelle-fox-three-worlds-of-relief"
+          ]
+        ],
+        "warrant": "If the same institutional design appears independently wherever exclusion created the same need, the pattern is structural: excluded communities built the safety net because no one else would.",
+        "qualifier": "Coverage varied by city and era; the societies did not reach everyone, and some enforced their own exclusions.",
+        "rebuttal": "These were private ethnic clubs, not civic infrastructure.",
+        "answer": "They performed the functions we now call the safety net — insurance, healthcare, burial, education — at documented scale, for communities the public system excluded by design."
+      }
+    },
+    {
+      "id": "claim-a3",
+      "kind": "claim",
+      "label": "A3 · Fraternal scale",
+      "stance": "reframe",
+      "definition": "By 1920 roughly one in three adult American men belonged to a fraternal order that paid sickness, death, and burial benefits — the largest voluntary association system after the churches.",
+      "parentId": "claim-spine-a",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-b1",
+      "kind": "claim",
+      "label": "B1 · New Deal displacement",
+      "stance": "reframe",
+      "definition": "New Deal social insurance replaced community provision and was narrated as filling a vacuum, not as taking over what lodges already did.",
+      "parentId": "claim-spine-b",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-b2",
+      "kind": "claim",
+      "label": "B2 · Civil rights care",
+      "stance": "reframe",
+      "definition": "The Civil Rights movement ran on care infrastructure: citizenship schools, church networks, and provision that made sustained protest possible.",
+      "parentId": "claim-spine-b",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-b3",
+      "kind": "claim",
+      "label": "B3 · Survival programs",
+      "stance": "reframe",
+      "definition": "The Black Panther survival programs — breakfast first among them — were mutual aid at civic scale, then watched, disrupted, and later absorbed as state policy.",
+      "parentId": "claim-spine-b",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-b4",
+      "kind": "claim",
+      "label": "B4 · AIDS networks",
+      "stance": "reframe",
+      "definition": "During the AIDS crisis, care networks kept people alive when official medicine and the state would not.",
+      "parentId": "claim-spine-b",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-b5",
+      "kind": "claim",
+      "label": "B5 · Maternal networks",
+      "stance": "reframe",
+      "definition": "The most pervasive form of mutual aid is maternal and kin care, and it has never been counted as civic infrastructure.",
+      "parentId": "claim-spine-b",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-c1",
+      "kind": "claim",
+      "label": "C1 · Crisis expansion",
+      "stance": "catalytic",
+      "definition": "In disaster, mutual aid routinely crosses the lines that bound it in ordinary time.",
+      "parentId": "claim-spine-c",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-c2",
+      "kind": "claim",
+      "label": "C2 · Labour across lines",
+      "stance": "reframe",
+      "definition": "Labour organising built mutual aid across ethnic lines, not only inside them.",
+      "parentId": "claim-spine-c",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-c3",
+      "kind": "claim",
+      "label": "C3 · Institutions for everyone",
+      "stance": "reframe",
+      "definition": "Some care institutions were deliberately built to serve beyond a single origin group.",
+      "parentId": "claim-spine-c",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-c4",
+      "kind": "claim",
+      "label": "C4 · Exclusion, not principle",
+      "stance": "reframe",
+      "definition": "Ethnic boundedness of many societies reflected the exclusion they were answering, not a principle that care is only for one's own.",
+      "parentId": "claim-spine-c",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-d1",
+      "kind": "claim",
+      "label": "D1 · Legal undermining",
+      "stance": "dominant",
+      "definition": "Tax, food-sharing, and disaster rules actively undermine reciprocal aid while privileging registered charity.",
+      "parentId": "claim-spine-d",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-d2",
+      "kind": "claim",
+      "label": "D2 · Competing tradition",
+      "stance": "dominant",
+      "definition": "A funded civic-nationalist tradition claimed the definition of American and pushed mutual aid out of the centre of the story.",
+      "parentId": "claim-spine-d",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-d3",
+      "kind": "claim",
+      "label": "D3 · Project 2025",
+      "stance": "dominant",
+      "definition": "Project 2025 is the current culmination of that displacing tradition: eligibility, compliance, and a narrowed circle of care written as policy.",
+      "parentId": "claim-spine-d",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-d4",
+      "kind": "claim",
+      "label": "D4 · Contestation",
+      "stance": "reframe",
+      "definition": "The archive exists to contest that displacement by making the practice account citable civic knowledge.",
+      "parentId": "claim-spine-d",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 03_CLAIMS"
+    },
+    {
+      "id": "claim-two-accounts",
+      "kind": "claim",
+      "label": "Two accounts of belonging",
+      "stance": "reframe",
+      "definition": "Belonging as practice (you are part of the community you show up for) versus belonging as condition (you belong if you qualify).",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — NARRATIVE_STRATEGY reframe architecture"
+    },
+    {
+      "id": "metaphor-community-is-fabric",
+      "kind": "metaphor",
+      "label": "COMMUNITY IS FABRIC",
+      "stance": "reframe",
+      "definition": "Community is woven, not bounded. Weakness requires more weaving, not cutting threads.",
+      "libraryRef": "metaphors",
+      "origin": "novel",
+      "source": "Project reframe — Narrative Analysis 2025, 10_linguistic_reframe",
+      "counters": [
+        "metaphor-nation-is-container"
+      ]
+    },
+    {
+      "id": "metaphor-belonging-is-showing-up",
+      "kind": "metaphor",
+      "label": "BELONGING IS SHOWING UP",
+      "stance": "reframe",
+      "definition": "You belong by what you do, not by what you are.",
+      "libraryRef": "metaphors",
+      "origin": "novel",
+      "source": "Project reframe — Narrative Analysis 2025, 10_linguistic_reframe",
+      "counters": [
+        "frame-eligibility"
+      ]
+    },
+    {
+      "id": "metaphor-help-is-support",
+      "kind": "metaphor",
+      "label": "HELP IS SUPPORT",
+      "stance": "reframe",
+      "definition": "Care is structural reinforcement. Helping strengthens the whole.",
+      "libraryRef": "metaphors",
+      "origin": "adapted",
+      "source": "SUPPORT image schema (Lakoff & Johnson) — project reframe",
+      "counters": [
+        "metaphor-care-is-exchange"
+      ]
+    },
+    {
+      "id": "metaphor-care-is-building",
+      "kind": "metaphor",
+      "label": "CARE IS BUILDING",
+      "stance": "reframe",
+      "definition": "Care work produces infrastructure rather than depleting a scarce resource.",
+      "libraryRef": "metaphors",
+      "origin": "novel",
+      "source": "Project reframe — Narrative Analysis 2025, 10_linguistic_reframe",
+      "counters": [
+        "metaphor-care-is-scarce"
+      ]
+    },
+    {
+      "id": "metaphor-solidarity-is-standing-together",
+      "kind": "metaphor",
+      "label": "SOLIDARITY IS STANDING TOGETHER",
+      "stance": "reframe",
+      "definition": "Shared practice and proximity are commitment.",
+      "libraryRef": "metaphors",
+      "origin": "adapted",
+      "source": "Embodied proximity schema — project reframe"
+    },
+    {
+      "id": "metaphor-nation-is-container",
+      "kind": "metaphor",
+      "label": "NATION IS CONTAINER",
+      "stance": "dominant",
+      "definition": "The nation is a bounded vessel. Care is for those inside. Exclusion looks like geography.",
+      "libraryRef": "metaphors",
+      "origin": "canonical",
+      "source": "Lakoff & Johnson 1980 (container schema); Lakoff, Moral Politics 1996"
+    },
+    {
+      "id": "metaphor-morality-is-accounting",
+      "kind": "metaphor",
+      "label": "MORALITY IS ACCOUNTING",
+      "stance": "dominant",
+      "definition": "Moral worth is a balance sheet. Care is a withdrawal you must have paid in for.",
+      "libraryRef": "metaphors",
+      "origin": "canonical",
+      "source": "Lakoff, Moral Politics 1996 — Moral Accounting"
+    },
+    {
+      "id": "metaphor-care-is-exchange",
+      "kind": "metaphor",
+      "label": "CARE IS EXCHANGE",
+      "stance": "dominant",
+      "definition": "Care is a commodity. Receiving without paying is freeloading.",
+      "libraryRef": "metaphors",
+      "origin": "adapted",
+      "source": "From Moral Accounting — Lakoff 1996"
+    },
+    {
+      "id": "metaphor-care-is-charity",
+      "kind": "metaphor",
+      "label": "CARE IS CHARITY",
+      "stance": "dominant",
+      "definition": "Care flows one way, from benefactor to beneficiary. Reciprocal obligation is invisible.",
+      "libraryRef": "metaphors",
+      "origin": "adapted",
+      "source": "Conventional cultural model, named in the Phase 1 linguistic reframe"
+    },
+    {
+      "id": "metaphor-care-is-scarce",
+      "kind": "metaphor",
+      "label": "CARE IS A SCARCE RESOURCE",
+      "stance": "dominant",
+      "definition": "Care is finite and zero-sum. Exclusion reads as rationing.",
+      "libraryRef": "metaphors",
+      "origin": "adapted",
+      "source": "Zero-sum resource metaphor — Phase 1 linguistic reframe"
+    },
+    {
+      "id": "frame-collaboration",
+      "kind": "frame",
+      "label": "Collaboration",
+      "stance": "reframe",
+      "definition": "Partners work together. No benefactor. Roles are reciprocal.",
+      "libraryRef": "frames",
+      "origin": "canonical",
+      "source": "FrameNet: Collaboration",
+      "counters": [
+        "metaphor-care-is-charity"
+      ]
+    },
+    {
+      "id": "frame-building",
+      "kind": "frame",
+      "label": "Building",
+      "stance": "reframe",
+      "definition": "An agent creates a structure from components. Care as construction.",
+      "libraryRef": "frames",
+      "origin": "canonical",
+      "source": "FrameNet: Building"
+    },
+    {
+      "id": "frame-eligibility",
+      "kind": "frame",
+      "label": "Eligibility",
+      "stance": "dominant",
+      "definition": "Access depends on meeting criteria. Naming it activates gating.",
+      "libraryRef": "frames",
+      "origin": "adapted",
+      "source": "FrameNet-style gating frame — Phase 1 frame inventory"
+    },
+    {
+      "id": "frame-compliance",
+      "kind": "frame",
+      "label": "Compliance",
+      "stance": "dominant",
+      "definition": "A party must satisfy a rule to remain in good standing.",
+      "libraryRef": "frames",
+      "origin": "canonical",
+      "source": "FrameNet: Compliance"
+    },
+    {
+      "id": "frame-crisis-response",
+      "kind": "frame",
+      "label": "Crisis response",
+      "stance": "catalytic",
+      "definition": "Neighbours organise when the official system lags. Opens the reframe without a partisan argument.",
+      "libraryRef": "frames",
+      "origin": "novel",
+      "source": "Project catalytic frame — Phase 1 listening model"
+    },
+    {
+      "id": "frame-tradition",
+      "kind": "frame",
+      "label": "Tradition",
+      "stance": "catalytic",
+      "definition": "A practice is old and repeated. 'We always have.'",
+      "libraryRef": "frames",
+      "origin": "adapted",
+      "source": "FrameNet: Custom — catalytic use per Phase 1 listening model"
+    },
+    {
+      "id": "claim-spine-a",
+      "kind": "claim",
+      "label": "A · Founding tradition",
+      "stance": "reframe",
+      "definition": "Mutual aid is a founding American tradition: present at the founding, built as civic infrastructure, and operating at national scale by 1920.",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 00_SPINE / 03_CLAIMS",
+      "parentId": "claim-two-accounts"
+    },
+    {
+      "id": "claim-spine-b",
+      "kind": "claim",
+      "label": "B · Survival through American identity",
+      "stance": "reframe",
+      "definition": "The tradition survived the twentieth century by carrying excluded communities through crises the state and market would not meet.",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 00_SPINE / 03_CLAIMS",
+      "parentId": "claim-two-accounts"
+    },
+    {
+      "id": "claim-spine-c",
+      "kind": "claim",
+      "label": "C · Not only in-group",
+      "stance": "reframe",
+      "definition": "The practice repeatedly crossed group lines; where it was bounded, the boundary reflected exclusion, not a principle of care for one’s own only.",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 00_SPINE / 03_CLAIMS",
+      "parentId": "claim-two-accounts"
+    },
+    {
+      "id": "claim-spine-d",
+      "kind": "claim",
+      "label": "D · Displacement and contest",
+      "stance": "reframe",
+      "definition": "A funded rival account displaced mutual aid from the American story, and that displacement is contestable in the present.",
+      "origin": "novel",
+      "source": "Narrative Analysis 2025 — 00_SPINE / 03_CLAIMS",
+      "parentId": "claim-two-accounts"
+    }
+  ]
+}

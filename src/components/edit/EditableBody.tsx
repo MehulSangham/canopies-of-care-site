@@ -5,6 +5,7 @@ import { useBlocksOptional } from './BlocksContext';
 import { BlockEditor } from './BlockEditor';
 import { BlockPreview } from './BlockPreview';
 import { AddBlockButton } from './AddBlockMenu';
+import { AttachmentChips } from './AttachmentChips';
 import { Eye, Pencil } from 'lucide-react';
 
 interface EditableBodyProps {
@@ -78,6 +79,7 @@ function EditableBodyInner({ renderedContent }: { renderedContent: React.ReactNo
         </button>
       </div>
 
+      <AttachmentChips blockId="page" raw="" />
       <AddBlockButton onAdd={(raw) => addBlock(-1, raw)} />
 
       {blocks.map((block, index) => {
@@ -107,6 +109,7 @@ function EditableBodyInner({ renderedContent }: { renderedContent: React.ReactNo
               isDirty={isDirty}
               isFocused={isFocused}
             />
+            <AttachmentChips blockId={block.id} raw={block.raw} />
             <AddBlockButton onAdd={(raw) => addBlock(index, raw)} />
           </div>
         );

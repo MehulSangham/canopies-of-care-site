@@ -1,0 +1,625 @@
+[
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a0",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a1",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a2-parallel-infrastructure",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a2",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a2-parallel-infrastructure",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a2-parallel-infrastructure",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a2-parallel-infrastructure",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a2-parallel-infrastructure",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-scarce",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-collaboration",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b1",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b2",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b5",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c1",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-crisis-response",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c2",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-solidarity-is-standing-together",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-collaboration",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d1",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-compliance",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-morality-is-accounting",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d2",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d3",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-compliance",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-morality-is-accounting",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c4",
+    "role": "advances-reframe"
+  }
+]

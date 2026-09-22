@@ -36,6 +36,8 @@ interface ChatEntry {
 interface AiAssistProps {
   /** Current draft markdown of the block being edited */
   draft: string;
+  /** Block id for argument-map attachments */
+  blockId?: string;
   /** Replace the block draft with the proposed markdown */
   onApplyEdit: (newMarkdown: string) => void;
   /** Add a new footnote definition to the document (id, note, sources) */
@@ -64,7 +66,7 @@ function entryToContent(e: ChatEntry): string {
     .join('\n');
 }
 
-export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
+export function AiAssist({ draft, blockId, onApplyEdit, onAddFootnote }: AiAssistProps) {
   const blocksCtx = useBlocksOptional();
   const editCtx = useEditModeOptional();
   const [entries, setEntries] = useState<ChatEntry[]>([]);
@@ -108,6 +110,7 @@ export function AiAssist({ draft, onApplyEdit, onAddFootnote }: AiAssistProps) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           slug,
+          blockId,
           blockRaw: draftRef.current,
           pageMarkdown,
           modelId,

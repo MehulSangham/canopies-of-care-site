@@ -4,12 +4,14 @@ import { useCallback, type ReactNode } from 'react';
 import { EditModeProvider, useEditMode } from '@/components/edit/EditModeProvider';
 import { EditButton } from '@/components/edit/EditButton';
 import { EditToolbar } from '@/components/edit/EditToolbar';
+import { XrayEditor } from '@/components/edit/XrayEditor';
 import { ToastProvider } from '@/components/edit/Toast';
 import { EditableRegion } from '@/components/edit/EditableRegion';
 import { EditableText } from '@/components/edit/EditableText';
 import { EditableMeta } from '@/components/edit/EditableMeta';
 import { EditableBody } from '@/components/edit/EditableBody';
 import { BlocksProvider } from '@/components/edit/BlocksContext';
+import { TaxonomyProvider } from '@/components/edit/TaxonomyProvider';
 import { saveContent } from '@/app/actions/save-content';
 import { HeaderFrame } from '@/components/curriculum/HeaderFrame';
 import { ArticleContent } from '@/components/curriculum/ArticleContent';
@@ -111,6 +113,7 @@ function EditControls({ slug }: { slug: string }) {
     <>
       <EditButton />
       <EditToolbar onSave={handleSave} />
+      <XrayEditor />
     </>
   );
 }
@@ -190,7 +193,11 @@ function EditModeGate({
   const { isEditMode } = useEditMode();
 
   if (isEditMode) {
-    return <BlocksProvider markdown={markdown}>{children}</BlocksProvider>;
+    return (
+      <TaxonomyProvider>
+        <BlocksProvider markdown={markdown}>{children}</BlocksProvider>
+      </TaxonomyProvider>
+    );
   }
 
   return <>{children}</>;

@@ -9,6 +9,7 @@ import {
   getArchiveOverview,
 } from '@/lib/ai/agent-context';
 import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId } from '@/lib/ai/models';
+import { getTaxonomySystemContext, taxonomyAgentTools } from '@/lib/ai/taxonomy-tools';
 
 export const maxDuration = 120;
 
@@ -59,6 +60,8 @@ interface AgentRequest {
   slug: string;
   /** 'block' (default): edit one block. 'page': propose changes across blocks. */
   mode?: 'block' | 'page';
+  /** Target block id in block mode, used for attach_node. */
+  blockId?: string;
   blockRaw?: string;
   pageMarkdown?: string;
   blocks?: BlockDescriptor[];
@@ -119,7 +122,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { slug, blockRaw, pageMarkdown, blocks, messages } = body;
+  const { slug, blockRaw, pageMarkdown, blocks, messages, blockId } = body;
   const wantStream = Boolean(body.stream);
   const mode = body.mode === 'page' ? 'page' : 'block';
   const validMessages =
@@ -137,6 +140,7 @@ export async function POST(req: Request) {
   const styleGuide = getStyleGuide();
   const citations = getCitationFile(slug);
   const overview = getArchiveOverview();
+  const taxonomyContext = await getTaxonomySystemContext(slug);
   const searchEnabled = Boolean(process.env.EXA_API_KEY);
 
   const steps: string[] = [];
@@ -279,6 +283,7 @@ export async function POST(req: Request) {
             },
           }),
         }),
+    ...taxonomyAgentTools({ slug, blockId, steps }),
   };
 
   const roleLine =
@@ -293,6 +298,7 @@ export async function POST(req: Request) {
           '- When asked to revise, tighten, restructure, or improve the page: decide which blocks need to change and call propose_page_edits once with every change. Keep your accompanying text brief.',
           '- Change ONLY the blocks the instruction requires. If a block already complies, leave it out of the change set. A pass that touches every block is almost always wrong.',
           '- When asked to verify claims, answer questions, or discuss approach: reply in plain text; do not call the proposal tool.',
+          '- When asked about frames, metaphors, claims, or the argument map: use search_nodes / lookup_library. Attach or detach with attach_node / detach_node. Create a new structure only after the editor confirms (create_node with confirmed=false first).',
           '- The editor reviews each change with accept/reject controls; nothing applies automatically.',
           '- Block ids are stable handles; never invent ids that are not in the block list below.',
         ]
@@ -301,6 +307,7 @@ export async function POST(req: Request) {
           '- When asked to revise, rewrite, tighten, or improve the block: produce the revision and call propose_edit. Keep your accompanying text brief.',
           '- When asked for a footnote or citation: ground it in the citation file or web search, then call propose_footnote.',
           '- When asked to verify claims, answer questions, or discuss approach: reply in plain text; do not call a proposal tool.',
+          '- When asked about frames, metaphors, claims, or the argument map: use search_nodes / lookup_library. Attach or detach with attach_node / detach_node. Create a new structure only after the editor confirms (create_node with confirmed=false first).',
           '- The editor sees proposals as cards with an Apply button; the current draft in the context below is always the latest state of the block.',
         ];
 
@@ -327,6 +334,8 @@ export async function POST(req: Request) {
     citations
       ? `=== CITATION FILE FOR THIS PAGE ===\n${citations}`
       : '(No citation file available for this page.)',
+    '',
+    taxonomyContext,
   ].join('\n');
 
   const contextMessage: ModelMessage =

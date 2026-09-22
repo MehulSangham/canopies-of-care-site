@@ -9,14 +9,20 @@ export interface PanelFrame {
   name: string;
   /** One-line explanation of how it operates on this page */
   note?: string;
+  /** Other archive pages that attach the same node */
+  alsoOn?: { slug: string; title: string }[];
 }
 
 export interface MetaPanelData {
   /** The page's claim, stated plainly */
   claim?: string;
+  /** The parent claim in the archive's argument tree, if this claim supports one */
+  spine?: string;
   argument?: {
     /** What must be shown for the claim to hold */
     grounds?: string[];
+    /** Resolved source citations backing each ground, index-aligned with grounds */
+    groundSources?: string[][];
     /** The inferential bridge from grounds to claim */
     warrant?: string;
     /** Strength and limits of the claim */

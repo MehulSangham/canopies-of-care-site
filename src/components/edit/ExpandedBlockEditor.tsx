@@ -228,6 +228,7 @@ export function ExpandedBlockEditor({
           <div className="w-[420px] shrink-0 min-h-0 border-l border-[color:var(--color-nis-soft)]">
             <AiAssist
               draft={draft}
+              blockId={block.id}
               onApplyEdit={setDraft}
               onAddFootnote={onAddFootnote}
             />

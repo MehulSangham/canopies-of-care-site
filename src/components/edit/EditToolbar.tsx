@@ -1,10 +1,11 @@
 'use client';
 
-import { Save, XCircle, Loader2, Undo2, Redo2, Sparkles } from 'lucide-react';
+import { Save, XCircle, Loader2, Undo2, Redo2, Sparkles, Network } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditMode } from './EditModeProvider';
 import { useBlocksOptional } from './BlocksContext';
 import { PageAssistant } from './PageAssistant';
+import { ArgumentMap } from './ArgumentMap';
 import { useToast } from './Toast';
 
 interface EditToolbarProps {
@@ -18,6 +19,7 @@ export function EditToolbar({ onSave }: EditToolbarProps) {
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [showAssistant, setShowAssistant] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   useEffect(() => {
     if (!isEditMode || !hasPendingChanges) return;
@@ -91,6 +93,16 @@ export function EditToolbar({ onSave }: EditToolbarProps) {
         </button>
       )}
 
+      <button
+        type="button"
+        onClick={() => setShowMap(true)}
+        className="inline-flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-bold text-nis-muted hover:text-[color:var(--color-nis-ink)] transition-colors"
+        title="Argument map — editor only, never published"
+      >
+        <Network className="h-3.5 w-3.5" />
+        Map
+      </button>
+
       <div className="w-px h-5 bg-[color:var(--color-nis-soft)] mx-1" />
 
       <button
@@ -120,6 +132,7 @@ export function EditToolbar({ onSave }: EditToolbarProps) {
       {showAssistant && blocksCtx && (
         <PageAssistant onClose={() => setShowAssistant(false)} />
       )}
+      {showMap && <ArgumentMap onClose={() => setShowMap(false)} />}
     </div>
   );
 }

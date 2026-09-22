@@ -17,6 +17,8 @@ import { checkIsAdmin } from "@/lib/auth";
 import { parseMdxBlocks } from "@/lib/mdx-blocks";
 import { splitFootnoteMarkdown } from "@/lib/footnote-sources";
 import type { MetaPanelData, PanelSourceGroup } from "@/lib/meta-panel";
+import { loadAttachments, loadMap, loadSources } from "@/lib/taxonomy-store";
+import { derivePanel } from "@/lib/taxonomy-derive";
 import type { Metadata } from "next";
 
 type PageStatus = 'draft' | 'published';
@@ -108,6 +110,16 @@ export default async function ClaimPage(
 
   const renderedBody = <Prose content={claim.body} />;
 
+  const [map, attachments, sourceIndex] = await Promise.all([
+    loadMap(),
+    loadAttachments(),
+    loadSources(),
+  ]);
+  const titles = Object.fromEntries(
+    claims.map((c) => [c.slug, `${c.section}${c.order}: ${c.title}`]),
+  );
+  const panel = derivePanel(map, attachments, slug, titles, claim.panel, sourceIndex);
+
   // Aggregate footnote sources for the meta panel's Sources tab
   const panelSources: PanelSourceGroup[] = parseMdxBlocks(claim.body)
     .filter((b) => b.type === "footnote" && b.meta?.footnoteId)
@@ -192,7 +204,7 @@ export default async function ClaimPage(
         isAdmin={isDevAdmin}
         renderedBody={renderedBody}
       >
-        {claim.panel && <MetaPanel data={claim.panel} sources={panelSources} />}
+        {panel && <MetaPanel data={panel} sources={panelSources} />}
         <PageReader slug={slug} />
 
         <div className="flex w-full flex-col lg:flex-row">

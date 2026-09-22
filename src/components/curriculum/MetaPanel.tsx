@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Scale, Layers, Network, BookOpen, X } from 'lucide-react';
 import type { MetaPanelData, PanelFrame, PanelSourceGroup } from '@/lib/meta-panel';
 import { compactUrlLabel } from '@/lib/footnote-sources';
@@ -51,6 +52,22 @@ function FrameList({ frames }: { frames: PanelFrame[] }) {
           {f.note && (
             <p className="mb-0 mt-1 text-[13px] leading-[1.55] text-nis-muted">
               <Rich text={f.note} />
+            </p>
+          )}
+          {f.alsoOn && f.alsoOn.length > 0 && (
+            <p className="mb-0 mt-1 font-sans text-[11px] text-nis-muted">
+              Also on{' '}
+              {f.alsoOn.map((p, i) => (
+                <span key={p.slug}>
+                  {i > 0 && ', '}
+                  <Link
+                    href={`/archive/${p.slug}`}
+                    className="font-bold text-[color:var(--color-nis-ink)] underline underline-offset-2 hover:text-nis-hover"
+                  >
+                    {p.title}
+                  </Link>
+                </span>
+              ))}
             </p>
           )}
         </li>
@@ -161,18 +178,40 @@ export function MetaPanel({ data, sources }: MetaPanelProps) {
                     <p className="m-0 font-sans text-[14px] font-semibold leading-[1.5] text-[color:var(--color-nis-ink)]">
                       <Rich text={data.claim} />
                     </p>
+                    {data.spine && (
+                      <p className="mb-0 mt-2 border-t border-[color:var(--color-nis-soft)] pt-2 font-sans text-[11px] text-nis-muted">
+                        Part of the archive&rsquo;s argument — supports{' '}
+                        <span className="font-mono text-[10px] font-bold text-[color:var(--color-nis-ink)]">
+                          {data.spine}
+                        </span>
+                      </p>
+                    )}
                   </div>
                 )}
                 {data.argument?.grounds && data.argument.grounds.length > 0 && (
                   <div className="mb-5">
                     <SectionLabel>What must be shown</SectionLabel>
                     <ul className="m-0 list-none p-0">
-                      {data.argument.grounds.map((g, i) => (
-                        <li key={i} className="mb-1.5 flex gap-2 text-[13px] leading-[1.55] text-[color:var(--color-nis-ink)]">
-                          <span className="text-nis-muted">—</span>
-                          <span><Rich text={g} /></span>
-                        </li>
-                      ))}
+                      {data.argument.grounds.map((g, i) => {
+                        const cites = data.argument?.groundSources?.[i] ?? [];
+                        return (
+                          <li key={i} className="mb-2.5 flex gap-2 text-[13px] leading-[1.55] text-[color:var(--color-nis-ink)]">
+                            <span className="text-nis-muted">—</span>
+                            <span>
+                              <Rich text={g} />
+                              {cites.length > 0 && (
+                                <span className="mt-0.5 block text-[11px] leading-[1.5] text-nis-muted">
+                                  {cites.map((c, j) => (
+                                    <span key={j} className="block">
+                                      <Rich text={c} />
+                                    </span>
+                                  ))}
+                                </span>
+                              )}
+                            </span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
