@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Plus, Sparkles, Loader2 } from 'lucide-react';
 import { MODEL_STORAGE_KEY } from '@/lib/ai/models';
+import { ORIGIN_DOTS, STANCE_TEXT_COLORS } from '@/lib/taxonomy-glyphs';
 import { useTaxonomy } from './TaxonomyProvider';
 import {
   ATTACHMENT_ROLES,
@@ -193,6 +194,9 @@ export function ArgumentMap({
                   {n.label}
                 </span>
                 <span className="font-mono text-[9px] text-nis-muted">
+                  <span aria-hidden style={{ color: STANCE_TEXT_COLORS[n.stance] }}>
+                    {ORIGIN_DOTS[n.origin ?? 'novel']}
+                  </span>{' '}
                   {n.kind} · {n.stance}
                   {n.origin ? ` · ${n.origin}` : ''}
                 </span>

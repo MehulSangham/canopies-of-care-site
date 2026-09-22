@@ -287,6 +287,71 @@ assert(
   'fallback grounds carry no source links',
 );
 
+// ---- anchors + notation ----
+import matter from 'gray-matter';
+import { parseMdxBlocks } from '../src/lib/mdx-blocks';
+import { ROLE_GLYPHS, normalizeForMatch, shorthand } from '../src/lib/taxonomy-glyphs';
+
+const a2Body = matter(
+  fs.readFileSync(path.join(root, 'content/archive/a2-parallel-infrastructure.mdx'), 'utf8'),
+).content;
+const a2Blocks = parseMdxBlocks(a2Body);
+const a2Anchored = derivePanel(
+  map,
+  attachments,
+  'a2-parallel-infrastructure',
+  titles,
+  undefined,
+  sourceIndex,
+  a2Blocks,
+);
+const allA2Frames = [
+  ...(a2Anchored?.frames?.proposes ?? []),
+  ...(a2Anchored?.frames?.counters ?? []),
+];
+const anchored = allA2Frames.filter((f) => f.anchors?.length);
+assert(anchored.length >= 3, `a2 frames carry anchors (${anchored.length} anchored)`);
+assert(
+  allA2Frames.every((f) => f.stance && f.role),
+  'every derived frame carries stance + role for the notation',
+);
+const charity = allA2Frames.find((f) => f.name === 'CARE IS CHARITY');
+assert(
+  Boolean(charity?.anchors?.[0]?.excerpt.includes('ethnic colour')),
+  'CARE IS CHARITY anchored to the "remembered as ethnic colour" passage',
+);
+// anchors survive block-id drift: derive with excerpt-only recovery
+const shifted = attachments.map((a) =>
+  a.slug === 'a2-parallel-infrastructure' && a.blockId !== 'page'
+    ? { ...a, blockId: 'block-999' }
+    : a,
+);
+const panelRecovered = derivePanel(
+  map,
+  shifted,
+  'a2-parallel-infrastructure',
+  titles,
+  undefined,
+  sourceIndex,
+  a2Blocks,
+);
+const recoveredAnchors = [
+  ...(panelRecovered?.frames?.proposes ?? []),
+  ...(panelRecovered?.frames?.counters ?? []),
+].filter((f) => f.anchors?.length);
+assert(recoveredAnchors.length >= 3, 'anchors recover via excerpt when block ids drift');
+
+assert(ROLE_GLYPHS['describes-dominant'] === '▽', 'dominant role glyph is ▽');
+assert(
+  normalizeForMatch('**Bold** [link](https://x.org) text[^3]') === 'bold link text',
+  'normalizeForMatch strips markdown for DOM comparison',
+);
+assert(
+  shorthand({ role: 'advances-reframe', label: 'FABRIC', blockId: 'block-3', verdict: 'supported' }) ===
+    '▲ FABRIC @block-3 ✓',
+  'text shorthand composes',
+);
+
 if (failed) {
   console.error(`\n${failed} failed`);
   process.exit(1);

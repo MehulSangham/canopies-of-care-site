@@ -10,6 +10,7 @@ import { PageTableOfContents } from "@/components/curriculum/PageTableOfContents
 import { ClaimPageClient, ClaimContent } from "./client";
 import { LeftRailSwitch } from "@/components/edit/LeftRailSwitch";
 import { MetaPanel } from "@/components/curriculum/MetaPanel";
+import { XrayMarkers } from "@/components/curriculum/XrayMarkers";
 import { PageReader } from "@/components/curriculum/PageReader";
 import { TimelineOrigin } from "@/components/curriculum/TimelineOrigin";
 import { SECTION_TITLES, sectionRank } from "@/lib/sections";
@@ -118,10 +119,15 @@ export default async function ClaimPage(
   const titles = Object.fromEntries(
     claims.map((c) => [c.slug, `${c.section}${c.order}: ${c.title}`]),
   );
-  const panel = derivePanel(map, attachments, slug, titles, claim.panel, sourceIndex);
+  const blocks = parseMdxBlocks(claim.body);
+  const panel = derivePanel(map, attachments, slug, titles, claim.panel, sourceIndex, blocks);
+  const anchoredFrames = [
+    ...(panel?.frames?.proposes ?? []),
+    ...(panel?.frames?.counters ?? []),
+  ].filter((f) => f.anchors?.length);
 
   // Aggregate footnote sources for the meta panel's Sources tab
-  const panelSources: PanelSourceGroup[] = parseMdxBlocks(claim.body)
+  const panelSources: PanelSourceGroup[] = blocks
     .filter((b) => b.type === "footnote" && b.meta?.footnoteId)
     .map((b) => {
       const body = b.raw.replace(/^\[\^\w+\]:\s?/, "");
@@ -205,6 +211,7 @@ export default async function ClaimPage(
         renderedBody={renderedBody}
       >
         {panel && <MetaPanel data={panel} sources={panelSources} />}
+        {anchoredFrames.length > 0 && <XrayMarkers frames={anchoredFrames} />}
         <PageReader slug={slug} />
 
         <div className="flex w-full flex-col lg:flex-row">

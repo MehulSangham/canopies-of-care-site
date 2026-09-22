@@ -110,6 +110,23 @@ for (const p of pages) {
 }
 lines.push('## Page coverage', '', ...(covIssues.length ? covIssues : ['- ✓ every page carries a claim']), '');
 
+// ---- 2b. scope convention ----
+// Claims govern the page → page level. Catalytic beats are specific
+// moments → block level. Frames/metaphors should sit on the passages
+// where they operate (block level) unless they saturate the page.
+const scopeIssues: string[] = [];
+for (const a of attachments) {
+  const node = nodeById.get(a.nodeId);
+  if (!node) continue;
+  if (node.kind === 'claim' && a.blockId !== 'page') {
+    flag(scopeIssues, `\`${a.slug}\` — claim **${a.nodeId}** attached to a block; claims govern the page (attach at page level)`);
+  }
+  if (a.role === 'aims-catalytic' && a.blockId === 'page' && node.kind !== 'claim') {
+    flag(scopeIssues, `\`${a.slug}\` — catalytic **${a.nodeId}** attached at page level; catalytic beats are specific passages (attach to the block)`);
+  }
+}
+lines.push('## Scope convention', '', ...(scopeIssues.length ? scopeIssues : ['- ✓ claims at page level, catalytic beats anchored to passages']), '');
+
 // ---- 3. claims: grounds & sources ----
 const claimIssues: string[] = [];
 const claims = map.nodes.filter((n) => n.kind === 'claim');

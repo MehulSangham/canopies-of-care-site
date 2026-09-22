@@ -238,6 +238,8 @@ export async function POST(req: Request) {
     '2. VERIFY every attached id: supported = the passage clearly does what the attachment says; weak = plausible but thin; drift = the passage undercuts it — the classic failure is prose marked as advancing the reframe while actually activating Eligibility, Compliance, Deserving, or accounting/scarcity language.',
     '',
     'Be conservative. Fewer, better suggestions. Never suggest an id that is not in the inventory.',
+    '',
+    'Scope convention: claims belong to the whole page; frames and metaphors belong on the specific passages where they operate; catalytic beats are always specific passages. When the passage under analysis is a single block, prefer suggesting the structures that operate in that block itself.',
   ].join('\n');
 
   try {

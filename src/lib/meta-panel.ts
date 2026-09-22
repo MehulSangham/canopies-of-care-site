@@ -4,6 +4,13 @@
  * data exists, and the panel itself renders only when `panel:` is present.
  */
 
+export interface PanelAnchor {
+  /** Block id at derive time (may drift; excerpt is the stable key) */
+  blockId: string;
+  /** Raw-markdown excerpt of the passage, for client-side DOM matching */
+  excerpt: string;
+}
+
 export interface PanelFrame {
   /** Frame or conceptual metaphor name, e.g. "COMMUNITY IS FABRIC" */
   name: string;
@@ -11,6 +18,12 @@ export interface PanelFrame {
   note?: string;
   /** Other archive pages that attach the same node */
   alsoOn?: { slug: string; title: string }[];
+  /** Stance drives the notation color */
+  stance?: 'reframe' | 'dominant' | 'catalytic';
+  /** Role drives the notation glyph */
+  role?: 'advances-reframe' | 'describes-dominant' | 'aims-catalytic';
+  /** Passages this structure is anchored to (block-level attachments) */
+  anchors?: PanelAnchor[];
 }
 
 export interface MetaPanelData {

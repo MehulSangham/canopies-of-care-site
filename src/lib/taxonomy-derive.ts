@@ -1,6 +1,12 @@
 import type { MdxBlock } from '@/lib/mdx-blocks';
 import type { MetaPanelData, PanelFrame } from '@/lib/meta-panel';
-import type { Attachment, SourceRecord, TaxonomyMap, TaxonomyNode } from '@/lib/taxonomy';
+import type {
+  Attachment,
+  AttachmentRole,
+  SourceRecord,
+  TaxonomyMap,
+} from '@/lib/taxonomy';
+import { excerptOf } from '@/lib/taxonomy';
 
 export function resolveAttachmentBlock(
   blocks: MdxBlock[],
@@ -51,6 +57,7 @@ export function derivePanel(
   titles: Record<string, string>,
   fallback?: MetaPanelData,
   sources?: SourceRecord[],
+  blocks?: MdxBlock[],
 ): MetaPanelData | undefined {
   const pageAtts = allAttachments.filter((a) => a.slug === slug);
   if (pageAtts.length === 0) return fallback;
@@ -59,29 +66,45 @@ export function derivePanel(
   const claimAtt = pageAtts.find((a) => byId.get(a.nodeId)?.kind === 'claim');
   const claimNode = claimAtt ? byId.get(claimAtt.nodeId) : undefined;
 
-  const toFrame = (n: TaxonomyNode): PanelFrame => ({
-    name: n.label,
-    note: n.definition,
-    alsoOn: alsoOn(allAttachments, n.id, slug, titles),
-  });
+  /**
+   * One PanelFrame per node for a role. Block-level attachments contribute
+   * anchors (re-resolved against the current blocks so ids stay live);
+   * page-level attachments contribute the frame with no anchor.
+   */
+  const buildFrames = (role: AttachmentRole): PanelFrame[] => {
+    const grouped = new Map<string, PanelFrame>();
+    for (const a of pageAtts.filter((x) => x.role === role)) {
+      const n = byId.get(a.nodeId);
+      if (!n || n.kind === 'claim') continue;
+      let frame = grouped.get(n.id);
+      if (!frame) {
+        frame = {
+          name: n.label,
+          note: n.definition,
+          alsoOn: alsoOn(allAttachments, n.id, slug, titles),
+          stance: n.stance,
+          role,
+        };
+        grouped.set(n.id, frame);
+      }
+      if (a.blockId !== 'page') {
+        const block = blocks ? resolveAttachmentBlock(blocks, a) : undefined;
+        const anchor = block
+          ? { blockId: block.id, excerpt: a.excerpt || excerptOf(block.raw) }
+          : a.excerpt
+            ? { blockId: a.blockId, excerpt: a.excerpt }
+            : null;
+        if (anchor && !(frame.anchors ?? []).some((x) => x.blockId === anchor.blockId)) {
+          (frame.anchors ??= []).push(anchor);
+        }
+      }
+    }
+    return [...grouped.values()];
+  };
 
-  const proposes = pageAtts
-    .filter((a) => a.role === 'advances-reframe')
-    .map((a) => byId.get(a.nodeId))
-    .filter((n): n is TaxonomyNode => Boolean(n && n.kind !== 'claim'))
-    .map(toFrame);
-
-  const counters = pageAtts
-    .filter((a) => a.role === 'describes-dominant')
-    .map((a) => byId.get(a.nodeId))
-    .filter((n): n is TaxonomyNode => Boolean(n && n.kind !== 'claim'))
-    .map(toFrame);
-
-  const catalytic = pageAtts
-    .filter((a) => a.role === 'aims-catalytic')
-    .map((a) => byId.get(a.nodeId))
-    .filter((n): n is TaxonomyNode => Boolean(n && n.kind !== 'claim'))
-    .map(toFrame);
+  const proposes = buildFrames('advances-reframe');
+  const counters = buildFrames('describes-dominant');
+  const catalytic = buildFrames('aims-catalytic');
 
   const nodeArg = claimNode?.argument;
   // Ground source citations apply only when the grounds themselves come from

@@ -6,6 +6,8 @@ import { Scale, Layers, Network, BookOpen, X } from 'lucide-react';
 import type { MetaPanelData, PanelFrame, PanelSourceGroup } from '@/lib/meta-panel';
 import { compactUrlLabel } from '@/lib/footnote-sources';
 import { useEditModeOptional } from '@/components/edit/EditModeProvider';
+import { ROLE_GLYPHS, ROLE_SHORT_LABELS, STANCE_TEXT_COLORS } from '@/lib/taxonomy-glyphs';
+import { XRAY_SCROLL_EVENT } from '@/components/curriculum/XrayMarkers';
 
 type TabId = 'argument' | 'frames' | 'logic' | 'sources';
 
@@ -46,12 +48,41 @@ function FrameList({ frames }: { frames: PanelFrame[] }) {
     <ul className="m-0 list-none p-0">
       {frames.map((f) => (
         <li key={f.name} className="mb-3">
-          <div className="inline-block border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-paper)] px-2 py-0.5 font-mono text-[11px] font-bold tracking-wide text-[color:var(--color-nis-ink)]">
+          <div className="inline-flex items-center gap-1.5 border border-[color:var(--color-nis-ink)] bg-[color:var(--color-nis-paper)] px-2 py-0.5 font-mono text-[11px] font-bold tracking-wide text-[color:var(--color-nis-ink)]">
+            {f.role && (
+              <span
+                aria-hidden
+                title={ROLE_SHORT_LABELS[f.role]}
+                style={{ color: f.stance ? STANCE_TEXT_COLORS[f.stance] : undefined }}
+              >
+                {ROLE_GLYPHS[f.role]}
+              </span>
+            )}
             {f.name}
           </div>
           {f.note && (
             <p className="mb-0 mt-1 text-[13px] leading-[1.55] text-nis-muted">
               <Rich text={f.note} />
+            </p>
+          )}
+          {f.anchors && f.anchors.length > 0 && (
+            <p className="mb-0 mt-1 font-sans text-[11px] text-nis-muted">
+              In this page:{' '}
+              {f.anchors.map((a, i) => (
+                <button
+                  key={a.blockId}
+                  type="button"
+                  onClick={() =>
+                    window.dispatchEvent(
+                      new CustomEvent(XRAY_SCROLL_EVENT, { detail: { excerpt: a.excerpt } }),
+                    )
+                  }
+                  className="font-bold text-[color:var(--color-nis-ink)] underline underline-offset-2 hover:text-nis-hover"
+                  title={a.excerpt.slice(0, 90)}
+                >
+                  {i > 0 ? ', ' : ''}¶ passage {i + 1}
+                </button>
+              ))}
             </p>
           )}
           {f.alsoOn && f.alsoOn.length > 0 && (

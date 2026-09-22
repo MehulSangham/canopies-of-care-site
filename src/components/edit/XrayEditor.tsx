@@ -6,6 +6,7 @@ import { useTaxonomyOptional } from './TaxonomyProvider';
 import { useEditModeOptional } from './EditModeProvider';
 import { useBlocksOptional } from './BlocksContext';
 import { ArgumentMap } from './ArgumentMap';
+import { ROLE_GLYPHS, STANCE_TEXT_COLORS } from '@/lib/taxonomy-glyphs';
 import {
   ATTACHMENT_ROLES,
   excerptOf,
@@ -63,6 +64,12 @@ const SECTIONS: {
     claimsOnly: false,
   },
 ];
+
+const SECTION_GLYPH_COLORS: Record<AttachmentRole, string> = {
+  'advances-reframe': STANCE_TEXT_COLORS.reframe,
+  'describes-dominant': STANCE_TEXT_COLORS.dominant,
+  'aims-catalytic': STANCE_TEXT_COLORS.catalytic,
+};
 
 function roleForClaim(node: TaxonomyNode): AttachmentRole {
   if (node.stance === 'dominant') return 'describes-dominant';
@@ -377,6 +384,15 @@ function Section({
     <div className="mb-5">
       <div className="mb-1 flex items-baseline justify-between">
         <span className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-nis-muted">
+          {section.role && (
+            <span
+              aria-hidden
+              className="mr-1 font-mono"
+              style={{ color: SECTION_GLYPH_COLORS[section.role] }}
+            >
+              {ROLE_GLYPHS[section.role]}
+            </span>
+          )}
           {section.label}
         </span>
         <span className="font-mono text-[8px] text-nis-muted">{section.hint}</span>
