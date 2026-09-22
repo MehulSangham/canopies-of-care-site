@@ -165,10 +165,12 @@ export function ClaimPageClient({
   return (
     <ToastProvider>
       <EditModeProvider isAdmin={isAdmin} slug={slug}>
+        {/* EditControls sit inside the gate so the toolbar (and its page
+            assistant) can reach the blocks context while editing. */}
         <EditModeGate markdown={claim.body}>
           {children}
+          <EditControls slug={slug} />
         </EditModeGate>
-        <EditControls slug={slug} />
       </EditModeProvider>
     </ToastProvider>
   );

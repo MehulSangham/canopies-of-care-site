@@ -5,7 +5,7 @@ import { Sparkles, Loader2, Check, Send } from 'lucide-react';
 import { useBlocksOptional } from './BlocksContext';
 import { useEditModeOptional } from './EditModeProvider';
 import { blocksToMarkdown } from '@/lib/mdx-blocks';
-import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId, type AiModelId } from '@/lib/ai/models';
+import { AI_MODELS, DEFAULT_MODEL_ID, isValidModelId, MODEL_STORAGE_KEY, type AiModelId } from '@/lib/ai/models';
 
 interface EditProposal {
   kind: 'edit';
@@ -43,8 +43,6 @@ interface AiAssistProps {
 const PRESETS = [
   { label: 'Verify claims', message: 'Check every factual claim in this block against the citation file and the web. Tell me which are supported, unsupported, or contradicted.' },
 ];
-
-const MODEL_STORAGE_KEY = 'nis-ai-model';
 
 /** Serialize an assistant entry (incl. proposal) back into plain text for the model's history. */
 function entryToContent(e: ChatEntry): string {

@@ -12,6 +12,12 @@ import {
 import { parseMdxBlocks, blocksToMarkdown, type MdxBlock } from '@/lib/mdx-blocks';
 import { useEditMode } from './EditModeProvider';
 
+export interface PageEdit {
+  blockId: string;
+  op: 'replace' | 'insert_after' | 'delete';
+  newMarkdown?: string;
+}
+
 interface BlocksContextValue {
   blocks: MdxBlock[];
   updateBlock: (blockId: string, newRaw: string) => void;
@@ -21,6 +27,8 @@ interface BlocksContextValue {
   duplicateBlock: (index: number) => void;
   deleteBlock: (index: number) => void;
   addBlock: (afterIndex: number, raw: string) => void;
+  /** Apply a set of page-assistant edits in one pass so indexes stay consistent. */
+  applyPageEdits: (edits: PageEdit[]) => void;
   activeBlockId: string | null;
   setActiveBlockId: (id: string | null) => void;
   focusedIndex: number;
@@ -48,6 +56,7 @@ let nextId = 2000;
 function detectBlockType(raw: string): MdxBlock['type'] {
   if (/^#{1,6}\s/.test(raw)) return 'heading';
   if (/^<Callout/.test(raw)) return 'callout';
+  if (/^<Video/.test(raw)) return 'video';
   if (/^!\[/.test(raw)) return 'image';
   if (/^\[\^\w+\]:/.test(raw)) return 'footnote';
   if (/^>\s/.test(raw)) return 'blockquote';
@@ -201,6 +210,43 @@ export function BlocksProvider({
     [sync],
   );
 
+  const applyPageEdits = useCallback(
+    (edits: PageEdit[]) => {
+      if (edits.length === 0) return;
+      setBlocks((prev) => {
+        const next = [...prev];
+        const dirty: string[] = [];
+        for (const edit of edits) {
+          const i = next.findIndex((b) => b.id === edit.blockId);
+          if (i < 0) continue;
+          if (edit.op === 'replace' && edit.newMarkdown !== undefined) {
+            next[i] = { ...next[i], raw: edit.newMarkdown };
+            dirty.push(next[i].id);
+          } else if (edit.op === 'delete') {
+            dirty.push(next[i].id);
+            next.splice(i, 1);
+          } else if (edit.op === 'insert_after' && edit.newMarkdown) {
+            const inserted: MdxBlock = {
+              id: `block-${nextId++}`,
+              type: detectBlockType(edit.newMarkdown),
+              raw: edit.newMarkdown,
+            };
+            next.splice(i + 1, 0, inserted);
+            dirty.push(inserted.id);
+          }
+        }
+        sync(next);
+        setDirtyBlockIds((prevDirty) => {
+          const merged = new Set(prevDirty);
+          dirty.forEach((id) => merged.add(id));
+          return merged;
+        });
+        return next;
+      });
+    },
+    [sync],
+  );
+
   const scrollToBlock = useCallback((blockId: string) => {
     const el = document.querySelector(`[data-block-id="${blockId}"]`);
     if (el) {
@@ -263,6 +309,7 @@ export function BlocksProvider({
         duplicateBlock,
         deleteBlock,
         addBlock,
+        applyPageEdits,
         activeBlockId,
         setActiveBlockId,
         focusedIndex,

@@ -49,10 +49,19 @@ interface ChatMessage {
   content: string;
 }
 
+interface BlockDescriptor {
+  id: string;
+  type: string;
+  raw: string;
+}
+
 interface AgentRequest {
   slug: string;
-  blockRaw: string;
-  pageMarkdown: string;
+  /** 'block' (default): edit one block. 'page': propose changes across blocks. */
+  mode?: 'block' | 'page';
+  blockRaw?: string;
+  pageMarkdown?: string;
+  blocks?: BlockDescriptor[];
   messages: ChatMessage[];
   modelId?: string;
 }
@@ -69,6 +78,19 @@ interface FootnoteProposal {
   note: string;
   sources: string[];
   rationale: string;
+}
+
+interface PageChange {
+  blockId: string;
+  op: 'replace' | 'insert_after' | 'delete';
+  newMarkdown?: string;
+  rationale: string;
+}
+
+interface PageProposal {
+  kind: 'page';
+  summary: string;
+  changes: PageChange[];
 }
 
 export async function POST(req: Request) {
@@ -96,14 +118,17 @@ export async function POST(req: Request) {
     );
   }
 
-  const { slug, blockRaw, pageMarkdown, messages } = body;
-  if (
-    !slug ||
-    !blockRaw ||
-    !Array.isArray(messages) ||
-    messages.length === 0 ||
-    messages[messages.length - 1].role !== 'user'
-  ) {
+  const { slug, blockRaw, pageMarkdown, blocks, messages } = body;
+  const mode = body.mode === 'page' ? 'page' : 'block';
+  const validMessages =
+    Array.isArray(messages) &&
+    messages.length > 0 &&
+    messages[messages.length - 1].role === 'user';
+  const validPayload =
+    mode === 'page'
+      ? Array.isArray(blocks) && blocks.length > 0
+      : Boolean(blockRaw);
+  if (!slug || !validMessages || !validPayload) {
     return NextResponse.json({ ok: false, error: 'Missing fields' }, { status: 400 });
   }
 
@@ -113,7 +138,8 @@ export async function POST(req: Request) {
   const searchEnabled = Boolean(process.env.EXA_API_KEY);
 
   const steps: string[] = [];
-  let proposal: EditProposal | FootnoteProposal | null = null;
+  let proposal: EditProposal | FootnoteProposal | PageProposal | null = null;
+  const blockIds = new Set((blocks ?? []).map((b) => b.id));
 
   const tools = {
     ...(searchEnabled
@@ -168,53 +194,123 @@ export async function POST(req: Request) {
           }),
         }
       : {}),
-    propose_edit: tool({
-      description:
-        'Submit revised markdown for the target block. Call this whenever the editor asks for a revision, rewrite, or improvement of the block. Call at most once per reply.',
-      inputSchema: z.object({
-        newMarkdown: z.string().describe('The complete revised block markdown'),
-        rationale: z
-          .string()
-          .describe('One or two sentences on what changed and why'),
-      }),
-      execute: async ({ newMarkdown, rationale }) => {
-        proposal = { kind: 'edit', newMarkdown, rationale };
-        return 'Proposal recorded and shown to the editor with an Apply button.';
-      },
-    }),
-    propose_footnote: tool({
-      description:
-        'Submit a suggested footnote: an id, an interpretive note, and source lines. Call when the editor asks for a footnote or citation. Call at most once per reply.',
-      inputSchema: z.object({
-        id: z
-          .string()
-          .describe('Short kebab-case footnote id, e.g. fas-articles'),
-        note: z.string().describe('The interpretive note text (1-3 sentences)'),
-        sources: z
-          .array(z.string())
-          .describe('Source lines, e.g. "Author, *Title* (Year), page." or a URL'),
-        rationale: z.string(),
-      }),
-      execute: async ({ id, note, sources, rationale }) => {
-        proposal = { kind: 'footnote', id, note, sources, rationale };
-        return 'Proposal recorded and shown to the editor with an Apply button.';
-      },
-    }),
+    ...(mode === 'block'
+      ? {
+          propose_edit: tool({
+            description:
+              'Submit revised markdown for the target block. Call this whenever the editor asks for a revision, rewrite, or improvement of the block. Call at most once per reply.',
+            inputSchema: z.object({
+              newMarkdown: z.string().describe('The complete revised block markdown'),
+              rationale: z
+                .string()
+                .describe('One or two sentences on what changed and why'),
+            }),
+            execute: async ({ newMarkdown, rationale }) => {
+              proposal = { kind: 'edit', newMarkdown, rationale };
+              return 'Proposal recorded and shown to the editor with an Apply button.';
+            },
+          }),
+          propose_footnote: tool({
+            description:
+              'Submit a suggested footnote: an id, an interpretive note, and source lines. Call when the editor asks for a footnote or citation. Call at most once per reply.',
+            inputSchema: z.object({
+              id: z
+                .string()
+                .describe('Short kebab-case footnote id, e.g. fas-articles'),
+              note: z.string().describe('The interpretive note text (1-3 sentences)'),
+              sources: z
+                .array(z.string())
+                .describe('Source lines, e.g. "Author, *Title* (Year), page." or a URL'),
+              rationale: z.string(),
+            }),
+            execute: async ({ id, note, sources, rationale }) => {
+              proposal = { kind: 'footnote', id, note, sources, rationale };
+              return 'Proposal recorded and shown to the editor with an Apply button.';
+            },
+          }),
+        }
+      : {
+          propose_page_edits: tool({
+            description:
+              'Submit a set of block-level changes to the page. Each change targets one block by its id. Only include blocks that actually need to change; leave compliant blocks alone. Call at most once per reply, with every change in one call.',
+            inputSchema: z.object({
+              summary: z
+                .string()
+                .describe('One or two sentences describing the overall pass'),
+              changes: z
+                .array(
+                  z.object({
+                    blockId: z.string().describe('The id of the block this change targets'),
+                    op: z
+                      .enum(['replace', 'insert_after', 'delete'])
+                      .describe(
+                        'replace: new markdown for this block. insert_after: add a new block after this one. delete: remove this block.',
+                      ),
+                    newMarkdown: z
+                      .string()
+                      .optional()
+                      .describe('Required for replace and insert_after'),
+                    rationale: z
+                      .string()
+                      .describe('One sentence on why this block changes'),
+                  }),
+                )
+                .min(1),
+            }),
+            execute: async ({ summary, changes }) => {
+              const bad = changes.filter(
+                (c) =>
+                  !blockIds.has(c.blockId) ||
+                  (c.op !== 'delete' && !c.newMarkdown?.trim()),
+              );
+              if (bad.length > 0) {
+                return `Rejected: ${bad
+                  .map(
+                    (c) =>
+                      `${c.blockId} (${blockIds.has(c.blockId) ? 'missing newMarkdown' : 'unknown block id'})`,
+                  )
+                  .join(', ')}. Fix these and call propose_page_edits again with the full change set.`;
+              }
+              proposal = { kind: 'page', summary, changes };
+              steps.push(`Proposed ${changes.length} change${changes.length === 1 ? '' : 's'}`);
+              return 'Proposal recorded. The editor reviews each change with accept/reject controls.';
+            },
+          }),
+        }),
   };
 
+  const roleLine =
+    mode === 'page'
+      ? 'You are the resident editor for "Canopies of Care", an editorial archive about the American mutual-aid tradition. You work with a human editor on a whole page at a time, in conversation. You are precise, conservative, and you never invent facts or sources.'
+      : 'You are the resident editor for "Canopies of Care", an editorial archive about the American mutual-aid tradition. You work with a human editor on one block of a page at a time, in conversation. You are precise, conservative, and you never invent facts or sources.';
+
+  const howToRespond =
+    mode === 'page'
+      ? [
+          'HOW TO RESPOND:',
+          '- When asked to revise, tighten, restructure, or improve the page: decide which blocks need to change and call propose_page_edits once with every change. Keep your accompanying text brief.',
+          '- Change ONLY the blocks the instruction requires. If a block already complies, leave it out of the change set. A pass that touches every block is almost always wrong.',
+          '- When asked to verify claims, answer questions, or discuss approach: reply in plain text; do not call the proposal tool.',
+          '- The editor reviews each change with accept/reject controls; nothing applies automatically.',
+          '- Block ids are stable handles; never invent ids that are not in the block list below.',
+        ]
+      : [
+          'HOW TO RESPOND:',
+          '- When asked to revise, rewrite, tighten, or improve the block: produce the revision and call propose_edit. Keep your accompanying text brief.',
+          '- When asked for a footnote or citation: ground it in the citation file or web search, then call propose_footnote.',
+          '- When asked to verify claims, answer questions, or discuss approach: reply in plain text; do not call a proposal tool.',
+          '- The editor sees proposals as cards with an Apply button; the current draft in the context below is always the latest state of the block.',
+        ];
+
   const system = [
-    'You are the resident editor for "Canopies of Care", an editorial archive about the American mutual-aid tradition. You work with a human editor on one block of a page at a time, in conversation. You are precise, conservative, and you never invent facts or sources.',
+    roleLine,
     '',
-    'HOW TO RESPOND:',
-    '- When asked to revise, rewrite, tighten, or improve the block: produce the revision and call propose_edit. Keep your accompanying text brief.',
-    '- When asked for a footnote or citation: ground it in the citation file or web search, then call propose_footnote.',
-    '- When asked to verify claims, answer questions, or discuss approach: reply in plain text; do not call a proposal tool.',
-    '- The editor sees proposals as cards with an Apply button; the current draft in the context below is always the latest state of the block.',
+    ...howToRespond,
     '',
     'HARD RULES:',
     '- Never invent citations. Cite only sources present in the citation file, already in the page footnotes, or URLs you actually received from web_search / fetch_url in this conversation.',
     '- Preserve footnote reference markers like [^some-id] exactly where they appear unless explicitly asked to move them.',
-    '- Keep the block the same markdown type it already is (a paragraph stays a paragraph, a heading stays a heading).',
+    '- Keep each block the same markdown type it already is (a paragraph stays a paragraph, a heading stays a heading) unless the instruction explicitly asks for a structural change.',
     '- Never add em dashes, contrastive "not X but Y" constructions, or meta-discourse about the argument.',
     searchEnabled
       ? ''
@@ -231,21 +327,33 @@ export async function POST(req: Request) {
       : '(No citation file available for this page.)',
   ].join('\n');
 
-  const contextMessage: ModelMessage = {
-    role: 'user',
-    content: [
-      `[CONTEXT — refreshed each turn]`,
-      `PAGE (${slug}) FULL MARKDOWN:`,
-      '"""',
-      pageMarkdown,
-      '"""',
-      '',
-      'TARGET BLOCK (current draft):',
-      '"""',
-      blockRaw,
-      '"""',
-    ].join('\n'),
-  };
+  const contextMessage: ModelMessage =
+    mode === 'page'
+      ? {
+          role: 'user',
+          content: [
+            `[CONTEXT — refreshed each turn]`,
+            `PAGE (${slug}) AS AN ID-ANNOTATED BLOCK LIST (current draft):`,
+            ...(blocks ?? []).map(
+              (b) => `\n[${b.id}] (${b.type})\n"""\n${b.raw}\n"""`,
+            ),
+          ].join('\n'),
+        }
+      : {
+          role: 'user',
+          content: [
+            `[CONTEXT — refreshed each turn]`,
+            `PAGE (${slug}) FULL MARKDOWN:`,
+            '"""',
+            pageMarkdown,
+            '"""',
+            '',
+            'TARGET BLOCK (current draft):',
+            '"""',
+            blockRaw,
+            '"""',
+          ].join('\n'),
+        };
 
   const history: ModelMessage[] = messages.map((m) => ({
     role: m.role,
@@ -258,14 +366,23 @@ export async function POST(req: Request) {
       system,
       messages: [
         contextMessage,
-        { role: 'assistant', content: 'Understood. I have the page, the target block, the style guide, and the sources.' },
+        {
+          role: 'assistant',
+          content:
+            mode === 'page'
+              ? 'Understood. I have the page as a block list, the style guide, and the sources.'
+              : 'Understood. I have the page, the target block, the style guide, and the sources.',
+        },
         ...history,
       ],
       tools,
       stopWhen: [
-        stepCountIs(10),
+        stepCountIs(mode === 'page' ? 14 : 10),
         hasToolCall('propose_edit'),
         hasToolCall('propose_footnote'),
+        // Page proposals stop the loop only once one is actually recorded,
+        // so a rejected change set (bad block id) lets the model retry.
+        () => proposal !== null && proposal.kind === 'page',
       ],
     });
 

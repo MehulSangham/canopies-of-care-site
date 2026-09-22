@@ -1,8 +1,10 @@
 'use client';
 
-import { Save, XCircle, Loader2, Undo2, Redo2 } from 'lucide-react';
+import { Save, XCircle, Loader2, Undo2, Redo2, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditMode } from './EditModeProvider';
+import { useBlocksOptional } from './BlocksContext';
+import { PageAssistant } from './PageAssistant';
 import { useToast } from './Toast';
 
 interface EditToolbarProps {
@@ -12,8 +14,10 @@ interface EditToolbarProps {
 export function EditToolbar({ onSave }: EditToolbarProps) {
   const { isEditMode, exitEditMode, hasPendingChanges, undo, redo, canUndo, canRedo } =
     useEditMode();
+  const blocksCtx = useBlocksOptional();
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
+  const [showAssistant, setShowAssistant] = useState(false);
 
   useEffect(() => {
     if (!isEditMode || !hasPendingChanges) return;
@@ -75,6 +79,18 @@ export function EditToolbar({ onSave }: EditToolbarProps) {
         <Redo2 className="h-3.5 w-3.5" />
       </button>
 
+      {blocksCtx && (
+        <button
+          type="button"
+          onClick={() => setShowAssistant(true)}
+          className="inline-flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-bold text-nis-muted hover:text-[color:var(--color-nis-ink)] transition-colors"
+          title="Page assistant — AI edits across the whole page"
+        >
+          <Sparkles className="h-3.5 w-3.5" />
+          Assistant
+        </button>
+      )}
+
       <div className="w-px h-5 bg-[color:var(--color-nis-soft)] mx-1" />
 
       <button
@@ -100,6 +116,10 @@ export function EditToolbar({ onSave }: EditToolbarProps) {
         <XCircle className="h-3.5 w-3.5" />
         Cancel
       </button>
+
+      {showAssistant && blocksCtx && (
+        <PageAssistant onClose={() => setShowAssistant(false)} />
+      )}
     </div>
   );
 }

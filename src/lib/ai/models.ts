@@ -18,3 +18,6 @@ export const DEFAULT_MODEL_ID: AiModelId = 'claude-sonnet-4-5';
 export function isValidModelId(id: unknown): id is AiModelId {
   return typeof id === 'string' && AI_MODELS.some((m) => m.id === id);
 }
+
+/** localStorage key for the editor's model choice (shared by all assistants). */
+export const MODEL_STORAGE_KEY = 'nis-ai-model';
