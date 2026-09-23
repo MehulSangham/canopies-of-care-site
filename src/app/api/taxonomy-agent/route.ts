@@ -156,7 +156,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: { text?: string; attachedNodeIds?: string[]; mode?: string; nodeId?: string };
+  let body: {
+    text?: string;
+    attachedNodeIds?: string[];
+    attached?: { nodeId: string; role?: string }[];
+    mode?: string;
+    nodeId?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -168,7 +174,13 @@ export async function POST(req: Request) {
   }
 
   const text = typeof body.text === 'string' ? body.text.trim() : '';
-  const attachedIds = Array.isArray(body.attachedNodeIds) ? body.attachedNodeIds : [];
+  const attachedWithRoles = Array.isArray(body.attached) ? body.attached : [];
+  const attachedIds = attachedWithRoles.length
+    ? attachedWithRoles.map((a) => a.nodeId)
+    : Array.isArray(body.attachedNodeIds)
+      ? body.attachedNodeIds
+      : [];
+  const roleById = new Map(attachedWithRoles.map((a) => [a.nodeId, a.role]));
   if (!text) {
     return NextResponse.json({ ok: false, error: 'Missing text' }, { status: 400 });
   }
@@ -235,7 +247,11 @@ export async function POST(req: Request) {
     '',
     'Do BOTH of the following, then call report once:',
     '1. SUGGEST up to 4 unattached nodes that genuinely operate in the passage. Role: advances-reframe if the passage instantiates the structure; describes-dominant if the passage depicts that structure as the prevailing account; aims-catalytic for hinge beats (crisis kitchen, lodge, testimony, tradition) aimed at readers at the edge of the discourse window. High confidence only when the passage clearly instantiates the structure in its own wording.',
-    '2. VERIFY every attached id: supported = the passage clearly does what the attachment says; weak = plausible but thin; drift = the passage undercuts it — the classic failure is prose marked as advancing the reframe while actually activating Eligibility, Compliance, Deserving, or accounting/scarcity language.',
+    '2. VERIFY every attached id against its role — the role defines what "supported" means:',
+    '   - advances-reframe: supported when the passage instantiates the structure in its own voice; drift when the prose actually activates the rival dominant system (Eligibility, Compliance, Deserving, accounting/scarcity language).',
+    '   - describes-dominant: supported when the passage DEPICTS, NAMES, or CONTESTS that structure as the prevailing account — rejecting it still counts, that is the attachment doing its job; drift only if the structure is absent or the prose unwittingly adopts it as its own voice.',
+    '   - aims-catalytic: supported when the beat plausibly lands with readers at the edge of the discourse window.',
+    '   weak = plausible but thin in the passage wording.',
     '',
     'Be conservative. Fewer, better suggestions. Never suggest an id that is not in the inventory.',
     '',
@@ -253,7 +269,13 @@ export async function POST(req: Request) {
             '=== ARGUMENT MAP INVENTORY ===',
             inventory,
             '',
-            `=== CURRENTLY ATTACHED === ${attachedList.length ? attachedList.join(', ') : '(none)'}`,
+            `=== CURRENTLY ATTACHED === ${
+              attachedList.length
+                ? attachedList
+                    .map((id) => (roleById.get(id) ? `${id} (${roleById.get(id)})` : id))
+                    .join(', ')
+                : '(none)'
+            }`,
             '',
             '=== PASSAGE ===',
             text.slice(0, 12000),

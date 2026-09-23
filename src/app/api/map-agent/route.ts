@@ -10,7 +10,7 @@ import {
   type ClaimArgument,
   type TaxonomyNode,
 } from '@/lib/taxonomy';
-import { loadAttachments, loadMap, loadSources } from '@/lib/taxonomy-store';
+import { loadAttachments, loadMap, loadSources, loadStyleGuide } from '@/lib/taxonomy-store';
 import {
   createTaxonomyNode,
   deleteTaxonomyNode,
@@ -104,7 +104,11 @@ export async function POST(req: Request) {
     );
   }
 
-  const [{ nodes }, sourceIndex] = await Promise.all([loadMap(), loadSources()]);
+  const [{ nodes }, sourceIndex, styleGuide] = await Promise.all([
+    loadMap(),
+    loadSources(),
+    loadStyleGuide(),
+  ]);
   const steps: string[] = [];
   let changed = false;
 
@@ -315,6 +319,9 @@ export async function POST(req: Request) {
     '- When drafting grounds, ground each one in what the archive can actually show, then link real sources from the index (search_sources). Never invent citations.',
     '- Keep definitions in the project voice: plain, declarative, one or two sentences.',
     '- If asked something the map already answers, answer from the inventory without tool calls.',
+    ...(styleGuide.trim()
+      ? ['', '=== PROSE STYLE GUIDE (follow when drafting any argument field) ===', styleGuide.trim()]
+      : []),
     '',
     '=== MAP INVENTORY ===',
     inventory,

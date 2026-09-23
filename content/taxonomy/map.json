@@ -221,7 +221,35 @@
       "stance": "reframe",
       "definition": "Belonging as practice (you are part of the community you show up for) versus belonging as condition (you belong if you qualify).",
       "origin": "novel",
-      "source": "Narrative Analysis 2025 — NARRATIVE_STRATEGY reframe architecture"
+      "source": "Narrative Analysis 2025 — NARRATIVE_STRATEGY reframe architecture",
+      "argument": {
+        "grounds": [
+          "In April 1787, while the Constitutional Convention was meeting in Philadelphia, the Free African Society was founded in the same city. Its members paid dues to fund burials, sickness benefits, and support for widows. They built this system of mutual obligation because the official one excluded them.",
+          "This was not a one-off. Black benevolent and cooperative societies used the same dues-and-benefits design continuously from 1787 onward, and by the early twentieth century, fraternal orders built on that model enrolled roughly one in three adult American men.",
+          "The other tradition of belonging — belonging as a status you must qualify for — is just as real. It runs through American law from the Chinese Exclusion Act to today’s eligibility rules for public benefits."
+        ],
+        "groundSources": [
+          [
+            "src-preamble-and-articles-of-association-of",
+            "src-richard-s-newman-freedom-s-prophet"
+          ],
+          [
+            "src-w-e-b-du-bois-economic",
+            "src-jessica-gordon-nembhard-collective-courage-a-x",
+            "src-david-t-beito-from-mutual-aid"
+          ],
+          [
+            "src-chinese-immigration-and-the-chinese-exclusion",
+            "src-cybelle-fox-three-worlds-of-relief",
+            "src-8-u-s-c-1601-personal",
+            "src-citizenship-and-immigration-status-requirements-fema"
+          ]
+        ],
+        "warrant": "Both traditions are equally well documented and have run continuously since the founding. So when the national story remembers only one of them, that is a choice about what counts as American, not something the historical record forces on us.",
+        "qualifier": "This claim asks for equal standing, not a swap. The point is not that one tradition is false and the other true; both are real, and the argument is about which one gets remembered.",
+        "rebuttal": "One could object that mutual aid was a small thing: charity happening at the edges of society, not a serious rival to the official story of belonging.",
+        "answer": "But a tradition that enrolled one in three adult American men by 1920, and that provided the only insurance, credit, and burial systems millions of people had, was not a small thing. It did the work our national story gives credit to government and the market for doing."
+      }
     },
     {
       "id": "metaphor-community-is-fabric",

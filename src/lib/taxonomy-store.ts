@@ -7,6 +7,7 @@ import type { Attachment, SourceRecord, TaxonomyMap, TaxonomyNode } from '@/lib/
 const MAP_PATH = 'content/taxonomy/map.json';
 const ATTACH_PATH = 'content/taxonomy/attachments.json';
 const SOURCES_PATH = 'content/taxonomy/sources.json';
+const STYLE_GUIDE_PATH = 'content/taxonomy/style-guide.md';
 const LIB_DIR = 'content/taxonomy/libraries';
 
 export type LibraryId = 'metaphors' | 'frames' | 'argument';
@@ -87,6 +88,11 @@ export async function saveSources(list: SourceRecord[]): Promise<void> {
     `${JSON.stringify(list, null, 2)}\n`,
     'content: update sources index',
   );
+}
+
+/** Prose style guide for argument fields, injected into drafting agents. */
+export async function loadStyleGuide(): Promise<string> {
+  return readText(STYLE_GUIDE_PATH);
 }
 
 export async function loadLibrary(id: LibraryId): Promise<string> {

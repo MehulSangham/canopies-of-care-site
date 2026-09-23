@@ -147,7 +147,7 @@ export function XrayEditor() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           text,
-          attachedNodeIds: scoped.map((a) => a.nodeId),
+          attached: scoped.map((a) => ({ nodeId: a.nodeId, role: a.role })),
         }),
       });
       const data = await res.json();

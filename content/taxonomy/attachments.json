@@ -588,38 +588,38 @@
     "role": "advances-reframe"
   },
   {
-    "slug": "introduction",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "introduction",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "introduction",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "introduction",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
     "slug": "a0-elder-tradition",
     "blockId": "page",
     "excerpt": "",
     "nodeId": "claim-c4",
     "role": "advances-reframe"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "block-0",
+    "excerpt": "In 1787, two things happened in Philadelphia. From May to September, the Constit",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "block-4",
+    "excerpt": "The tradition's absence from the national story is structural rather than accide",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "block-3",
+    "excerpt": "Mutual aid, meaning communities organising collective care on terms of reciproci",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "introduction",
+    "blockId": "block-3",
+    "excerpt": "Mutual aid, meaning communities organising collective care on terms of reciproci",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
   }
 ]
