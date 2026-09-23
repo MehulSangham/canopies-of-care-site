@@ -90,8 +90,8 @@ assert(
   'A0 proposes BELONGING IS SHOWING UP',
 );
 assert(
-  a0?.frames?.counters?.some((f) => f.name === 'CARE IS CHARITY'),
-  'A0 counters CARE IS CHARITY',
+  a0?.frames?.counters?.some((f) => f.name === 'MORALITY IS ACCOUNTING'),
+  'A0 counters MORALITY IS ACCOUNTING (Dawes passage)',
 );
 const also = a0?.frames?.proposes?.find((f) => f.name === 'BELONGING IS SHOWING UP')?.alsoOn;
 assert(

@@ -1,96 +1,5 @@
 [
   {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-a0",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-a1",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "a1-founding-era",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
     "slug": "a2-parallel-infrastructure",
     "blockId": "page",
     "excerpt": "",
@@ -126,472 +35,10 @@
     "role": "describes-dominant"
   },
   {
-    "slug": "a3-fraternal-scale",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-a3",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a3-fraternal-scale",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a3-fraternal-scale",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-collaboration",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a3-fraternal-scale",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b1-new-deal-displacement",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-b1",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b1-new-deal-displacement",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b1-new-deal-displacement",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b1-new-deal-displacement",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b2-civil-rights-care",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-b2",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b2-civil-rights-care",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b2-civil-rights-care",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b2-civil-rights-care",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b3-black-panthers",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-b3",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b3-black-panthers",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b3-black-panthers",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b3-black-panthers",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b4-aids-mutual-aid",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-b4",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b4-aids-mutual-aid",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b4-aids-mutual-aid",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b4-aids-mutual-aid",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "b5-maternal-networks",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-b5",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b5-maternal-networks",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b5-maternal-networks",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "b5-maternal-networks",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "c1-crisis",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-c1",
-    "role": "aims-catalytic"
-  },
-  {
-    "slug": "c1-crisis",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-crisis-response",
-    "role": "aims-catalytic"
-  },
-  {
-    "slug": "c1-crisis",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-tradition",
-    "role": "aims-catalytic"
-  },
-  {
-    "slug": "c1-crisis",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c1-crisis",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "c2-labor",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-c2",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c2-labor",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-solidarity-is-standing-together",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c2-labor",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-collaboration",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c2-labor",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "c3-intentional-institutions",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-c3",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c3-intentional-institutions",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c3-intentional-institutions",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-building",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c3-intentional-institutions",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "c4-exclusion-not-principle",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-c4",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c4-exclusion-not-principle",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "c4-exclusion-not-principle",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "c4-exclusion-not-principle",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d1-legal-institutional",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-d1",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d1-legal-institutional",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d1-legal-institutional",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-compliance",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d1-legal-institutional",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-morality-is-accounting",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d1-legal-institutional",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d2-competing-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-d2",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d2-competing-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d2-competing-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-care-is-charity",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d2-competing-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-two-accounts",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d3-project-2025",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-d3",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d3-project-2025",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d3-project-2025",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-compliance",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d3-project-2025",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "d3-project-2025",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d4-contestation",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-d4",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d4-contestation",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-two-accounts",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d4-contestation",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "d4-contestation",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-two-accounts",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-belonging-is-showing-up",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-community-is-fabric",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-nation-is-container",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "frame-eligibility",
-    "role": "describes-dominant"
-  },
-  {
-    "slug": "two-accounts",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "metaphor-morality-is-accounting",
-    "role": "describes-dominant"
-  },
-  {
     "slug": "introduction",
     "blockId": "page",
     "excerpt": "",
     "nodeId": "claim-two-accounts",
-    "role": "advances-reframe"
-  },
-  {
-    "slug": "a0-elder-tradition",
-    "blockId": "page",
-    "excerpt": "",
-    "nodeId": "claim-c4",
     "role": "advances-reframe"
   },
   {
@@ -621,5 +68,565 @@
     "excerpt": "Mutual aid, meaning communities organising collective care on terms of reciproci",
     "nodeId": "frame-tradition",
     "role": "aims-catalytic"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a0",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-0",
+    "excerpt": "Long before any charter was signed in Philadelphia, the nations of this continen",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-4",
+    "excerpt": "The potlatch was an economic system as much as a ceremony. A family that had acc",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-4",
+    "excerpt": "The potlatch was an economic system as much as a ceremony. A family that had acc",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-10",
+    "excerpt": "What the United States government did with this tradition is preserved in its ow",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-12",
+    "excerpt": "The reasoning behind the law was stated just as plainly, by the senator whose na",
+    "nodeId": "metaphor-morality-is-accounting",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a0-elder-tradition",
+    "blockId": "block-16",
+    "excerpt": "The tradition is not historical, and its most recent demonstration is very recen",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a1",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "block-0",
+    "excerpt": "In the spring of 1787, two founding meetings took place in Philadelphia within a",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "block-6",
+    "excerpt": "The society's founding charter, its Preamble and Articles of Association, set ou",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "block-6",
+    "excerpt": "The society's founding charter, its Preamble and Articles of Association, set ou",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "block-9",
+    "excerpt": "Taken together, these functions amount to the work of a civic institution. The s",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a1-founding-era",
+    "blockId": "block-11",
+    "excerpt": "Six years after its founding, the society was tested by one of the worst epidemi",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-a3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "block-4",
+    "excerpt": "The arrangement that the medical profession came to call \"lodge practice\" worked",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "block-5",
+    "excerpt": "Organised medicine hated it. The *Journal of the American Medical Association* r",
+    "nodeId": "metaphor-care-is-exchange",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "a3-fraternal-scale",
+    "blockId": "block-10",
+    "excerpt": "The numbers describe something larger than an insurance market. Before any feder",
+    "nodeId": "frame-collaboration",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b1",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "block-0",
+    "excerpt": "On 14 August 1935, Franklin Roosevelt signed the Social Security Act. The standa",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "block-5",
+    "excerpt": "In the early 1930s, unemployed workers across the country built self-help cooper",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b1-new-deal-displacement",
+    "blockId": "block-6",
+    "excerpt": "Black communities were largely excluded from local relief administration, and th",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b2",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "block-0",
+    "excerpt": "When the Montgomery bus boycott began in December 1955, a cook named Georgia Gil",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "block-2",
+    "excerpt": "The standard account of the civil rights movement centres marches, speeches, and",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "block-9",
+    "excerpt": "In the winter of 1962–63, Leflore County, Mississippi, cut off the federal surpl",
+    "nodeId": "frame-compliance",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b2-civil-rights-care",
+    "blockId": "block-12",
+    "excerpt": "Set beside the benevolent societies and the lodges of the previous century, the ",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "block-2",
+    "excerpt": "Breakfast was the most famous of what the party called its **survival programmes",
+    "nodeId": "frame-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "block-3",
+    "excerpt": "The programmes were mutual aid in the precise sense that the tradition had carri",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b3-black-panthers",
+    "blockId": "block-3",
+    "excerpt": "The programmes were mutual aid in the precise sense that the tradition had carri",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "block-0",
+    "excerpt": "In January 1982, six men met in a New York living room and founded the **Gay Men",
+    "nodeId": "frame-crisis-response",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "block-1",
+    "excerpt": "The federal government's response to the deadliest epidemic of the century was, ",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "block-2",
+    "excerpt": "What filled the void was mutual aid in the pattern that had recurred since 1787,",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b4-aids-mutual-aid",
+    "blockId": "block-5",
+    "excerpt": "The networks crossed the lines that peacetime institutions treated as fixed. ACT",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-b5",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "block-0",
+    "excerpt": "Between 1785 and 1812, a Maine midwife named Martha Ballard kept a daily diary t",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "block-5",
+    "excerpt": "The same invisibility has a wage dimension. The women for whom care was also emp",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "block-8",
+    "excerpt": "The practice never stopped. Only the gaps in the record persisted. Family, frien",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "block-8",
+    "excerpt": "The practice never stopped. Only the gaps in the record persisted. Family, frien",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c1",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "block-3",
+    "excerpt": "The same crossing recurs wherever catastrophe lands. Weeks after Hurricane Katri",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "block-4",
+    "excerpt": "After Hurricane Sandy in 2012, **Occupy Sandy** turned a protest network into a ",
+    "nodeId": "frame-crisis-response",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "block-6",
+    "excerpt": "In the spring of 2020, hundreds of COVID mutual aid networks assembled in a matt",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c1-crisis",
+    "blockId": "block-10",
+    "excerpt": "One honest limit belongs in this account, and it strengthens the argument rather",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c2",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "block-0",
+    "excerpt": "In May 1913, four thousand longshoremen walked off the docks of Philadelphia, an",
+    "nodeId": "metaphor-solidarity-is-standing-together",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "block-2",
+    "excerpt": "Local 8 matters because the unions of this era were mutual aid institutions befo",
+    "nodeId": "frame-collaboration",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c2-labor",
+    "blockId": "block-8",
+    "excerpt": "None of this was a paradise, and nothing is gained by pretending otherwise. The ",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c3",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "block-0",
+    "excerpt": "In 1889, Jane Addams and Ellen Gates Starr moved into a worn mansion on Halsted ",
+    "nodeId": "metaphor-care-is-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "block-2",
+    "excerpt": "The settlement houses enter the tradition with an honest caveat attached. They w",
+    "nodeId": "metaphor-care-is-charity",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c3-intentional-institutions",
+    "blockId": "block-7",
+    "excerpt": "Crisis, the record shows, reliably pushes mutual aid across community lines. The",
+    "nodeId": "frame-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-c4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "block-2",
+    "excerpt": "That detail is the key to the whole pattern of bounded societies. Nearly every e",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "block-7",
+    "excerpt": "The white orders wrote the exclusion into their constitutions, adopting whites-o",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "c4-exclusion-not-principle",
+    "blockId": "block-9",
+    "excerpt": "The claim can be tested, because the two explanations predict different futures.",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d1",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "block-0",
+    "excerpt": "In November 2014, police in Fort Lauderdale, Florida, stopped a ninety-year-old ",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "block-1",
+    "excerpt": "Abbott's arrest belonged to a national pattern. A survey that year counted twent",
+    "nodeId": "frame-compliance",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "block-4",
+    "excerpt": "The quieter mechanisms sit in the tax code. American law defines a tax-free gift",
+    "nodeId": "metaphor-morality-is-accounting",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d1-legal-institutional",
+    "blockId": "block-5",
+    "excerpt": "Eligibility rules draw the same boundary from the other side. Federal disaster a",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d2",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d2-competing-tradition",
+    "blockId": "block-2",
+    "excerpt": "The construction is one of the best-documented episodes in modern American polit",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d3",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "block-0",
+    "excerpt": "In 2023 the Heritage Foundation published *Mandate for Leadership: The Conservat",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d3-project-2025",
+    "blockId": "block-4",
+    "excerpt": "Whether a think-tank blueprint matters is normally a matter of argument. Here it",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-d4",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "block-3",
+    "excerpt": "This archive exists because the mutual aid tradition has never had even the firs",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "block-6",
+    "excerpt": "A single document does not compete with a curriculum enrolling 1.7 million stude",
+    "nodeId": "frame-building",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "d4-contestation",
+    "blockId": "block-8",
+    "excerpt": "The tradition itself has always understood this. Jones and Allen published their",
+    "nodeId": "frame-tradition",
+    "role": "aims-catalytic"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "page",
+    "excerpt": "",
+    "nodeId": "claim-two-accounts",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "block-3",
+    "excerpt": "In the first account, belonging is something people do. You are part of the comm",
+    "nodeId": "metaphor-belonging-is-showing-up",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "block-3",
+    "excerpt": "In the first account, belonging is something people do. You are part of the comm",
+    "nodeId": "metaphor-community-is-fabric",
+    "role": "advances-reframe"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "block-5",
+    "excerpt": "In the second account, belonging is a status that precedes anything you do. Memb",
+    "nodeId": "metaphor-nation-is-container",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "block-5",
+    "excerpt": "In the second account, belonging is a status that precedes anything you do. Memb",
+    "nodeId": "frame-eligibility",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "two-accounts",
+    "blockId": "block-5",
+    "excerpt": "In the second account, belonging is a status that precedes anything you do. Memb",
+    "nodeId": "metaphor-morality-is-accounting",
+    "role": "describes-dominant"
+  },
+  {
+    "slug": "b5-maternal-networks",
+    "blockId": "block-8",
+    "excerpt": "The practice never stopped. Only the gaps in the record persisted. Family, frien",
+    "nodeId": "metaphor-help-is-support",
+    "role": "advances-reframe"
   }
 ]

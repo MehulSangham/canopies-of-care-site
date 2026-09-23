@@ -1,0 +1,502 @@
+{
+  "pages": {
+    "c1-crisis": {
+      "attachments": [
+        {
+          "nodeId": "claim-c1",
+          "blockId": "page",
+          "role": "aims-catalytic"
+        },
+        {
+          "nodeId": "metaphor-care-is-charity",
+          "blockId": "block-3",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-crisis-response",
+          "blockId": "block-4",
+          "role": "aims-catalytic"
+        },
+        {
+          "nodeId": "metaphor-belonging-is-showing-up",
+          "blockId": "block-6",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "frame-tradition",
+          "blockId": "block-10",
+          "role": "aims-catalytic"
+        }
+      ]
+    },
+    "c2-labor": {
+      "attachments": [
+        {
+          "nodeId": "claim-c2",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-solidarity-is-standing-together",
+          "blockId": "block-0",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "frame-collaboration",
+          "blockId": "block-2",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "frame-eligibility",
+          "blockId": "block-8",
+          "role": "describes-dominant"
+        }
+      ]
+    },
+    "c3-intentional-institutions": {
+      "attachments": [
+        {
+          "nodeId": "claim-c3",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-care-is-building",
+          "blockId": "block-0",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-care-is-charity",
+          "blockId": "block-2",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-building",
+          "blockId": "block-7",
+          "role": "advances-reframe"
+        }
+      ]
+    },
+    "c4-exclusion-not-principle": {
+      "attachments": [
+        {
+          "nodeId": "claim-c4",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-nation-is-container",
+          "blockId": "block-2",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-eligibility",
+          "blockId": "block-7",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-belonging-is-showing-up",
+          "blockId": "block-9",
+          "role": "advances-reframe"
+        }
+      ]
+    },
+    "d1-legal-institutional": {
+      "attachments": [
+        {
+          "nodeId": "claim-d1",
+          "blockId": "page",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-belonging-is-showing-up",
+          "blockId": "block-0",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "frame-compliance",
+          "blockId": "block-1",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-morality-is-accounting",
+          "blockId": "block-4",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-eligibility",
+          "blockId": "block-5",
+          "role": "describes-dominant"
+        }
+      ]
+    },
+    "d2-competing-tradition": {
+      "attachments": [
+        {
+          "nodeId": "claim-d2",
+          "blockId": "page",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "claim-two-accounts",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-nation-is-container",
+          "blockId": "block-2",
+          "role": "describes-dominant"
+        }
+      ]
+    },
+    "d3-project-2025": {
+      "attachments": [
+        {
+          "nodeId": "claim-d3",
+          "blockId": "page",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-nation-is-container",
+          "blockId": "block-0",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-eligibility",
+          "blockId": "block-4",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-compliance",
+          "blockId": "block-4",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-belonging-is-showing-up",
+          "blockId": "block-6",
+          "role": "advances-reframe"
+        }
+      ]
+    },
+    "d4-contestation": {
+      "attachments": [
+        {
+          "nodeId": "claim-d4",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "claim-two-accounts",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-nation-is-container",
+          "blockId": "block-3",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-building",
+          "blockId": "block-6",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "frame-tradition",
+          "blockId": "block-8",
+          "role": "aims-catalytic"
+        }
+      ]
+    },
+    "two-accounts": {
+      "attachments": [
+        {
+          "nodeId": "claim-two-accounts",
+          "blockId": "page",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-belonging-is-showing-up",
+          "blockId": "block-3",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-community-is-fabric",
+          "blockId": "block-3",
+          "role": "advances-reframe"
+        },
+        {
+          "nodeId": "metaphor-nation-is-container",
+          "blockId": "block-5",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "frame-eligibility",
+          "blockId": "block-5",
+          "role": "describes-dominant"
+        },
+        {
+          "nodeId": "metaphor-morality-is-accounting",
+          "blockId": "block-5",
+          "role": "describes-dominant"
+        }
+      ]
+    }
+  },
+  "arguments": {
+    "claim-c1": {
+      "grounds": [
+        "In 1793, when yellow fever killed a tenth of Philadelphia and the federal government fled its own capital, the Free African Society organised the nursing of the sick and the burial of the dead, and the sick and the dead were overwhelmingly white.",
+        "The crossing recurs wherever catastrophe lands. After Katrina, the Common Ground Collective, co-founded by a former Black Panther under the motto 'solidarity, not charity', served everyone the flood had touched, and after Sandy, Occupy Sandy moved more volunteers through its hubs than the official agencies could field.",
+        "In 2020, hundreds of COVID mutual aid networks assembled within weeks and organised by building, block, and zip code rather than by identity, and in the 2025 Los Angeles fires, neighbourhood networks ran supply hubs for everyone displaced, including the undocumented residents whom federal relief excludes by rule.",
+        "Disaster sociology has replicated the pattern for six decades. Charles Fritz called the phenomenon a community of sufferers, defined by the event and not by the prior social system, and the Disaster Research Center's studies confirmed that the greater the disaster, the more such emergent groups appear."
+      ],
+      "groundSources": [
+        [
+          "src-absalom-jones-and-richard-allen-a",
+          "src-black-volunteers-in-the-nation-s",
+          "src-how-the-politics-of-race-played"
+        ],
+        [
+          "src-common-ground-relief-history-common-ground",
+          "src-scott-crow-black-flags-and-windmills",
+          "src-where-fema-fell-short-occupy-sandy",
+          "src-occupy-sandy-from-protest-group-to"
+        ],
+        [
+          "src-bed-stuy-strong-how-to-start",
+          "src-it-s-about-love-and-solidarity",
+          "src-as-los-angeles-burns-immigrants-mobilize"
+        ],
+        [
+          "src-charles-e-fritz-disasters-and-mental",
+          "src-e-l-quarantelli-a-half-century",
+          "src-e-l-quarantelli-and-russell-r"
+        ]
+      ],
+      "warrant": "If the crossing had happened once, it would be an anecdote. It has recurred from 1793 to 2025, and disaster sociology has replicated it for six decades: catastrophe produces aid organised by the shared situation rather than by prior boundaries.",
+      "qualifier": "Everyday mutual aid in the nineteenth century mostly did run within communities, inside boundaries that were imposed at least as much as chosen. The claim is about what happens under pressure.",
+      "rebuttal": "One could object that disasters are exceptional moments, and that behaviour in an emergency proves nothing about the tradition in ordinary time.",
+      "answer": "But a practice that was inherently ethnic would stay ethnic under pressure, and it never has. Crisis strips the situation down to the tradition's actual organising principle, and that principle turns out to be need and presence."
+    },
+    "claim-c2": {
+      "grounds": [
+        "Local 8 of the IWW, formed in the 1913 Philadelphia longshore strike, was roughly a third Black, a third Irish American, and a third immigrant Eastern European. It rotated its chairmanship between Black and white members, integrated work gangs on segregated docks, and controlled the waterfront for the better part of a decade.",
+        "The unions of that era were mutual aid institutions before they were bargaining agents. A local ran strike funds, sickness and death benefits, and relief for members' families, so organising across race meant pooling the machinery of survival, not only sharing a picket line.",
+        "The CIO drives of the 1930s and 1940s organised Black and white workers together in Southern tobacco plants, Memphis factories, and Midwestern packinghouses, in what historians of the period call civil rights unionism, a generation before the movement's famous years.",
+        "The cooperative movement ran the same experiment in economics. John Curl's history of American cooperation documents workers' cooperatives, buying clubs, and farmer alliances organising across ethnic lines, and where cooperative organising threatened the racial order it met violence: the cotton pickers' strike organised by the Colored Farmers' Alliance in 1891 was crushed."
+      ],
+      "groundSources": [
+        [
+          "src-peter-cole-wobblies-on-the-waterfront",
+          "src-peter-cole-ben-fletcher-the-life",
+          "src-iww-local-8-philadelphia-s-interracial"
+        ],
+        [
+          "src-industrial-workers-of-the-world-encyclopedia",
+          "src-may-14-1913-longshore-strike-in",
+          "src-peter-cole-wobblies-on-the-waterfront"
+        ],
+        [
+          "src-robert-rodgers-korstad-civil-rights-unionism",
+          "src-michael-k-honey-southern-labor-and",
+          "src-cliff-brown-and-terry-boswell-realizing"
+        ],
+        [
+          "src-a-crushed-1891-strike-by-black",
+          "src-jessica-gordon-nembhard-collective-courage-a-x",
+          "src-john-curl-for-all-the-people-x"
+        ]
+      ],
+      "warrant": "Aid follows the organising basis. Where the basis was the shared condition, the aid crossed race at dock, plant, and farm scale, and the crossings were not exceptions to the tradition but the tradition running on a wider definition of us.",
+      "qualifier": "Much of organised labour enforced the colour line rather than crossing it; the AFL's craft unions excluded Black workers for decades. The claim is about what happened where unions chose solidarity.",
+      "rebuttal": "One could object that interracial locals were rare islands in a labour movement that mostly practised exclusion.",
+      "answer": "But the exclusions prove the same rule. Where unions chose exclusion, aid stayed bounded and Black workers built parallel institutions. Where unions chose solidarity, the aid crossed immediately. The boundary tracked the choice, never the practice."
+    },
+    "claim-c3": {
+      "grounds": [
+        "In 1889, Hull House opened its doors to Chicago's Nineteenth Ward, the most ethnically mixed neighbourhood on the continent, running a kindergarten, a public kitchen, citizenship classes, and one of the city's first public playgrounds. The membership rule was the address rather than the origin.",
+        "The Black Panther breakfast tables fed every hungry child who walked in. The programmes were built by a Black organisation and rooted in Black neighbourhoods, but they were bounded by presence rather than by race, their own documents state that design plainly, and at their height they fed more children daily than some state governments.",
+        "The post-2020 networks made the same choice at city scale and said so in their founding documents. Bed-Stuy Strong's membership rule is the neighbourhood, the networks carrying groceries to Chinatown's seniors were staffed across racial lines, and Dean Spade's widely used definition of the practice contains no ethnic term."
+      ],
+      "groundSources": [
+        [
+          "src-jane-addams-twenty-years-at-hull",
+          "src-our-history-jane-addams-hull-house",
+          "src-hull-house-vcu-social-welfare-history"
+        ],
+        [
+          "src-the-black-panthers-fed-more-hungry",
+          "src-alondra-nelson-body-and-soul-minneapolis",
+          "src-nik-heynen-bending-the-bars-of-x"
+        ],
+        [
+          "src-bed-stuy-strong-principles-and-organisational",
+          "src-multiracial-mutual-aid-efforts-help-chinatown",
+          "src-dean-spade-mutual-aid-building-solidarity"
+        ]
+      ],
+      "warrant": "One place-bounded institution would be an outlier. The same design decision recurs in 1889, 1969, and 2020, which makes the non-ethnic form one of the tradition's recurring shapes rather than a modern innovation or an accident of emergency.",
+      "qualifier": "The settlement houses carry an honest caveat: funded by the wealthy, staffed by the educated, and never internally equal, they sit at the boundary between mutual aid and philanthropy. They demonstrate the design choice, not a pure case of the practice.",
+      "rebuttal": "One could object that these are hand-picked exceptions, and that most of the tradition's history still ran inside ethnic boundaries.",
+      "answer": "But the claim here is only that crossing the line was available and was chosen, repeatedly, in peacetime. Why so much of the history ran inside boundaries anyway is the next page's question, and the answer there is exclusion, not preference."
+    },
+    "claim-c4": {
+      "grounds": [
+        "In 1784, Prince Hall and fourteen other free Black Masons received their lodge charter from the Grand Lodge of England, because no American lodge would grant them one. The founding document of Black freemasonry crossed the Atlantic because it could not cross the street.",
+        "Nearly every ethnically bounded society has the same founding shape. The Free African Society organised among people excluded from Philadelphia's white congregations, the Grand United Order of Odd Fellows was chartered from England after the American order refused Black applicants, the landsmanshaftn multiplied among Jewish immigrants facing hostile institutions, and the Chinese family associations worked under the Chinese Exclusion Act.",
+        "The Historical Society of Pennsylvania states the mechanism in its own teaching materials: rising anti-immigrant and racist attitudes closed the established fraternals, and immigrants and African Americans 'were forced to form their own mutual aid associations'. The white orders wrote whites-only clauses into their constitutions."
+      ],
+      "groundSources": [
+        [
+          "src-prince-hall-masons-1784-blackpast",
+          "src-theda-skocpol-ariane-liazos-and-marshall"
+        ],
+        [
+          "src-w-e-b-du-bois-the",
+          "src-grand-united-order-of-odd-fellows-x",
+          "src-hometown-societies-in-the-new-world",
+          "src-chinese-immigration-and-the-chinese-exclusion"
+        ],
+        [
+          "src-ethnic-societies-reading-historical-society-of",
+          "src-ethnic-fraternal-societies-and-mutual-aid",
+          "src-john-bodnar-ethnic-fraternal-benefit-associations"
+        ]
+      ],
+      "warrant": "If the boundaries came from preference, they should persist wherever the practice persists. If they came from exclusion, the practice should cross lines whenever the exclusion lifts or the situation overrides it. The aid crossed every time the test ran.",
+      "qualifier": "Bounded societies were real, numerous, and often stayed bounded for generations. The claim explains why the boundary sat where it did, not that it did not exist.",
+      "rebuttal": "One could object that people simply prefer to care for their own kind, and that the ethnic societies are the natural shape of the practice.",
+      "answer": "But nearly every bounded society has the same founding story: a door closed first, and the society formed on the other side of it. The boundedness was the shape of the wall, traced from the inside."
+    },
+    "claim-d1": {
+      "grounds": [
+        "Sharing food is repeatedly treated as an offence. A ninety-year-old veteran was charged three times in a month in 2014 for serving meals in a Fort Lauderdale park, a survey that year counted twenty-one cities restricting food sharing, and volunteers were still being arrested in Tulsa in 2026, despite a 2018 federal appeals ruling that sharing food in public is protected expressive conduct.",
+        "The tax code has no category for reciprocity. The researchers Shelly Sitton-Tygielski and Pamala Wiepking report that the tax-free gift is defined by a standard of 'detached and disinterested generosity' built for registered charity, that neighbours pooling money through payment apps can find the totals reported to the IRS as business income, and that most pandemic-era giving moved outside the registered-charity system entirely.",
+        "Eligibility rules draw the boundary from the other side. Federal disaster assistance requires citizenship or qualifying immigration status under the 1996 welfare reform, and in 2025 billions in disaster aid were held for immigration-enforcement review while a DHS directive moved to bar federally funded aid groups from serving undocumented residents.",
+        "The fourth mechanism is absorption. The fraternal benefit systems were displaced by commercial insurance and Social Security and vanished from the story of the safety net. And the geographer Nik Heynen writes that the Black Panther breakfast programme was 'both the model for, and impetus behind' the federally funded school breakfast programmes, which were made permanent in the same years in which documented COINTELPRO operations targeted the party."
+      ],
+      "groundSources": [
+        [
+          "src-90-year-old-man-2-pastors",
+          "src-national-coalition-for-the-homeless-share",
+          "src-eleventh-circuit-opinion-2018",
+          "src-tulsa-police-arrest-food-not-bombs"
+        ],
+        [
+          "src-shelly-sitton-tygielski-and-pamala-wiepking",
+          "src-sitton-tygielski-and-wiepking-america-s",
+          "src-form-1099-k-faqs-internal-revenue"
+        ],
+        [
+          "src-8-u-s-c-1601-personal",
+          "src-citizenship-and-immigration-status-requirements-fema",
+          "src-fema-blocks-10b-in-disaster-aid",
+          "src-dhs-moves-to-bar-aid-groups"
+        ],
+        [
+          "src-david-t-beito-from-mutual-aid",
+          "src-nik-heynen-bending-the-bars-of",
+          "src-how-black-activists-spurred-the-u",
+          "src-ward-churchill-and-jim-vander-wall-x"
+        ]
+      ],
+      "warrant": "Any one of these mechanisms alone could be an accident of law. Four of them, taxation without recognition, attempted criminalisation, exclusion by eligibility, and absorption, all pressing in the same direction, describe a legal architecture with a consistent effect on reciprocal care.",
+      "qualifier": "Intent varies across the mechanisms: documented for COINTELPRO, debatable for the New Deal, and bureaucratically diffuse in the tax code. The claim is about the consistent structural effect, not a single conspiracy.",
+      "rebuttal": "One could object that these are scattered rules with separate rationales: public-order ordinances, tax administration, immigration law, and ordinary policy change.",
+      "answer": "But the rules keep arriving at the same result from every side. The courts keep siding with the volunteers and the cities keep passing ordinances anyway, while the dominant form of American generosity now operates in a legal architecture that does not recognise it."
+    },
+    "claim-d2": {
+      "grounds": [
+        "In August 1971, Lewis Powell's confidential memorandum to the US Chamber of Commerce argued that business should build durable infrastructure in the places where public meaning is made: campuses, textbooks, television, and the courts. Much of the institutional world it called for was built within a decade, including the Heritage Foundation in 1973.",
+        "The construction is one of the best-documented episodes in modern American politics. Scholars have traced how the Olin, Scaife, Bradley, and Koch foundations funded think tanks, endowed law-school programmes, and built the Federalist Society's judicial pipeline, on the explicit theory that ideas need organisations and patrons to become common sense.",
+        "The reach figures come from the institutions themselves. Hillsdale College reports 1.7 million students enrolled in its free online curriculum and a circulation above 7.5 million for its speech digest, and the Heritage Foundation maintains a national library of free lesson plans on the founders and the Constitution.",
+        "On the other side of the shelf, the publicly available mutual aid teaching materials amount to a teaching guide attached to Dean Spade's 2020 book, an activist toolkit, and scattered lesson plans, none with published enrolment figures."
+      ],
+      "groundSources": [
+        [
+          "src-lewis-f-powell-jr-attack-on"
+        ],
+        [
+          "src-steven-m-teles-the-rise-of",
+          "src-jane-mayer-dark-money-the-hidden",
+          "src-thomas-medvetz-think-tanks-in-america"
+        ],
+        [
+          "src-hillsdale-college-online-curriculum-attracts-1",
+          "src-hillsdale-college-online-course-students-have",
+          "src-civics-lessons-and-resources-heritage-foundation"
+        ],
+        [
+          "src-dean-spade-mutual-aid-teaching-guide",
+          "src-big-door-brigade-mutual-aid-toolbox",
+          "src-empowering-education-on-mutual-aid-organizing"
+        ]
+      ],
+      "warrant": "Stories do not win on truth alone; they win on distribution. When one account of American identity has think tanks, curricula enrolling millions, and a judicial pipeline, and the other has scattered syllabi, the first becomes common sense by default.",
+      "qualifier": "That the infrastructure exists, was deliberately built, and mass-distributes a founding-documents account is documented fact. That it displaces the mutual aid tradition, rather than outcompeting it by default, is an interpretation, though a well-grounded one. Teaching the Constitution is legitimate.",
+      "rebuttal": "One could object that nobody suppressed the mutual aid story, and that the civic education infrastructure simply taught what its builders believed mattered.",
+      "answer": "But a tradition absent from every classroom, curriculum, and reference shelf is not one that citizens can find when they go looking for what being American means. Whatever the intent, teaching one account as the whole story produces exactly the invisibility that needed explaining."
+    },
+    "claim-d3": {
+      "grounds": [
+        "In 2023 the Heritage Foundation published Mandate for Leadership, the central document of Project 2025: roughly nine hundred pages of agency-by-agency policy design, prepared with more than a hundred advisory organisations and distributed free.",
+        "Its funders are substantially the same fortunes that built the civic education infrastructure. Grants from the Bradley, Scaife, Uihlein, Coors, Koch, and Seid fortunes to Project 2025's advisory organisations since 2020 total well over a hundred million dollars, documented in IRS filings.",
+        "Implementation is a matter of record from the plan's own author. In May 2026, Heritage president Kevin Roberts said on C-SPAN that 1,055 of 1,913 recommendations had been implemented, a Heritage fundraising email claimed 53 per cent was federal policy, and the independent Center for Progressive Reform tracker converges with that figure.",
+        "The policies bear directly on the tradition's ability to operate. A March 2025 executive order moved disaster preparedness away from FEMA, roughly ten billion dollars in disaster aid was held pending immigration-enforcement review, and an August 2025 DHS directive moved to bar federally funded aid groups from serving undocumented residents."
+      ],
+      "groundSources": [
+        [
+          "src-heritage-foundation-mandate-for-leadership-the"
+        ],
+        [
+          "src-6-billionaire-fortunes-bankrolling-project-2025",
+          "src-document-trove-details-bradley-foundation-s",
+          "src-irs-forms-990-via-propublica-nonprofit"
+        ],
+        [
+          "src-kevin-roberts-c-span-washington-journal",
+          "src-over-half-of-project-2025-now",
+          "src-project-2025-executive-action-tracker-center"
+        ],
+        [
+          "src-achieving-efficiency-through-state-and-local",
+          "src-fema-blocks-10b-in-disaster-aid",
+          "src-dhs-moves-to-bar-aid-groups",
+          "src-trump-signs-order-to-shift-disaster"
+        ]
+      ],
+      "warrant": "When the plan's own author and its critics' tracker agree that more than half of it is federal policy, the document is no longer a wish list. It is the bounded-care account of the country, encoded in administration.",
+      "qualifier": "Project 2025 is a policy programme, and policy programmes are ordinary politics. The claim concerns what these particular policies do to the tradition's ability to operate, not that policy planning is illegitimate.",
+      "rebuttal": "One could object that administrations implement their supporters' agendas and think tanks write them, and that none of this is remarkable.",
+      "answer": "But these policies produce need, exclude the needy from state care, and burden the community care that remains, while the same legal order leaves the networks unrecognised by the tax code and, in some cities, criminalised. An architecture with that combined effect is not neutral about which American tradition survives."
+    },
+    "claim-d4": {
+      "grounds": [
+        "The archive's strategy has a documented precedent in the rival tradition itself. A fifteen-thousand-dollar student conference in 1982 grew into the Federalist Society, with chapters at every accredited law school and, by 2024, six of the nine sitting Supreme Court justices among its members and affiliates, which is what a small, citable starting point can become.",
+        "The mechanism behind that precedent is studied. Constitutional originalism went from a single dismissed 1971 law review article to institutional dominance in roughly forty years, and Steven Teles's explanation is that ideas become power when they acquire networks, organisations, and patrons. The displacement this archive contests was built that way, so contesting it begins the same way: with a citable knowledge base.",
+        "Writing the record down is the tradition's own oldest act of self-defence. Jones and Allen published their Narrative in 1794 because the record was being falsified in real time, the AIDS generation named a political history Let the Record Show, and the historians of women's care networks recovered the practice diary by diary."
+      ],
+      "groundSources": [
+        [
+          "src-about-us-federalist-society",
+          "src-birth-of-the-federalist-society-philanthropy",
+          "src-how-the-federalist-society-shaped-america"
+        ],
+        [
+          "src-steven-m-teles-the-rise-of",
+          "src-paul-baumgardner-originalism-and-the-academy",
+          "src-keith-e-whittington-originalism-a-critical"
+        ],
+        [
+          "src-absalom-jones-and-richard-allen-a-x",
+          "src-sarah-schulman-let-the-record-show",
+          "src-laurel-thatcher-ulrich-a-midwife-s-x"
+        ]
+      ],
+      "warrant": "If ideas become power only when they acquire networks, organisations, and patrons, then a tradition with no citable knowledge base cannot enter the contest at all. Assembling that base is the necessary first step, and the precedent shows the step can start that small.",
+      "qualifier": "A single document does not compete with a curriculum enrolling 1.7 million students, and this one does not claim to. The originalism precedent cuts both ways: the building takes decades.",
+      "rebuttal": "One could object that an archive is not a movement, and that documents change nothing by themselves.",
+      "answer": "But the tradition's own history answers this. The practice survived in memory partly because someone wrote it down each time. Care that goes unrecorded goes unremembered, and care that goes unremembered can be displaced without anyone noticing the loss."
+    }
+  }
+}

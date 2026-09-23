@@ -1,0 +1,139 @@
+{
+  "pages": {
+    "b1-new-deal-displacement": {
+      "attachments": [
+        { "nodeId": "claim-b1", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-charity", "blockId": "block-0", "role": "describes-dominant" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-5", "role": "advances-reframe" },
+        { "nodeId": "frame-eligibility", "blockId": "block-6", "role": "describes-dominant" }
+      ]
+    },
+    "b2-civil-rights-care": {
+      "attachments": [
+        { "nodeId": "claim-b2", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-belonging-is-showing-up", "blockId": "block-0", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-2", "role": "advances-reframe" },
+        { "nodeId": "frame-compliance", "blockId": "block-9", "role": "describes-dominant" },
+        { "nodeId": "frame-tradition", "blockId": "block-12", "role": "aims-catalytic" }
+      ]
+    },
+    "b3-black-panthers": {
+      "attachments": [
+        { "nodeId": "claim-b3", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "frame-building", "blockId": "block-2", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-3", "role": "advances-reframe" },
+        { "nodeId": "frame-eligibility", "blockId": "block-3", "role": "describes-dominant" }
+      ]
+    },
+    "b4-aids-mutual-aid": {
+      "attachments": [
+        { "nodeId": "claim-b4", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "frame-crisis-response", "blockId": "block-0", "role": "aims-catalytic" },
+        { "nodeId": "metaphor-nation-is-container", "blockId": "block-1", "role": "describes-dominant" },
+        { "nodeId": "metaphor-community-is-fabric", "blockId": "block-2", "role": "advances-reframe" },
+        { "nodeId": "metaphor-belonging-is-showing-up", "blockId": "block-5", "role": "advances-reframe" }
+      ]
+    },
+    "b5-maternal-networks": {
+      "attachments": [
+        { "nodeId": "claim-b5", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-community-is-fabric", "blockId": "block-0", "role": "advances-reframe" },
+        { "nodeId": "frame-eligibility", "blockId": "block-5", "role": "describes-dominant" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-8", "role": "advances-reframe" },
+        { "nodeId": "frame-tradition", "blockId": "block-8", "role": "aims-catalytic" }
+      ]
+    }
+  },
+  "arguments": {
+    "claim-b1": {
+      "grounds": [
+        "When the Social Security Act was signed in 1935, fraternal societies were still the leading providers of social welfare in the United States, and their membership had reached an estimated half of the adult male population at its height.",
+        "Depression-era communities organised new provision on a large scale before federal relief reached them. The Bureau of Labor Statistics surveyed the nation's cooperative self-help enterprises in 1933, and Black communities, largely excluded from relief administration, ran a parallel cooperative surge through churches and long-standing societies.",
+        "After 1935 the societies' core products, sick benefits, old-age funds, and widows' payments, were offered by the state and funded by payroll taxes that members paid whether they kept their lodge or not. Fraternal membership fell and kept falling, and the welfare functions went first.",
+        "The standard surveys of American welfare history frame the story as a run from the poor law to the welfare state, with community provision as a curiosity along the way. Andrew Morris notes that Michael Katz's leading synthesis of the field devotes three pages to voluntary agencies after the Second World War."
+      ],
+      "groundSources": [
+        ["src-beito-from-mutual-aid-to-the-x-x-x", "src-david-t-beito-mutual-aid-for"],
+        ["src-u-s-bureau-of-labor-statistics", "src-whither-self-help-1934-social-welfare", "src-john-curl-for-all-the-people", "src-jessica-gordon-nembhard-collective-courage-a-x-x"],
+        ["src-beito-from-mutual-aid-to-the-x-x", "src-theda-skocpol-diminished-democracy-from-membership"],
+        ["src-andrew-j-f-morris-the-limits", "src-michael-b-katz-in-the-shadow-x", "src-walter-i-trattner-from-poor-law"]
+      ],
+      "warrant": "If functioning mutual institutions were the country's leading welfare providers on the day the Act was signed, then the story of a state arriving in an empty room is wrong on its own terms. What happened was replacement, and replacement is a different story from rescue.",
+      "qualifier": "The lodges could not have carried the Depression; the collapse overwhelmed every institution in the country. The claim is about what the New Deal displaced and how the displacement was narrated, not that Social Security was unnecessary.",
+      "rebuttal": "One could object that the societies were already dying of their own weaknesses: damaged benefit funds, actuarial problems, and changing tastes among the young.",
+      "answer": "But the timing is not subtle. The welfare functions went first, once the state offered the same products funded by compulsory payroll taxes and commercial insurers took much of what remained, and the social functions built around those benefits followed."
+    },
+    "claim-b2": {
+      "grounds": [
+        "For the 381 days of the Montgomery bus boycott, a parallel transit system of hundreds of cars, dispatchers, and pickup points moved tens of thousands of people to work, funded in part by Georgia Gilmore's Club From Nowhere, a cooks' club organised so that no member could be fired for feeding the movement.",
+        "The citizenship schools that Septima Clark and Bernice Robinson opened on Johns Island in 1957 spread across the South, run by local people in kitchens, church basements, and beauty parlours. Hundreds were operating by the mid-1960s, and field organisers repeatedly traced voter registration drives back to them.",
+        "When Leflore County, Mississippi cut off federal surplus food for some twenty thousand residents in retaliation for a registration drive, SNCC moved tons of donated food into the Delta and distributed it alongside registration canvassing. Feeding people and registering them became one operation.",
+        "The historians who worked closest to the ground, Charles Payne and Barbara Ransby among them, argue that this care infrastructure was the movement's foundation rather than its support system. The field secretaries were housed, fed, and protected by local families, and behind them stood the Black church, a mutual aid institution since the days of the Free African Society."
+      ],
+      "groundSources": [
+        ["src-lucas-wlochka-it-was-just-the", "src-meet-the-fearless-cook-who-secretly"],
+        ["src-katherine-mellen-charron-freedom-s-teacher", "src-clark-septima-poinsette-king-institute-stanford", "src-highlander-folk-school-records-1932-wisconsin"],
+        ["src-leflore-county-cuts-off-surplus-commodities", "src-sncc-field-report-from-leflore-county", "src-charlie-cobb-deprivation-and-dissatisfaction-in"],
+        ["src-charles-m-payne-i-ve-got", "src-barbara-ransby-ella-baker-and-the", "src-c-eric-lincoln-and-lawrence-h"]
+      ],
+      "warrant": "Marches last days; the systems that feed, house, teach, and move people run for years. If every set piece of the movement stood on that provision, then the care systems were not background logistics. In long stretches they simply were the movement.",
+      "qualifier": "This claim reads the movement through its infrastructure. It does not diminish the marches, speeches, and courtrooms; the point is what carried them.",
+      "rebuttal": "One could object that cooking, driving, and teaching are the ordinary logistics of any campaign, not a civic tradition in their own right.",
+      "answer": "But the historians closest to the ground concluded the opposite. The slow, relational care work was what Charles Payne calls the organising tradition itself, the model Ella Baker deliberately built SNCC on, and the people who did it kept the movement alive between the famous days."
+    },
+    "claim-b3": {
+      "grounds": [
+        "In January 1969 the Black Panther Party began serving free breakfast to school children in an Oakland church basement, and the programme spread through the party's chapters until kitchens across the country were feeding thousands of children every school morning.",
+        "Breakfast was one programme among many. The party ran free medical clinics in more than a dozen cities, free sickle cell anaemia testing when public health authorities barely acknowledged the disease, free clothing programmes, an ambulance service, and free busing so families could visit the incarcerated.",
+        "The FBI's own analysis called the breakfast programme 'the best and most influential activity going for the BPP' and 'potentially the greatest threat' to efforts to neutralise the party. COINTELPRO operations followed: raided breakfast sites, rumours spread to parents that the food was poisoned, and pressure on landlords and suppliers.",
+        "While the Bureau worked to destroy the programme, the federal government scaled its model. The School Breakfast Program was expanded through the early 1970s and made permanent in 1975, and the geographer Nik Heynen states plainly that the Panther programme was both the model for and impetus behind the federal programmes now in existence."
+      ],
+      "groundSources": [
+        ["src-black-panther-party-s-free-breakfast", "src-how-the-black-panthers-breakfast-program", "src-black-panther-party-records-stanford-university"],
+        ["src-alondra-nelson-body-and-soul-the", "src-black-panther-party-s-free-medical"],
+        ["src-j-edgar-hoover-memo-to-all", "src-ward-churchill-and-jim-vander-wall"],
+        ["src-school-breakfast-program-permanent-authorisation-1975", "src-nik-heynen-bending-the-bars-of", "src-how-black-activists-spurred-the-u"]
+      ],
+      "warrant": "A programme that the FBI's own files called the party's greatest threat, and that the federal government copied into permanent law while dismantling its authors, was neither marginal nor theatre. By the government's own paperwork, it was civic infrastructure that worked.",
+      "qualifier": "The claim is about the survival programmes and their record, not a verdict on everything the party did or said.",
+      "rebuttal": "One could object that the programmes were recruitment tools: service delivery in the service of an armed political organisation, not genuine mutual aid.",
+      "answer": "But recruitment and reciprocity are not exclusive, and the benevolent societies built political life on their common funds too. The record shows children fed every school morning and a model persuasive enough that the state adopted it, and the state's own files say the threat was precisely that it worked."
+    },
+    "claim-b4": {
+      "grounds": [
+        "In January 1982, six men founded the Gay Men's Health Crisis for an epidemic that did not yet have a name. Within months it had built a volunteer hotline, crisis counselling, legal help, and the buddy programme, which assigned a volunteer to each sick man to cook, clean, and stay present.",
+        "The federal government's response was, for years, close to nothing. Research went underfunded, and the President did not deliver a major address on AIDS until 1987, by which time more than twenty thousand Americans had died.",
+        "The care came first and the politics rose from it. The community built buddy teams, meal deliveries, food pantries that ran for decades, and open needle exchanges before they were legal, and when ACT UP formed in 1987 it grew out of rooms full of people who had been nursing, burying, and provisioning each other since the epidemic began.",
+        "The movement also pooled expertise as mutual aid. Its treatment activists taught themselves virology and biostatistics, audited trial designs, and forced changes in how the FDA approved drugs, an intervention in scientific practice that is now studied in its own right."
+      ],
+      "groundSources": [
+        ["src-history-gay-men-s-health-crisis", "src-gmhc-organisational-records-manuscripts-and-archives", "src-gay-men-s-health-crisis-showed"],
+        ["src-randy-shilts-and-the-band-played", "src-sarah-schulman-let-the-record-show"],
+        ["src-deborah-b-gould-moving-politics-emotion", "src-jennifer-brier-only-your-calamity-the", "src-community-care-in-the-aids-crisis"],
+        ["src-steven-epstein-impure-science-aids-activism", "src-epstein-impure-science-the-definitive-study"]
+      ],
+      "warrant": "When the federal government answered the century's deadliest epidemic with years of near silence, survival depended on what the community could build. The networks that did that work, and their documented sequence of care first and protest after, are the proof of the claim.",
+      "qualifier": "The claim concerns the years of official refusal, roughly 1982 to 1987. It does not deny what public medicine and funding later did, once forced.",
+      "rebuttal": "One could object that volunteer buddy teams and pantries were compassionate stopgaps, marginal next to what real medical institutions eventually delivered.",
+      "answer": "But the buddy programmes and pantries sustained thousands through the years when no institution would touch them, and the same movement then changed the institutions themselves, forcing reforms in how the FDA approved drugs."
+    },
+    "claim-b5": {
+      "grounds": [
+        "Martha Ballard's diary, kept from 1785 to 1812, records 816 deliveries and, woven through them, an entire reciprocal care economy that appears in no ledger of the period. Historians dismissed the diary as trivial for a century, until Laurel Thatcher Ulrich's study of it won the Pulitzer Prize.",
+        "The scholarship that recovered these networks worked against the grain of the archive. Emily Abel reconstructed nineteenth-century women's reciprocal care from family diaries, and Anne Firor Scott documented women's benevolent associations, including Black women's associations, organising from the 1790s onward.",
+        "For women whose care work was also employment, disproportionately Black women in domestic work, mutual aid was organised inside their exclusion from labour law: hiring networks, benefit pools, and training circles that Premilla Nadasen's history recovers, running for decades before any formal union would touch them.",
+        "The practice never stopped. Family, friend, and neighbour care remains the backbone of American childcare, larger than the formal daycare sector it subsidises; studies document dense informal networks among low-income single mothers; and when schools closed in 2020, parents assembled learning pods and childcare co-ops within weeks."
+      ],
+      "groundSources": [
+        ["src-laurel-thatcher-ulrich-a-midwife-s", "src-the-diary-itself-is-digitised-with"],
+        ["src-emily-k-abel-hearts-of-wisdom", "src-anne-firor-scott-natural-allies-women"],
+        ["src-premilla-nadasen-household-workers-unite-the", "src-nyc-nannies-built-an-underground-care"],
+        ["src-why-family-friend-and-neighbor-care", "src-informal-networks-of-low-income-single", "src-as-distance-learning-pushes-parents-into"]
+      ],
+      "warrant": "A practice that is reciprocal, organised, and meets needs no institution meets is mutual aid by every definition. If its record is thin, and the thinness traces to record-keepers coding it as women's work rather than civic activity, then the gap measures the archive, not the practice.",
+      "qualifier": "The claim is about recognition. The scholarship recovering these networks is real, rigorous, and recent, and this page stands on it rather than replacing it.",
+      "rebuttal": "One could object that family and neighbourly care is private life, not civic infrastructure: every society has mothers helping mothers.",
+      "answer": "But scale and function say otherwise. Family, friend, and neighbour care carries more American childcare than the formal daycare sector, and when schools closed in 2020 the networks stood up learning pods within weeks. Infrastructure that carries that load is civic whether or not anyone files its minutes."
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "pages": {
+    "a0-elder-tradition": {
+      "attachments": [
+        { "nodeId": "claim-a0", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "claim-c4", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-0", "role": "advances-reframe" },
+        { "nodeId": "metaphor-community-is-fabric", "blockId": "block-4", "role": "advances-reframe" },
+        { "nodeId": "metaphor-belonging-is-showing-up", "blockId": "block-4", "role": "advances-reframe" },
+        { "nodeId": "metaphor-nation-is-container", "blockId": "block-10", "role": "describes-dominant" },
+        { "nodeId": "metaphor-morality-is-accounting", "blockId": "block-12", "role": "describes-dominant" },
+        { "nodeId": "frame-tradition", "blockId": "block-16", "role": "aims-catalytic" }
+      ]
+    },
+    "a1-founding-era": {
+      "attachments": [
+        { "nodeId": "claim-a1", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-nation-is-container", "blockId": "block-0", "role": "describes-dominant" },
+        { "nodeId": "metaphor-care-is-charity", "blockId": "block-6", "role": "describes-dominant" },
+        { "nodeId": "frame-eligibility", "blockId": "block-6", "role": "describes-dominant" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-9", "role": "advances-reframe" },
+        { "nodeId": "metaphor-belonging-is-showing-up", "blockId": "block-11", "role": "advances-reframe" }
+      ]
+    },
+    "a3-fraternal-scale": {
+      "attachments": [
+        { "nodeId": "claim-a3", "blockId": "page", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-building", "blockId": "block-4", "role": "advances-reframe" },
+        { "nodeId": "metaphor-care-is-exchange", "blockId": "block-5", "role": "describes-dominant" },
+        { "nodeId": "frame-collaboration", "blockId": "block-10", "role": "advances-reframe" }
+      ]
+    }
+  },
+  "arguments": {
+    "claim-a0": {
+      "grounds": [
+        "On the Northwest Coast, the potlatch worked as a complete economic institution. A household's giving created standing claims it could call on when its fishing failed or its house burned, so the feast system served as insurance, redistribution, and public record at once.",
+        "The United States outlawed this economy in documents that survive. The Rules Governing the Court of Indian Offenses of 1883 made the feasts punishable by withheld rations and imprisonment, the federal dance bans were not lifted until 1934, and the right to practise was affirmed in law only in 1978.",
+        "The tradition still operates. In 2020 the Navajo & Hopi Families COVID-19 Relief Fund, organised by Navajo and Hopi women, delivered food and water across the Navajo Nation and raised eighteen million dollars in its first year. Its leads told the Navajo Times that the fund ran on the old kinship ethic of k'é."
+      ],
+      "groundSources": [
+        ["src-the-potlatch-u-mista-cultural-centre", "src-douglas-cole-and-ira-chaikin-an"],
+        ["src-hiram-price-rules-governing-the-court", "src-douglas-cole-and-ira-chaikin-an-x", "src-john-collier-circular-no-2970-office", "src-american-indian-religious-freedom-act-pub"],
+        ["src-an-incredible-team-effort-navajo-hopi", "src-all-hands-on-deck-covid-19", "src-a-modest-plan-to-help-native"]
+      ],
+      "warrant": "If a complete system of reciprocal care was operating before the Republic, was outlawed by the Republic's own government, and is still operating today, then the American mutual aid story does not begin in 1787. It begins on a continent where organised reciprocity was already complete.",
+      "qualifier": "This chapter is about sovereign nations' own traditions. They are the elder context of American mutual aid, not an early draft of it.",
+      "rebuttal": "One could object that Indigenous reciprocity belongs to separate sovereign histories, not to the American civic story.",
+      "answer": "But the United States wrote itself into this history when it made the feasts punishable offences at every agency in 1883 and entered the reasoning into the record. A tradition the Republic legislated against, and that outlasted the statute, is part of the Republic's story on the government's own evidence."
+    },
+    "claim-a1": {
+      "grounds": [
+        "The Free African Society was founded on 12 April 1787 in Philadelphia, weeks before the Constitutional Convention met in the same city. Its founding charter, the Preamble and Articles of Association, survives in print.",
+        "The charter's terms were reciprocal, not charitable. Each member paid one shilling a month into a common fund that supported the sick, buried the dead, and provided for widows and fatherless children, under rules the members wrote and governed themselves.",
+        "When yellow fever killed roughly one in ten Philadelphians in 1793, the society's members stayed, nursed the sick, and buried the dead for Black and white residents alike. Its founders defended that record in a pamphlet that became the first federal copyright obtained by African Americans.",
+        "The design spread. W.E.B. Du Bois's 1907 study, Economic Co-operation Among Negro Americans, records that surveys of 1838 already counted roughly a hundred such societies, and it traces the same dues-and-benefits pattern across the country over the following decades."
+      ],
+      "groundSources": [
+        ["src-preamble-and-articles-of-association-of", "src-preamble-and-articles-of-association-for", "src-reprinted-in-james-g-basker-ed"],
+        ["src-preamble-and-articles-of-association-of", "src-preamble-of-the-free-african-society"],
+        ["src-absalom-jones-and-richard-allen-a", "src-on-the-copyright-newman-freedom-s"],
+        ["src-quoted-in-pandey-a-forgotten-1787", "src-w-e-b-du-bois-economic"]
+      ],
+      "warrant": "If organised mutual aid was founded in the same city and season as the Constitution, then it is not a later patch on the American system. The two institutions are the same age, and the history should date them together.",
+      "qualifier": "The Free African Society was not the first organisation of its kind. The claim rests on documentation: its charter survives and can be dated precisely, while older traditions, Indigenous and enslaved, rarely entered the written record.",
+      "rebuttal": "One could object that a society of a few dozen members in one city is too small to count as a founding.",
+      "answer": "But the meeting a few blocks away was fifty-five delegates, and both meetings matter for what grew from them. By 1838 more than a hundred societies had been built on the Philadelphia pattern, and by 1920 the tradition reached one in three adult American men."
+    },
+    "claim-a3": {
+      "grounds": [
+        "By 1920, on the most conservative estimate, one in three adult American men belonged to a fraternal order, and through auxiliaries and juvenile branches the orders reached wives and children as well.",
+        "Provision was the orders' central business. Around 1910 a lodge contract bought a family a year of medical care for roughly two dollars, about a day's wage, and the societies also built sanitariums, orphanages, and homes for the elderly while fraternal life insurance grew into a major share of all coverage in force.",
+        "The design served both sides of the colour line. When the white Odd Fellows refused Black applicants, Peter Ogden obtained a charter from the order's English parent in 1843, and the Grand United Order of Odd Fellows grew into one of the largest Black organisations in the country.",
+        "The scale drew organised opposition. The Journal of the American Medical Association ran attacks on 'the lodge practice evil' in the early 1900s, and county medical societies punished physicians who accepted lodge contracts, because collective bargaining drove fees down."
+      ],
+      "groundSources": [
+        ["src-david-t-beito-from-mutual-aid", "src-fraternal-sickness-insurance-eh-net-encyclopedia"],
+        ["src-on-the-two-dollar-lodge-practice", "src-beito-from-mutual-aid-to-the", "src-state-insurance-commissioner-reports-on-fraternal"],
+        ["src-grand-united-order-of-odd-fellows", "src-guoof-official-history", "src-order-of-odd-fellows-and-grand"],
+        ["src-the-lodge-practice-evil-a-solution", "src-contract-practice-jama-46-no-10", "src-beito-from-mutual-aid-to-the-x"]
+      ],
+      "warrant": "An arrangement that enrolled a third of the country's men and did the work of insurance, medicine, and burial was not a fringe experiment. Before any federal safety net existed, this was how ordinary Americans organised their security.",
+      "qualifier": "The one-in-three figure is the most conservative estimate and counts adult men only. The orders were segregated, and the claim is about scale and function, not inclusiveness.",
+      "rebuttal": "One could object that the fraternal orders were social clubs in costumes, and that the benefits were a sideline to the ritual.",
+      "answer": "But the regalia decorated a working insurance system. Provision was the orders' central business, and organised medicine attacked lodge practice precisely because it worked well enough to drive doctors' fees down."
+    }
+  }
+}
