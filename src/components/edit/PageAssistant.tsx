@@ -148,7 +148,12 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
       const decoder = new TextDecoder();
       let buffer = '';
       let fullText = '';
-      let proposal: { kind: 'page'; summary: string; changes: PageChange[] } | null = null;
+      interface PageProposal {
+        kind: 'page';
+        summary: string;
+        changes: PageChange[];
+      }
+      let proposal: PageProposal | null = null;
       let steps: string[] = [];
 
       const patchAssistant = (partial: Partial<ChatEntry>) => {
@@ -169,7 +174,7 @@ export function PageAssistant({ onClose }: { onClose: () => void }) {
         for (const chunk of chunks) {
           const line = chunk.split('\n').find((l) => l.startsWith('data: '));
           if (!line) continue;
-          let ev: { type: string; delta?: string; proposal?: typeof proposal; steps?: string[]; error?: string };
+          let ev: { type: string; delta?: string; proposal?: PageProposal; steps?: string[]; error?: string };
           try {
             ev = JSON.parse(line.slice(6));
           } catch {
